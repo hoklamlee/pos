@@ -39,7 +39,8 @@ export const reducer = (state, action) => {
 
     if (action.type == LOGOUT) {
         return {
-            ...state
+            ...state,
+            loggingIn: false
         }
     }
 

@@ -33,14 +33,17 @@ namespace POS.Services
             new User { UserId = 1, FirstName = "Test", LastName = "User", Username = "test", Password = "test" }
         };
 
-        private readonly AppSettings _appSettings;
+        private readonly Settings _settings;
 
-        public UserService(IOptions<AppSettings> appSettings)
+        public UserService(IOptions<Settings> settings)
         {
+            //string test = Configuration["ConnectionString:DefaultConnection"];
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=pos;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(settings.Value.ConnectionString.DefaultConnection);
+
             _context = new POSContext(optionsBuilder.Options);
 
-            _appSettings = appSettings.Value;
+            _settings = settings.Value;
         }
 
         public User Authenticate(string username, string password)
@@ -54,7 +57,7 @@ namespace POS.Services
 
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_settings.AppSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -67,6 +70,7 @@ namespace POS.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 
+            
             // remove password before returning
             user.Password = null;
 

@@ -15,8 +15,13 @@ const GETALL_FAILURE = 'USERS_GETALL_FAILURE';
 const initialState = { loading: false, error: '', items: [] };
 
 export const actionCreators = {
-    login: (username, password) => async(dispatch, getState) => {
-        return dispatch => {
+    logout: () => async (dispatch, getState) => {
+        console.log("test logout")
+        userService.logout();
+        dispatch({ type: LOGOUT });
+        window.location.reload();
+    },
+    login: (username, password) => async (dispatch, getState) => {
             dispatch(request({ username }));
 
             userService.login(username, password)
@@ -30,7 +35,7 @@ export const actionCreators = {
                         dispatch(alertAction.error(error));
                     }
                 );
-        };
+        
 
         function request(user) {
             return {
@@ -46,10 +51,7 @@ export const actionCreators = {
             return { type: LOGIN_FAILURE, error }
         }
     },
-    logout: () => async (dispatch, getState) => {
-        userService.logout();
-        return { type: LOGOUT };
-    },
+
     getAll: () => async (dispatch, getState) => {
         return dispatch => {
             dispatch(request());

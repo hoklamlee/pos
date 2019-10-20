@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { actionCreators } from '../../store/User';
-
+import config from 'react-global-configuration';
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
         // reset login status
-        this.props.dispatch(this.props.logout());
+        //this.props.logout();
 
         this.state = {
             username: '',
@@ -33,9 +33,9 @@ class LoginPage extends React.Component {
 
         this.setState({ submitted: true });
         const { username, password } = this.state;
-        const { dispatch } = this.props;
         if (username && password) {
-            dispatch(this.props.login(username, password));
+            console.log(username + "," + password);
+            this.props.login(username, password);
         }
     }
 
@@ -48,6 +48,7 @@ class LoginPage extends React.Component {
                     Username: test<br />
                     Password: test
                 </div>
+
                 <h2>Login</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>

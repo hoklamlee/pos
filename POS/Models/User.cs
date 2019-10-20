@@ -19,6 +19,7 @@ namespace POS.Models
         public string Password { get; set; }
         public string DisplayName { get; set; }
         public string Token { get; set; }
+        public DateTime? TokenCreatedDate { get; set; }
 
         public int? CompanyId { get; set; }
         public Company Company { get; set; }

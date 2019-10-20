@@ -19,6 +19,13 @@ namespace POS
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                 .ConfigureAppConfiguration((hostContext, config) =>
+                 {
+                     var env = hostContext.HostingEnvironment;
+                     //config.SetBasePath(Path.Combine(env.ContentRootPath, "Configuration"))
+                     config.SetBasePath(Path.Combine(env.ContentRootPath))
+                     .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true);
+                 })
                 .UseStartup<Startup>();
     }
 }

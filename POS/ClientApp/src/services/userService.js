@@ -1,5 +1,6 @@
 ﻿//import config from 'config';
 import { authHeader } from '../helpers/auth-header';
+import config from 'react-global-configuration';
 
 export const userService = {
     login,
@@ -14,14 +15,17 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    //return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
-    //    .then(handleResponse)
-    //    .then(user => {
-    //        // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //        localStorage.setItem('user', JSON.stringify(user));
+    var api = config.get('apiUrl');
 
-    //        return user;
-    //    });
+
+    return fetch(`${api}/users/authenticate`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
 }
 
 function logout() {
