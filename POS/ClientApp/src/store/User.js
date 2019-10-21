@@ -1,6 +1,6 @@
 import { userService } from '../services/userService';
 import { history } from '../helpers/history';
-import { actionCreators as alertAction} from './Alert';
+import { actionCreators as alertAction } from './Alert';
 const LOGIN_REQUEST = 'USERS_LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'USERS_LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'USERS_LOGIN_FAILURE';
@@ -16,26 +16,30 @@ const initialState = { loading: false, error: '', items: [] };
 
 export const actionCreators = {
     logout: () => async (dispatch, getState) => {
-        console.log("test logout")
+        dispatch({
+            type: LOGOUT
+        });
         userService.logout();
-        dispatch({ type: LOGOUT });
-        window.location.reload();
     },
     login: (username, password) => async (dispatch, getState) => {
-            dispatch(request({ username }));
+        dispatch(request({ username }));
 
-            userService.login(username, password)
-                .then(
-                    user => {
-                        dispatch(success(user));
-                        history.push('/');
-                    },
-                    error => {
-                        dispatch(failure(error));
-                        dispatch(alertAction.error(error));
-                    }
-                );
-        
+        userService.login(username, password)
+            .then(
+                user => {
+                    console.log(user)
+                    dispatch(success(user));
+                    dispatch(alertAction.clear());
+                    history.push('/');
+                },
+                error => {
+                    console.log(error)
+
+                    dispatch(failure(error));
+                    dispatch(alertAction.error(error));
+                }
+            );
+
 
         function request(user) {
             return {

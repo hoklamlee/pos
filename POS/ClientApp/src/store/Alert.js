@@ -7,15 +7,16 @@ const initialState = { type: '', message: '' };
 
 export const actionCreators = {
     success: message => async (dispatch, getState) => {
-        return { type: SUCCESS, message };
+        dispatch({ type: SUCCESS, message });
     },
 
     error: message => async (dispatch, getState) => {
-        return { type: ERROR, message };
+
+        dispatch({ type: ERROR, message });
     },
 
     clear: message => async (dispatch, getState) => {
-        return { type: CLEAR };
+        dispatch({ type: CLEAR });
     }
 };
 
@@ -40,7 +41,9 @@ export const reducer = (state, action) => {
 
     if (action.type == CLEAR) {
         return {
-            ...state
+            ...state,
+            type: null,
+            message: null,
         }
     }
     return state;

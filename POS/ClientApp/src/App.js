@@ -12,6 +12,7 @@ import Home from './containers/Home';
 import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
+import { ProfilePage } from './containers/ProfilePage/ProfilePage';
 
 
 
@@ -41,8 +42,9 @@ class App extends React.Component {
                     <Layout>
                         <PrivateRoute exact path="/" component={Home} />
                         <Route path="/login" component={LoginPage} />
-                        <Route path='/counter' component={Counter} />
-                        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
+                        <PrivateRoute path='/counter' component={Counter} />
+                        <PrivateRoute path='/profile' component={ProfilePage} />
+                        <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
                     </Layout>
                 </Router >
             </div>

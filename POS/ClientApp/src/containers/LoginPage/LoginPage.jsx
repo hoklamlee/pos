@@ -11,7 +11,7 @@ class LoginPage extends React.Component {
         super(props);
 
         // reset login status
-        //this.props.logout();
+        this.props.logout();
 
         this.state = {
             username: '',
@@ -40,17 +40,21 @@ class LoginPage extends React.Component {
     }
 
     render() {
-        const { loggingIn } = this.props;
+        const { loggingIn, error } = this.props;
         const { username, password, submitted } = this.state;
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <div className="alert alert-info">
-                    Username: test<br />
-                    Password: test
-                </div>
 
-                <h2>Login</h2>
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height:'100vh'
+            }}>
+
+
+
                 <form name="form" onSubmit={this.handleSubmit}>
+                    <h2>POS</h2>
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
                         <label htmlFor="username">Username</label>
                         <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
@@ -79,8 +83,9 @@ class LoginPage extends React.Component {
 
 function mapStateToProps(state) {
     const { loggingIn } = state.authentication;
+    const { error } = state.user
     return {
-        loggingIn
+        loggingIn, error
     };
 }
 

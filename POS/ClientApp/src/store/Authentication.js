@@ -33,14 +33,18 @@ export const reducer = (state, action) => {
 
     if (action.type == LOGIN_FAILURE) {
         return {
-            ...state
+            ...state,
+            loggingIn: false,
+
         }
     }
 
     if (action.type == LOGOUT) {
         return {
             ...state,
-            loggingIn: false
+            loggingIn: false,
+            loggedIn: false,
+
         }
     }
 

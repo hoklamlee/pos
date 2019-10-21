@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink,Button } from 'reactstrap';
+import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/User';
 import { connect } from 'react-redux';
@@ -27,11 +27,11 @@ class NavMenu extends React.Component {
     }
 
     render() {
-        const { loggingIn } = this.props;
+        const { loggedIn } = this.props;
 
 
         return (
-            loggingIn || localStorage.getItem('user') ?
+            loggedIn || localStorage.getItem('user') ?
                 <header>
                     <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
                         <Container>
@@ -49,9 +49,11 @@ class NavMenu extends React.Component {
                                         <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <Button aria-label="Cancel" onClick={this.props.logout}>
-                                            <span aria-hidden>Logout</span>
-                                        </Button>
+                                        <NavLink tag={Link} className="text-dark" to="/profile">{this.props.user.username}</NavLink>
+
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink tag={Link} className="text-dark" to="/login">Logout</NavLink>
                                     </NavItem>
                                 </ul>
                             </Collapse>
@@ -67,9 +69,10 @@ class NavMenu extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
+    const { loggedIn, user } = state.authentication;
+
     return {
-        loggingIn
+        loggedIn, user
     };
 }
 
