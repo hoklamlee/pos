@@ -1,3 +1,6 @@
+import { notification } from 'antd';
+
+
 const SUCCESS = 'ALERT_SUCCESS';
 const ERROR = 'ALERT_ERROR';
 const CLEAR = 'ALERT_CLEAR';
@@ -7,12 +10,27 @@ const initialState = { type: '', message: '' };
 
 export const actionCreators = {
     success: message => async (dispatch, getState) => {
-        dispatch({ type: SUCCESS, message });
+        notification.open({
+            message: "Notice",  description:
+                message,
+            onClick: () => {
+                //console.log('Notification Clicked!');
+            },
+        });
+
+        //dispatch({ type: SUCCESS, message });
     },
 
     error: message => async (dispatch, getState) => {
+        notification.open({
+            message: "Notice", description:
+                message,
+            onClick: () => {
+                //console.log('Notification Clicked!');
+            },
+        });
 
-        dispatch({ type: ERROR, message });
+        //dispatch({ type: ERROR, message });
     },
 
     clear: message => async (dispatch, getState) => {

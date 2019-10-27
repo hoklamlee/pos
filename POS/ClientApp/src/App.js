@@ -14,8 +14,13 @@ import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
 import { ProfilePage } from './containers/ProfilePage/ProfilePage';
 
+import 'antd/dist/antd.css';
 
-
+const alertStyle = {
+    position: 'fixed',
+    bottom: 0,
+    width: '100%',
+}
 
 class App extends React.Component {
     constructor(props) {
@@ -35,7 +40,7 @@ class App extends React.Component {
             <div>
 
                 {alert.message &&
-                    <div className={`alert ${alert.type}`}>{alert.message}</div>
+                    <div style={alertStyle} className={`alert ${alert.type}`}>{alert.message}</div>
                 }
 
                 <Router history={history}>
@@ -47,6 +52,8 @@ class App extends React.Component {
                         <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
                     </Layout>
                 </Router >
+
+
             </div>
         );
     }

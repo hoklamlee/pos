@@ -15,6 +15,11 @@ namespace POS.Services
     public interface IUserService
     {
         User Authenticate(string username, string password);
+
+        User GetUserById(int userId);
+
+        User UpdateUserInfo(User user);
+
         IEnumerable<User> GetAll();
     }
 
@@ -76,6 +81,25 @@ namespace POS.Services
 
             return user;
         }
+
+        public User GetUserById(int userId)
+        {
+            var user = _context.Users.SingleOrDefault(x => x.UserId == userId);
+
+            if (user == null)
+                return null;
+            else
+                return user;
+        }
+
+        public User UpdateUserInfo(User user)
+        {
+            _context.Users.Update(user);
+
+            return user;
+        }
+
+
 
         public IEnumerable<User> GetAll()
         {

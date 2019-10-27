@@ -13,26 +13,35 @@ class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.submitInfo = this.submitInfo.bind(this);
     }
 
+    l
+
+
+    submitInfo(event) {
+        event.preventDefault();
+
+        var userId = this.props.user.userId;
+        var username = event.target[0].value;
+        var email = event.target[1].value;
+        var lastName = event.target[2].value;
+        var firstName = event.target[3].value;
+        console.log(userId, firstName, lastName, email, username);
+        this.props.updateUserInfo(userId, firstName, lastName, email, username);
+    }
 
 
     render() {
 
         return (
-            <div style={{marginTop:'10vh'}}>
-                <Form>
+            <div style={{ marginTop: '2vh' }}>
+                {console.log(this.props.user)}
+                <h4>Basic Info</h4>
+                <Form onSubmit={this.submitInfo}>
                     <FormGroup>
                         <Label for="exampleEmail">User Name</Label>
                         <Input type="text" name="userName" id="userName" placeholder="" defaultValue={this.props.user.username} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="examplePassword">Password</Label>
-                        <Input type="password" name="password" id="password" placeholder="" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="examplePassword">Password Confirm</Label>
-                        <Input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="exampleEmail">Email</Label>
@@ -51,14 +60,33 @@ class ProfilePage extends React.Component {
 
                     <Button>Save</Button>
                 </Form>
+
+                <h4>Update Password</h4>
+                <Form>
+
+                    <FormGroup>
+                        <Label for="examplePassword">Password</Label>
+                        <Input type="password" name="password" id="password" placeholder="" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="examplePassword">Password Confirm</Label>
+                        <Input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="" />
+                    </FormGroup>
+
+                    <Button>Save</Button>
+
+                </Form>
+
             </div>
-         
+
         );
     }
 }
 
+
+
 function mapStateToProps(state) {
-    const { loggingIn,user } = state.authentication;
+    const { loggingIn, user } = state.authentication;
     return {
         loggingIn, user
     };

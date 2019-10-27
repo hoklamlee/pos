@@ -5,7 +5,8 @@ import config from 'react-global-configuration';
 export const userService = {
     login,
     logout,
-    getAll
+    getAll,
+    updateUserInfo
 };
 
 function login(username, password) {
@@ -19,6 +20,46 @@ function login(username, password) {
 
 
     return fetch(`${api}/users/authenticate`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
+
+function updateUserInfo(userId, firstName, lastName, email, username) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId,  firstName,lastName,  email,username})
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/users/updateuserinfo`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
+
+function UpdateUserPassword(userId, password, passwordConfirm) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, password, passwordConfirm })
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/users/updateuserpassword`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -48,8 +89,8 @@ function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
-                logout();
-                window.location.reload(true);
+                //logout();
+                //window.location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;
