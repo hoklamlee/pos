@@ -18,7 +18,23 @@ const UPDATE_FAILURE = 'USERS_UPDATE_FAILURE';
 const initialState = { loading: false, error: '', items: [] };
 
 export const actionCreators = {
+    updatePassword: (userId,password,passwordConfirm) => async (dispatch, getState) => {
+        dispatch({ type: UPDATE_REQUEST });
 
+        userService.updatePassword(userId, password, passwordConfirm)
+            .then(
+                user => {
+                    dispatch({ type: LOGIN_SUCCESS, user });
+                    dispatch({ type: UPDATE_SUCCESS });
+
+                    dispatch(alertAction.success("Update Password Success"));
+                },
+                error => {
+                    dispatch({ type: UPDATE_FAILURE, error });
+                    dispatch(alertAction.error(error));
+                }
+            );
+    },
     updateUserInfo: (userId, firstName, lastName, email, username) => async (dispatch, getState) => {
         dispatch({ type: UPDATE_REQUEST });
 
@@ -28,7 +44,7 @@ export const actionCreators = {
                     dispatch({ type: LOGIN_SUCCESS, user });
                     dispatch({ type: UPDATE_SUCCESS });
 
-                    dispatch(alertAction.success("Update Success"));
+                    dispatch(alertAction.success("Update Info Success"));
                 },
                 error => {
 

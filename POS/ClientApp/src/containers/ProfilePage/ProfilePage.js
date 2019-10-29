@@ -14,9 +14,11 @@ class ProfilePage extends React.Component {
         super(props);
 
         this.submitInfo = this.submitInfo.bind(this);
+        this.submitPassword = this.submitPassword.bind(this);
+
     }
 
-    l
+    
 
 
     submitInfo(event) {
@@ -31,12 +33,21 @@ class ProfilePage extends React.Component {
         this.props.updateUserInfo(userId, firstName, lastName, email, username);
     }
 
+    submitPassword(event) {
+        event.preventDefault();
+
+        var userId = this.props.user.userId;
+        var password = event.target[0].value;
+        var passwordConfirm = event.target[1].value;
+
+
+        this.props.updatePassword(userId, password, passwordConfirm);
+    }
 
     render() {
 
         return (
             <div style={{ marginTop: '2vh' }}>
-                {console.log(this.props.user)}
                 <h4>Basic Info</h4>
                 <Form onSubmit={this.submitInfo}>
                     <FormGroup>
@@ -62,7 +73,7 @@ class ProfilePage extends React.Component {
                 </Form>
 
                 <h4>Update Password</h4>
-                <Form>
+                <Form onSubmit={this.submitPassword}>
 
                     <FormGroup>
                         <Label for="examplePassword">Password</Label>

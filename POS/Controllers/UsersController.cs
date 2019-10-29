@@ -36,7 +36,6 @@ namespace POS.Controllers
             return Ok(user);
         }
 
-        [AllowAnonymous]
         [HttpPost("updateuserinfo")]
         public IActionResult UpdateUserInfo([FromBody]User userParam) //data = {userId,firstName, lastName, email}
         {
@@ -63,7 +62,7 @@ namespace POS.Controllers
 
                 _userService.UpdateUserInfo(user);
 
-                user.Password = "";
+                user = _userService.Authenticate(user.Username, user.Password);
 
 
             }
@@ -82,18 +81,18 @@ namespace POS.Controllers
 
             try
             {
-                user = _userService.GetUserById(request.UserId);
+                user = _userService.GetUserById(request.userId);
 
-                if (IsPasswordCorrect(request.Password, request.PasswordConfirm))
+                if (!IsPasswordCorrect(request.password, request.passwordConfirm))
                 {
                     throw new Exception("Password is not same.");
                 }
 
-                user.Password = request.Password;
+                user.Password = request.password;
                 
                 _userService.UpdateUserInfo(user);
-
-                user.Password = "";
+                
+                user = _userService.Authenticate(user.Username, user.Password);
             }
             catch (Exception ex)
             {
@@ -150,8 +149,8 @@ namespace POS.Controllers
 
     public class Request_UpdateUserPassword
     {
-        public int UserId { get; set; }
-        public string Password { get; set; }
-        public string PasswordConfirm { get; set; }
+        public int userId { get; set; }
+        public string password { get; set; }
+        public string passwordConfirm { get; set; }
     }
 }

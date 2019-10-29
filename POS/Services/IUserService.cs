@@ -95,11 +95,9 @@ namespace POS.Services
         public User UpdateUserInfo(User user)
         {
             _context.Users.Update(user);
-
+            _context.SaveChanges();
             return user;
         }
-
-
 
         public IEnumerable<User> GetAll()
         {

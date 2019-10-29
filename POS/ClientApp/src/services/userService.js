@@ -6,7 +6,8 @@ export const userService = {
     login,
     logout,
     getAll,
-    updateUserInfo
+    updateUserInfo,
+    updatePassword
 };
 
 function login(username, password) {
@@ -32,7 +33,7 @@ function login(username, password) {
 function updateUserInfo(userId, firstName, lastName, email, username) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeader(),
         body: JSON.stringify({ userId,  firstName,lastName,  email,username})
     };
 
@@ -49,10 +50,10 @@ function updateUserInfo(userId, firstName, lastName, email, username) {
         });
 }
 
-function UpdateUserPassword(userId, password, passwordConfirm) {
+function updatePassword(userId, password, passwordConfirm) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeader(),
         body: JSON.stringify({ userId, password, passwordConfirm })
     };
 
