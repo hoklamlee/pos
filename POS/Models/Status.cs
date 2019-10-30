@@ -16,7 +16,5 @@ namespace POS.Models
         public string Description { get; set; }
 
 
-        public int? CompanyId { get; set; }
-        public Company Company { get; set; }
     }
 }

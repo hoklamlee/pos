@@ -39,7 +39,6 @@ namespace POS
             services.AddDbContext<POSContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:DefaultConnection"]));
             //services.AddDefaultIdentity<ApplicationUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<POSContext>();
 
-            services.AddScoped<IDataRepository<Employee>, EmployeeManager>();
             services.AddScoped<IDataRepository<User>, UserManager>();
 
             //################################################

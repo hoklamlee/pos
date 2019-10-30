@@ -22,7 +22,5 @@ namespace POS.Models
         public long Quatity { get; set; }
         public string Remark { get; set; }
 
-        public int? CompanyId { get; set; }
-        public Company Company { get; set; }
     }
 }

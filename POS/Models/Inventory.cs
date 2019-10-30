@@ -18,11 +18,16 @@ namespace POS.Models
         public string Unit { get; set; }
         public long Price { get; set; }
 
+        public string Category { get; set; }
 
-        public int CompanyId { get; set; }
+        public User CreatedBy { get; set; }
+        public int? CreatedBy_UserId { get; set; }
+        public User ModifiedBy { get; set; }
+        public int? ModifiedBy_UserId { get; set; }
 
-        [ForeignKey("CompanyId")]
-        public Company Company { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
 
     }
 }

@@ -31,41 +31,6 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20191009155435_Add-POS-Model.cs" />
-    <Compile Remove="Migrations\20191009155435_Add-POS-Model.Designer.cs" />
-    <Compile Remove="Migrations\20191009155735_new-Add-POS-Model.cs" />
-    <Compile Remove="Migrations\20191009155735_new-Add-POS-Model.Designer.cs" />
-    <Compile Remove="Migrations\20191009160138_new-Add-POS-Model-1.cs" />
-    <Compile Remove="Migrations\20191009160138_new-Add-POS-Model-1.Designer.cs" />
-    <Compile Remove="Migrations\20191009162708_new-Add-POS-Model-2.cs" />
-    <Compile Remove="Migrations\20191009162708_new-Add-POS-Model-2.Designer.cs" />
-    <Compile Remove="Migrations\20191009164959_new-Add-POS-Model-3.cs" />
-    <Compile Remove="Migrations\20191009164959_new-Add-POS-Model-3.Designer.cs" />
-    <Compile Remove="Migrations\20191009165214_new-Add-POS-Model-4.cs" />
-    <Compile Remove="Migrations\20191009165214_new-Add-POS-Model-4.Designer.cs" />
-    <Compile Remove="Migrations\20191009165753_new-Add-POS-Model-5.cs" />
-    <Compile Remove="Migrations\20191009165753_new-Add-POS-Model-5.Designer.cs" />
-    <Compile Remove="Migrations\20191009170040_new-Add-POS-Model-6.cs" />
-    <Compile Remove="Migrations\20191009170040_new-Add-POS-Model-6.Designer.cs" />
-    <Compile Remove="Migrations\20191009170906_new-Add-POS-Model-7.cs" />
-    <Compile Remove="Migrations\20191009170906_new-Add-POS-Model-7.Designer.cs" />
-    <Compile Remove="Migrations\20191009171420_updatedb.cs" />
-    <Compile Remove="Migrations\20191009171420_updatedb.Designer.cs" />
-    <Compile Remove="Migrations\20191009171541_updatedb1.cs" />
-    <Compile Remove="Migrations\20191009171541_updatedb1.Designer.cs" />
-    <Compile Remove="Migrations\20191009172157_updatedb.cs" />
-    <Compile Remove="Migrations\20191009172157_updatedb.Designer.cs" />
-    <Compile Remove="Migrations\20191009172725_updatedb1.cs" />
-    <Compile Remove="Migrations\20191009172725_updatedb1.Designer.cs" />
-    <Compile Remove="Migrations\20191009173455_updatedb2.cs" />
-    <Compile Remove="Migrations\20191009173455_updatedb2.Designer.cs" />
-    <Compile Remove="Migrations\20191009173621_updatedb2.cs" />
-    <Compile Remove="Migrations\20191009173621_updatedb2.Designer.cs" />
-    <Compile Remove="Migrations\20191009174152_updatedb3.cs" />
-    <Compile Remove="Migrations\20191009174152_updatedb3.Designer.cs" />
-  </ItemGroup>
-
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

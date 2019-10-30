@@ -20,9 +20,6 @@ namespace POS.Models
         public string PhoneNo { get; set; }
         public string ContactPerson { get; set; }
 
-
-        public int? CompanyId { get; set; }
-        public Company Company { get; set; }
     }
 
 }

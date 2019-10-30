@@ -21,11 +21,12 @@ namespace POS.Models
         public string Token { get; set; }
         public DateTime? TokenCreatedDate { get; set; }
 
-        public int? CompanyId { get; set; }
-        public Company Company { get; set; }
+        //public ICollection<Order> DeliverOrders { get; set; }
 
-        public ICollection<Order> DeliverOrders { get; set; }
+        //public ICollection<Order> FavouriteOrder { get; set; }
 
-        public ICollection<Order> FavouriteOrder { get; set; }
+        public ICollection<Inventory> CreatedInventories { get; set; }
+        public ICollection<Inventory> ModifiedInventories { get; set; }
+
     }
 }
