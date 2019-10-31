@@ -25,6 +25,8 @@ namespace POS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("Category");
 
                     b.Property<int?>("CreatedBy_UserId");

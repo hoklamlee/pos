@@ -49,6 +49,10 @@ class NavMenu extends React.Component {
                                         <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
                                     </NavItem>
                                     <NavItem>
+                                        <NavLink tag={Link} className="text-dark" to="/inventory">Inventory</NavLink>
+                                    </NavItem>
+
+                                    <NavItem>
                                         <NavLink tag={Link} className="text-dark" to="/profile">{this.props.user.username}</NavLink>
 
                                     </NavItem>

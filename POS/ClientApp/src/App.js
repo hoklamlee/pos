@@ -13,6 +13,8 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
 import { ProfilePage } from './containers/ProfilePage/ProfilePage';
+import { InventoryPage } from './containers/InventoryPage/InventoryPage';
+
 
 import 'antd/dist/antd.css';
 
@@ -48,6 +50,7 @@ class App extends React.Component {
                         <PrivateRoute exact path="/" component={Home} />
                         <Route path="/login" component={LoginPage} />
                         <PrivateRoute path='/counter' component={Counter} />
+                        <PrivateRoute path='/inventory' component={InventoryPage} />
                         <PrivateRoute path='/profile' component={ProfilePage} />
                         <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
                     </Layout>

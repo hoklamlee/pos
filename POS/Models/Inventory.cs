@@ -20,6 +20,7 @@ namespace POS.Models
 
         public string Category { get; set; }
 
+        public bool Active { get; set; }
         public User CreatedBy { get; set; }
         public int? CreatedBy_UserId { get; set; }
         public User ModifiedBy { get; set; }
