@@ -15,10 +15,10 @@ const UPDATE_FAILURE = 'INVENTORY_UPDATE_FAILURE';
 const initialState = { loading: false, error: '', items: [] };
 
 export const actionCreators = {
-    updatePassword: (userId,password,passwordConfirm) => async (dispatch, getState) => {
+    getInventoriesByCategory: (category) => async (dispatch, getState) => {
         dispatch({ type: GETALL_REQUEST });
 
-        inventoryService.getInventoriesByCategory(getInventoriesByCategory)
+        inventoryService.getInventoriesByCategory(category)
             .then(
                 items => {
                     dispatch({ type: GETALL_SUCCESS, items });
@@ -30,19 +30,19 @@ export const actionCreators = {
             );
     },
     getAll: () => async (dispatch, getState) => {
-        return dispatch => {
-            dispatch(request());
+        //return dispatch => {
+        //    dispatch(request());
 
-            userService.getAll()
-                .then(
-                    users => dispatch(success(users)),
-                    error => dispatch(failure(error))
-                );
-        };
+        //    userService.getAll()
+        //        .then(
+        //            users => dispatch(success(users)),
+        //            error => dispatch(failure(error))
+        //        );
+        //};
 
-        function request() { return { type: GETALL_REQUEST } }
-        function success(users) { return { type: GETALL_SUCCESS, users } }
-        function failure(error) { return { type: GETALL_FAILURE, error } }
+        //function request() { return { type: GETALL_REQUEST } }
+        //function success(users) { return { type: GETALL_SUCCESS, users } }
+        //function failure(error) { return { type: GETALL_FAILURE, error } }
     }
 };
 
@@ -57,6 +57,7 @@ export const reducer = (state, action) => {
     }
 
     if (action.type == GETALL_SUCCESS) {
+        console.log(action.items)
         return {
             ...state,
             items: action.items

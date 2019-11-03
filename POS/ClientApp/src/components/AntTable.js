@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Route, Link, Switch } from "react-router-dom";
 
 import { Table, Input, Button, Popconfirm, Form } from 'antd';
 
@@ -14,6 +15,9 @@ const EditableRow = ({ form, index, ...props }) => (
 const EditableFormRow = Form.create()(EditableRow);
 
 class EditableCell extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     state = {
         editing: false,
     };
@@ -143,17 +147,17 @@ export default class EditableTable extends React.Component {
     };
 
     handleAdd = () => {
-        const { count, dataSource } = this.state;
-        const newData = {
-            key: count,
-            name: `Edward King ${count}`,
-            age: 32,
-            address: `London, Park Lane no. ${count}`,
-        };
-        this.setState({
-            dataSource: [...dataSource, newData],
-            count: count + 1,
-        });
+        //const { count, dataSource } = this.state;
+        //const newData = {
+        //    key: count,
+        //    name: `Edward King ${count}`,
+        //    age: 32,
+        //    address: `London, Park Lane no. ${count}`,
+        //};
+        //this.setState({
+        //    dataSource: [...dataSource, newData],
+        //    count: count + 1,
+        //});
     };
 
     handleSave = row => {
@@ -175,7 +179,8 @@ export default class EditableTable extends React.Component {
                 cell: EditableCell,
             },
         };
-        const columns = this.columns.map(col => {
+
+        const columns = this.props.columns.map(col => {
             if (!col.editable) {
                 return col;
             }
@@ -190,17 +195,33 @@ export default class EditableTable extends React.Component {
                 }),
             };
         });
+
+        columns.push({
+            title: 'operation',
+            dataIndex: 'operation',
+            render: (text, record) =>
+                this.state.dataSource.length >= 1 ? (
+                    <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+                        <a>Delete</a>
+                    </Popconfirm>
+                ) : null,
+        });
+
         return (
             <div>
-                <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
-                    Add a row
-        </Button>
+                <Link to={this.props.addItemURL}>
+                    <Button type="primary" style={{ marginBottom: 16 }}>
+                        Add a row
+                </Button>
+                </Link>
+
                 <Table
                     components={components}
                     rowClassName={() => 'editable-row'}
                     bordered
-                    dataSource={dataSource}
+                    dataSource={this.props.dataSource}
                     columns={columns}
+                    scroll={{ x: 'max-content' }}
                 />
             </div>
         );

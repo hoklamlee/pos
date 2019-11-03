@@ -49,7 +49,7 @@ namespace POS.Controllers
         {
             try
             {
-                var inventories = await _context.Inventorys.Where(o => o.Category == category && o.Active == true).ToListAsync();
+                var inventories = await _context.Inventorys.Where(o => category.ToUpper() == "ALL" ? true : o.Category == category && o.Active == true).ToListAsync();
 
                 //if (inventories == null)
                 //{

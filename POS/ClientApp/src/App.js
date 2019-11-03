@@ -13,6 +13,7 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
 import { ProfilePage } from './containers/ProfilePage/ProfilePage';
+import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
 import { InventoryPage } from './containers/InventoryPage/InventoryPage';
 
 
@@ -40,7 +41,6 @@ class App extends React.Component {
         const { alert } = this.props;
         return (
             <div>
-
                 {alert.message &&
                     <div style={alertStyle} className={`alert ${alert.type}`}>{alert.message}</div>
                 }
@@ -51,6 +51,7 @@ class App extends React.Component {
                         <Route path="/login" component={LoginPage} />
                         <PrivateRoute path='/counter' component={Counter} />
                         <PrivateRoute path='/inventory' component={InventoryPage} />
+                        <PrivateRoute path='/createinventory' component={AddInventoryPage} />
                         <PrivateRoute path='/profile' component={ProfilePage} />
                         <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
                     </Layout>

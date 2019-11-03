@@ -6,7 +6,7 @@ import * as WeatherForecasts from './WeatherForecasts';
 import * as Alert from './Alert';
 import * as Authentication from './Authentication';
 import * as User from './User';
-
+import * as Inventory from './Inventory';
 
 export default function configureStore(history, initialState) {
     const reducers = {
@@ -14,7 +14,8 @@ export default function configureStore(history, initialState) {
         weatherForecasts: WeatherForecasts.reducer,
         alert: Alert.reducer,
         authentication: Authentication.reducer,
-        user: User.reducer
+        user: User.reducer,
+        inventory: Inventory.reducer
     };
 
     const middleware = [

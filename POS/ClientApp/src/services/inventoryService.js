@@ -74,6 +74,8 @@ function getInventoriesByCategory(category) {
         headers: authHeader()
     };
 
+    var api = config.get('apiUrl');
+
     return fetch(`${api}/inventories/GetInventoriesByCategory/` + category, requestOptions)
         .then(handleResponse)
         .then(data => {
