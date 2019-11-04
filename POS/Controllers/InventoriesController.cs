@@ -105,13 +105,31 @@ namespace POS.Controllers
         [HttpPost]
         public async Task<ActionResult<Inventory>> PostInventory(Inventory inventory)
         {
-            inventory.CreatedDate = DateTime.Now;
-            inventory.ModifiedDate = DateTime.Now;
+            try
+            {
+                User user = _context.Users.Find(inventory.CreatedBy_UserId);
 
-            _context.Inventorys.Add(inventory);
-            await _context.SaveChangesAsync();
+                inventory.CreatedBy = user;
+                inventory.ModifiedBy = user;
+                inventory.ModifiedBy_UserId = user.UserId;
 
-            return CreatedAtAction("GetInventory", new { id = inventory.InventoryId }, inventory);
+                inventory.CreatedDate = DateTime.Now;
+                inventory.ModifiedDate = DateTime.Now;
+
+                _context.Inventorys.Add(inventory);
+                await _context.SaveChangesAsync();
+
+
+                return CreatedAtAction("GetInventory", new { id = inventory.InventoryId }, inventory);
+                //return Ok(/*inventory*/);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+
+
         }
 
 

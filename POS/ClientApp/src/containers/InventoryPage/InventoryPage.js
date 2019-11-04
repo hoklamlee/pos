@@ -22,6 +22,7 @@ class InventoryPage extends React.Component {
         this.props.getInventoriesByCategory("All");
 
         //this.submitInfo = this.submitInfo.bind(this);
+        this.delete = this.delete.bind(this);
 
     }
 
@@ -40,7 +41,10 @@ class InventoryPage extends React.Component {
     //    this.props.updateUserInfo(userId, firstName, lastName, email, username);
     //}
 
-
+    delete(key) {
+        //console.log(key);
+        this.props.deleteInventory(key);
+    }
 
     render() {
 
@@ -48,6 +52,7 @@ class InventoryPage extends React.Component {
             <div style={{ marginTop: '2vh' }}>
                 <EditableTable
                     addItemURL="/createinventory"
+                    handleDelete={this.delete}
                     dataSource={this.props.items}
                     columns={
                         [

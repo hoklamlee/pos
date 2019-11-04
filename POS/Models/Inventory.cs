@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace POS.Models
 {
@@ -20,6 +21,7 @@ namespace POS.Models
 
         public string Category { get; set; }
 
+        [DefaultValue(true)]
         public bool Active { get; set; }
         public User CreatedBy { get; set; }
         public int? CreatedBy_UserId { get; set; }
@@ -30,5 +32,9 @@ namespace POS.Models
 
         public DateTime ModifiedDate { get; set; }
 
+        public Inventory()
+        {
+            Active = true;
+        }
     }
 }

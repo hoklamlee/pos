@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace POS.Models
 {
@@ -19,6 +20,9 @@ namespace POS.Models
         public string Password { get; set; }
         public string DisplayName { get; set; }
         public string Token { get; set; }
+
+        [DefaultValue(true)]
+        public bool Active { get; set; }
         public DateTime? TokenCreatedDate { get; set; }
 
         //public ICollection<Order> DeliverOrders { get; set; }
@@ -27,6 +31,7 @@ namespace POS.Models
 
         public ICollection<Inventory> CreatedInventories { get; set; }
         public ICollection<Inventory> ModifiedInventories { get; set; }
+
 
     }
 }

@@ -4,26 +4,19 @@ import config from 'react-global-configuration';
 
 export const inventoryService = {
     addInventory,
+    deleteInventory,
     updateInventory,
     getInventoriesByCategory
 };
 
 
 
-function addInventory(inventoryId, name, description, quatity, unit, price, category, createdBy_UserId) {
+function addInventory( name, description, quatity, unit, price, category, createdBy_UserId) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: {
-            "InventoryId": inventoryId,
-            "name": name,
-            "description": description,
-            "quatity": quatity,
-            "unit": unit,
-            "price": price,
-            "category": category,
-            "createdBy_UserId": createdBy_UserId
-        }
+        body: JSON.stringify({ name, description, quatity, unit, price, category, createdBy_UserId })
+
     };
 
     var api = config.get('apiUrl');
@@ -31,11 +24,31 @@ function addInventory(inventoryId, name, description, quatity, unit, price, cate
 
     return fetch(`${api}/Inventories`, requestOptions)
         .then(handleResponse)
-        .then(user => {
+        .then(item => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             //localStorage.setItem('user', JSON.stringify(user));
 
-            return user;
+            return item;
+        });
+}
+
+function deleteInventory(inventoryId) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader(),
+        body: JSON.stringify({ })
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/Inventories/` + inventoryId, requestOptions)
+        .then(handleResponse)
+        .then(item => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return item;
         });
 }
 

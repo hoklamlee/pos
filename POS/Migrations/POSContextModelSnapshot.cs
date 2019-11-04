@@ -62,6 +62,8 @@ namespace POS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("DisplayName");
 
                     b.Property<string>("Email");

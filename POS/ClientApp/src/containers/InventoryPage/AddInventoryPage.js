@@ -17,7 +17,6 @@ class AddInventoryPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.props.getInventoriesByCategory("All");
         this.submitForm = this.submitForm.bind(this);
         //this.submitInfo = this.submitInfo.bind(this);
 
@@ -41,17 +40,16 @@ class AddInventoryPage extends React.Component {
     submitForm(event) {
         event.preventDefault();
 
-        var newItem = {
-            name: event.target[0].value,
-            category: event.target[1].value,
-            description: event.target[2].value,
-            price: event.target[3].value,
-            quatity: event.target[4].value,
-            unit: event.target[5].value
-        }
+        var name = event.target[0].value;
+        var category = event.target[1].value;
+        var description = event.target[2].value;
+        var price = event.target[3].value;
+        var quatity = event.target[4].value;
+        var unit = event.target[5].value
+        var userId = JSON.parse(localStorage.getItem('user')).userId;
 
-        console.log(newItem);
-        this.props.history.push("/inventory");
+        this.props.addInventory(name, description, Number(quatity), unit, Number(price), category, userId);
+        //this.props.history.push("/inventory");
     }
 
     render() {
