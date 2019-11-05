@@ -13,8 +13,9 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
 import { ProfilePage } from './containers/ProfilePage/ProfilePage';
-import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
 import { InventoryPage } from './containers/InventoryPage/InventoryPage';
+import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
+import { EditInventoryPage } from './containers/InventoryPage/EditInventoryPage';
 
 
 import 'antd/dist/antd.css';
@@ -52,6 +53,7 @@ class App extends React.Component {
                         <PrivateRoute path='/counter' component={Counter} />
                         <PrivateRoute path='/inventory' component={InventoryPage} />
                         <PrivateRoute path='/createinventory' component={AddInventoryPage} />
+                        <PrivateRoute path='/editinventory/:id' component={EditInventoryPage} />
                         <PrivateRoute path='/profile' component={ProfilePage} />
                         <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
                     </Layout>

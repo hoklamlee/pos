@@ -6,7 +6,8 @@ export const inventoryService = {
     addInventory,
     deleteInventory,
     updateInventory,
-    getInventoriesByCategory
+    getInventoriesByCategory,
+    getInventoryById
 };
 
 
@@ -56,16 +57,8 @@ function updateInventory(InventoryId, name, description, quatity, unit, price, c
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: {
-            "InventoryId": InventoryId,
-            "name": name,
-            "description": description,
-            "quatity": quatity,
-            "unit": unit,
-            "price": price,
-            "category": category,
-            "modifiedBy_UserId": modifiedBy_UserId
-        }
+        body: JSON.stringify({ InventoryId, name, description, quatity, unit, price, category, modifiedBy_UserId })
+
     };
 
     var api = config.get('apiUrl');
@@ -97,6 +90,25 @@ function getInventoriesByCategory(category) {
 
             return data;
     });
+}
+
+
+function getInventoryById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/Inventories/` + id, requestOptions)
+        .then(handleResponse)
+        .then(item => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return item;
+        });
 }
 
 function handleResponse(response) {

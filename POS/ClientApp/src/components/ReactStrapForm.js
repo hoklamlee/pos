@@ -73,28 +73,28 @@ export default class ReactStrapForm extends React.Component {
                                 return (
                                     <FormGroup>
                                         <Label for={f.id}>{f.label}</Label>
-                                        <Input type="text" name={f.id} id={f.id} placeholder={f.placeHolder} />
+                                        <Input type="text" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
                                     </FormGroup>
                                 )
                             case "number":
                                 return (
                                     <FormGroup>
                                         <Label for={f.id}>{f.label}</Label>
-                                        <Input type="number" name={f.id} id={f.id} placeholder={f.placeHolder} />
+                                        <Input type="number" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
                                     </FormGroup>
                                 )
                             case "email":
                                 return (
                                     <FormGroup>
                                         <Label for={f.id}>{f.label}</Label>
-                                        <Input type="email" name={f.id} id={f.id} placeholder={f.placeHolder} />
+                                        <Input type="email" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
                                     </FormGroup>
                                 )
                             case "password":
                                 return (
                                     <FormGroup>
                                         <Label for={f.id}>{f.label}</Label>
-                                        <Input type="password" name={f.id} id={f.id} placeholder={f.placeHolder} />
+                                        <Input type="password" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
                                     </FormGroup>
                                 )
                             case "select":
@@ -123,7 +123,7 @@ export default class ReactStrapForm extends React.Component {
                                 return (
                                     <FormGroup>
                                         <Label for={f.id}>{f.label}</Label>
-                                        <Input type="textarea" name={f.id} id={f.id} placeholder={f.placeHolder} />
+                                        <Input type="textarea" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
                                     </FormGroup>
                                 )
                             case "file":

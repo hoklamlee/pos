@@ -20,23 +20,49 @@ const UPDATE_REQUEST = 'INVENTORY_UPDATE_REQUEST';
 const UPDATE_SUCCESS = 'INVENTORY_UPDATE_SUCCESS';
 const UPDATE_FAILURE = 'INVENTORY_UPDATE_FAILURE';
 
-const initialState = { loading: false, error: '', items: [] };
+const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null};
 
 export const actionCreators = {
     addInventory: (name, description, quatity, unit, price, category, createdBy_UserId) => async (dispatch, getState) => {
         dispatch({ type: ADD_REQUEST });
 
-        inventoryService.addInventory(name, description, quatity, unit, price, category, createdBy_UserId)
-            .then(
-                item => {
-                    dispatch({ type: ADD_SUCCESS, item });
-                    history.push("/inventory");
-                },
-                error => {
-                    dispatch({ type: ADD_FAILURE, error });
-                    dispatch(alertAction.error(error));
-                }
-            );
+        return new Promise((resolve, reject) => {
+            inventoryService.addInventory(name, description, quatity, unit, price, category, createdBy_UserId)
+                .then(
+                    item => {
+                        dispatch({ type: ADD_SUCCESS, item });
+                        resolve(true);
+                    },
+                    error => {
+                        dispatch({ type: ADD_FAILURE, error });
+                        dispatch(alertAction.error(error));
+                        resolve(false);
+
+                    }
+                );
+
+        });
+
+    },
+    updateInventory: (InventoryId,name, description, quatity, unit, price, category, modifiedBy_UserId) => async (dispatch, getState) => {
+        dispatch({ type: UPDATE_REQUEST });
+
+        return new Promise((resolve, reject) => {
+            inventoryService.updateInventory(InventoryId, name, description, Number(quatity), unit, Number(price), category, modifiedBy_UserId)
+                .then(
+                    item => {
+                        dispatch({ type: UPDATE_SUCCESS, item });
+                        resolve(true);
+                    },
+                    error => {
+                        dispatch({ type: UPDATE_FAILURE, error });
+                        dispatch(alertAction.error(error));
+                        resolve(false);
+
+                    }
+                );
+
+        });
     },
     deleteInventory: (inventoryId) => async (dispatch, getState) => {
         dispatch({ type: DELETE_REQUEST });
@@ -62,6 +88,20 @@ export const actionCreators = {
                 },
                 error => {
                     dispatch({ type: GETALL_FAILURE, error });
+                    dispatch(alertAction.error(error));
+                }
+            );
+    },
+    getInventoryById: (id) => async (dispatch, getState) => {
+        dispatch({ type: UPDATE_REQUEST });
+
+        inventoryService.getInventoryById(id)
+            .then(
+                item => {
+                    dispatch({ type: UPDATE_SUCCESS, item });
+                },
+                error => {
+                    dispatch({ type: UPDATE_FAILURE, error });
                     dispatch(alertAction.error(error));
                 }
             );
@@ -172,9 +212,9 @@ export const reducer = (state, action) => {
     }
 
     if (action.type == UPDATE_SUCCESS) {
-        console.log(action.user);
         return {
             ...state,
+            item: action.item,
             loading: false,
         }
     }

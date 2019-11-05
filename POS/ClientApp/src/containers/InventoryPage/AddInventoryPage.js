@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
-import { Router, Route, Link ,Redirect} from 'react-router';
+import { Router, Route, Link, Redirect } from 'react-router';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,6 +18,8 @@ class AddInventoryPage extends React.Component {
         super(props);
 
         this.submitForm = this.submitForm.bind(this);
+        this.goBack = this.goBack.bind(this);
+
         //this.submitInfo = this.submitInfo.bind(this);
 
     }
@@ -48,52 +50,62 @@ class AddInventoryPage extends React.Component {
         var unit = event.target[5].value
         var userId = JSON.parse(localStorage.getItem('user')).userId;
 
-        this.props.addInventory(name, description, Number(quatity), unit, Number(price), category, userId);
-        //this.props.history.push("/inventory");
+        this.props.addInventory(name, description, Number(quatity), unit, Number(price), category, userId).then(success => {
+            if (success) {
+                this.props.history.push("/inventory");
+            }
+        });
     }
+
+    goBack() {
+        this.props.history.goBack();
+    }
+
 
     render() {
 
         return (
             <div style={{ marginTop: '2vh' }}>
+                <Button onClick={this.goBack}>Go Back</Button>
+
                 <ReactStrapFrom
                     onSubmit={this.submitForm}
                     fields={
-                    [{
-                        label: "Name",
-                        type: "text",
-                        id: "name",
-                        placeHolder: ""
-                    }, {
+                        [{
+                            label: "Name",
+                            type: "text",
+                            id: "name",
+                            placeHolder: ""
+                        }, {
                             label: "Category",
                             type: "text",
                             id: "category",
                             placeHolder: ""
-                    }
-                        , {
+                        }
+                            , {
                             label: "Description",
-                        type: "textarea",
+                            type: "textarea",
                             id: "description",
-                        placeHolder: ""
-                    }, {
-                        label: "Price",
-                        type: "number",
-                        id: "price",
-                        placeHolder: ""
-                    },
-                    {
-                        label: "Quatity",
-                        type: "number",
-                        id: "quatity",
-                        placeHolder: ""
-                    },
-                    {
-                        label: "Unit",
-                        type: "text",
-                        id: "unit",
-                        placeHolder: ""
-                    }]
-                } />
+                            placeHolder: ""
+                        }, {
+                            label: "Price",
+                            type: "number",
+                            id: "price",
+                            placeHolder: ""
+                        },
+                        {
+                            label: "Quatity",
+                            type: "number",
+                            id: "quatity",
+                            placeHolder: ""
+                        },
+                        {
+                            label: "Unit",
+                            type: "text",
+                            id: "unit",
+                            placeHolder: ""
+                        }]
+                    } />
             </div>
 
         );

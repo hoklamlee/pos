@@ -115,9 +115,9 @@ export default class EditableTable extends React.Component {
                 dataIndex: 'operation',
                 render: (text, record) =>
                     this.state.dataSource.length >= 1 ? (
-                        <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
-                            <a>Delete</a>
-                        </Popconfirm>
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+                                <a>Delete</a>
+                            </Popconfirm>
                     ) : null,
             },
         ];
@@ -147,6 +147,10 @@ export default class EditableTable extends React.Component {
 
         this.props.handleDelete(key);
     };
+
+    handleUpdate = key => {
+        this.props.handleUpdate(key);
+    }
 
     handleAdd = () => {
         //const { count, dataSource } = this.state;
@@ -203,9 +207,15 @@ export default class EditableTable extends React.Component {
             dataIndex: 'operation',
             render: (text, record) =>
                 this.state.dataSource.length >= 1 ? (
-                    <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
-                        <a>Delete</a>
-                    </Popconfirm>
+                    <div>
+                        <a type="primary" style={{ marginBottom: 16 }} onClick={()=>this.handleUpdate(record.key)}>
+                            Update
+                         </a>
+                        <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+                            <a>Delete</a>
+                        </Popconfirm>
+                    </div>
+
                 ) : null,
         });
 
@@ -214,7 +224,7 @@ export default class EditableTable extends React.Component {
                 <Link to={this.props.addItemURL}>
                     <Button type="primary" style={{ marginBottom: 16 }}>
                         Add a row
-                </Button>
+                    </Button>
                 </Link>
 
                 <Table

@@ -11,7 +11,7 @@ import config from 'react-global-configuration';
 
 
 import AddInventoryPage from './AddInventoryPage';
-import EditableTable  from '../../components/AntTable';
+import EditableTable from '../../components/AntTable';
 
 
 
@@ -23,10 +23,10 @@ class InventoryPage extends React.Component {
 
         //this.submitInfo = this.submitInfo.bind(this);
         this.delete = this.delete.bind(this);
-
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
-    
+
 
 
     //submitInfo(event) {
@@ -41,6 +41,10 @@ class InventoryPage extends React.Component {
     //    this.props.updateUserInfo(userId, firstName, lastName, email, username);
     //}
 
+    handleUpdate(key) {
+        this.props.history.push("/editinventory/" + key);
+    }
+
     delete(key) {
         //console.log(key);
         this.props.deleteInventory(key);
@@ -52,6 +56,7 @@ class InventoryPage extends React.Component {
             <div style={{ marginTop: '2vh' }}>
                 <EditableTable
                     addItemURL="/createinventory"
+                    handleUpdate={this.handleUpdate}
                     handleDelete={this.delete}
                     dataSource={this.props.items}
                     columns={
@@ -67,33 +72,33 @@ class InventoryPage extends React.Component {
                                 title: 'category',
                                 dataIndex: 'category',
                                 width: '100',
-                        },
-                        {
-                            title: 'description',
-                            dataIndex: 'description',
-                            width: '100',
+                            },
+                            {
+                                title: 'description',
+                                dataIndex: 'description',
+                                width: '100',
 
-                        },
-                        {
-                            title: 'price',
-                            dataIndex: 'price',
-                            width: '100',
+                            },
+                            {
+                                title: 'price',
+                                dataIndex: 'price',
+                                width: '100',
 
-                        },
-                        {
-                            title: 'quatity',
-                            dataIndex: 'quatity',
-                            width: '100',
+                            },
+                            {
+                                title: 'quatity',
+                                dataIndex: 'quatity',
+                                width: '100',
 
-                        },
-                        {
-                            title: 'unit',
-                            dataIndex: 'unit',
-                            width: '100',
+                            },
+                            {
+                                title: 'unit',
+                                dataIndex: 'unit',
+                                width: '100',
 
                             }
-                    ]
-                } />
+                        ]
+                    } />
             </div>
 
         );
@@ -105,7 +110,7 @@ class InventoryPage extends React.Component {
 function mapStateToProps(state) {
     const { loading, error, items } = state.inventory;
     return {
-        loading, error, items 
+        loading, error, items
     };
 }
 
