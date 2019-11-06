@@ -1,8 +1,10 @@
 ﻿import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Link, Switch } from "react-router-dom";
-
 import { Table, Input, Button, Popconfirm, Form } from 'antd';
+import Icon from '@material-ui/core/Icon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faPlus, faTrash, faPen, faTools } from '@fortawesome/free-solid-svg-icons'
 
 const EditableContext = React.createContext();
 
@@ -92,7 +94,7 @@ class EditableCell extends React.Component {
     }
 }
 
-export default class EditableTable extends React.Component {
+export default class AntTable extends React.Component {
     constructor(props) {
         super(props);
         this.columns = [
@@ -115,9 +117,9 @@ export default class EditableTable extends React.Component {
                 dataIndex: 'operation',
                 render: (text, record) =>
                     this.state.dataSource.length >= 1 ? (
-                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
-                                <a>Delete</a>
-                            </Popconfirm>
+                        <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+                            <a>Delete</a>
+                        </Popconfirm>
                     ) : null,
             },
         ];
@@ -166,6 +168,10 @@ export default class EditableTable extends React.Component {
         //});
     };
 
+    handeCreate = () => {
+        this.props.handleCreate();
+    }
+
     handleSave = row => {
         const newData = [...this.state.dataSource];
         const index = newData.findIndex(item => row.key === item.key);
@@ -202,18 +208,21 @@ export default class EditableTable extends React.Component {
             };
         });
 
-        columns.push({
-            title: 'operation',
+        columns.unshift({
+            title: "",
             dataIndex: 'operation',
             render: (text, record) =>
                 this.state.dataSource.length >= 1 ? (
-                    <div>
-                        <a type="primary" style={{ marginBottom: 16 }} onClick={()=>this.handleUpdate(record.key)}>
-                            Update
-                         </a>
-                        <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
-                            <a>Delete</a>
-                        </Popconfirm>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <a type="primary" style={{ marginRight: 30 }} onClick={() => this.handleUpdate(record.key)}>
+                            <FontAwesomeIcon icon={faPen} />
+                        </a>
+                        <a>
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+                                <FontAwesomeIcon icon={faTrash} />
+                            </Popconfirm>
+                        </a>
+
                     </div>
 
                 ) : null,
@@ -221,20 +230,21 @@ export default class EditableTable extends React.Component {
 
         return (
             <div>
-                <Link to={this.props.addItemURL}>
-                    <Button type="primary" style={{ marginBottom: 16 }}>
-                        Add a row
+                <Button type="primary" style={{ marginBottom: 16 }} onClick={() => this.handeCreate()}>
+                    <FontAwesomeIcon icon={faPlus} />
+                </Button>
+                <Button>
+                    Search
                     </Button>
-                </Link>
-
                 <Table
+                    style={{ height: "100vh" }}
                     components={components}
                     rowClassName={() => 'editable-row'}
-                    bordered
                     dataSource={this.props.dataSource}
                     columns={columns}
                     scroll={{ x: 'max-content' }}
                 />
+
             </div>
         );
     }

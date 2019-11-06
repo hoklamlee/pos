@@ -17,8 +17,8 @@ import { InventoryPage } from './containers/InventoryPage/InventoryPage';
 import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
 import { EditInventoryPage } from './containers/InventoryPage/EditInventoryPage';
 
-
 import 'antd/dist/antd.css';
+
 
 const alertStyle = {
     position: 'fixed',
@@ -42,6 +42,10 @@ class App extends React.Component {
         const { alert } = this.props;
         return (
             <div>
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                />
                 {alert.message &&
                     <div style={alertStyle} className={`alert ${alert.type}`}>{alert.message}</div>
                 }

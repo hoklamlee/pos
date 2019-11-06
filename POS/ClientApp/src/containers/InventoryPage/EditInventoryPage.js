@@ -11,7 +11,10 @@ import config from 'react-global-configuration';
 
 import EditableTable from '../../components/AntTable';
 import ReactStrapFrom from '../../components/ReactStrapForm';
-
+import PageHeader from '../../components/PageHeader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Divider } from '@material-ui/core';
+import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 class EditInventoryPage extends React.Component {
     constructor(props) {
@@ -69,7 +72,10 @@ class EditInventoryPage extends React.Component {
 
         return (
             <div style={{ marginTop: '2vh' }}>
-                <Button onClick={this.goBack}>Go Back</Button>
+                <PageHeader
+                    left={<div style={{ display: 'inline', float: 'left' }}><a style={{ marginBottom: 10 }} onClick={this.goBack}><FontAwesomeIcon icon={faArrowLeft} /> Back</a></div>}
+                    right={<div style={{ display: 'inline', float: 'right' }}>Edit Inventory</div>}
+                />
 
                 {
                     this.props.item ?

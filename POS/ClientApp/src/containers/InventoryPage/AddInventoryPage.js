@@ -9,9 +9,11 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../store/Inventory';
 import config from 'react-global-configuration';
 
-import EditableTable from '../../components/AntTable';
 import ReactStrapFrom from '../../components/ReactStrapForm';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Divider } from '@material-ui/core';
+import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import PageHeader from '../../components/PageHeader';
 
 class AddInventoryPage extends React.Component {
     constructor(props) {
@@ -19,25 +21,8 @@ class AddInventoryPage extends React.Component {
 
         this.submitForm = this.submitForm.bind(this);
         this.goBack = this.goBack.bind(this);
-
-        //this.submitInfo = this.submitInfo.bind(this);
-
     }
 
-
-
-
-    //submitInfo(event) {
-    //    event.preventDefault();
-
-    //    var userId = this.props.user.userId;
-    //    var username = event.target[0].value;
-    //    var email = event.target[1].value;
-    //    var lastName = event.target[2].value;
-    //    var firstName = event.target[3].value;
-    //    console.log(userId, firstName, lastName, email, username);
-    //    this.props.updateUserInfo(userId, firstName, lastName, email, username);
-    //}
 
     submitForm(event) {
         event.preventDefault();
@@ -66,7 +51,11 @@ class AddInventoryPage extends React.Component {
 
         return (
             <div style={{ marginTop: '2vh' }}>
-                <Button onClick={this.goBack}>Go Back</Button>
+                <PageHeader
+                    left={<div style={{ display: 'inline', float: 'left' }}><a style={{ marginBottom: 10 }} onClick={this.goBack}><FontAwesomeIcon icon={faArrowLeft} /> Back</a></div>}
+                    right={<div style={{ display: 'inline', float: 'right' }}>New Inventory</div>}
+                />
+
 
                 <ReactStrapFrom
                     onSubmit={this.submitForm}

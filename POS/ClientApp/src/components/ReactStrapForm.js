@@ -165,8 +165,9 @@ export default class ReactStrapForm extends React.Component {
                     })
                 }
 
-
-                <Button>Submit</Button>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button>Submit</Button>
+                </div>
             </Form>
         );
     }

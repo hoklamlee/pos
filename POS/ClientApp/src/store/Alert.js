@@ -10,6 +10,8 @@ const initialState = { type: '', message: '' };
 
 export const actionCreators = {
     success: message => async (dispatch, getState) => {
+        message = String(message);
+
         notification.open({
             message: "Notice",  description:
                 message,
@@ -22,6 +24,8 @@ export const actionCreators = {
     },
 
     error: message => async (dispatch, getState) => {
+        message = String(message);
+
         notification.open({
             message: "Notice", description:
                 message,

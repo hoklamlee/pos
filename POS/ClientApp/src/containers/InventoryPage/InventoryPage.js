@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
 import { Router, Route, Link } from 'react-router';
 
 import { connect } from 'react-redux';
@@ -9,11 +8,11 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../store/Inventory';
 import config from 'react-global-configuration';
 
-
-import AddInventoryPage from './AddInventoryPage';
-import EditableTable from '../../components/AntTable';
-
-
+import MaterialTable from 'material-table';
+import { Paper } from '@material-ui/core';
+import RightBottomButton from '../../components/RightBottomButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faPlus, faTrash, faPen, faTools } from '@fortawesome/free-solid-svg-icons'
 
 class InventoryPage extends React.Component {
     constructor(props) {
@@ -23,82 +22,91 @@ class InventoryPage extends React.Component {
 
         //this.submitInfo = this.submitInfo.bind(this);
         this.delete = this.delete.bind(this);
+        this.handeCreate = this.handeCreate.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
 
+    handeCreate() {
+        //this.props.history.push("/createinventory");
+        this.props.history.push("/createinventory");
 
-
-    //submitInfo(event) {
-    //    event.preventDefault();
-
-    //    var userId = this.props.user.userId;
-    //    var username = event.target[0].value;
-    //    var email = event.target[1].value;
-    //    var lastName = event.target[2].value;
-    //    var firstName = event.target[3].value;
-    //    console.log(userId, firstName, lastName, email, username);
-    //    this.props.updateUserInfo(userId, firstName, lastName, email, username);
-    //}
+    }
 
     handleUpdate(key) {
         this.props.history.push("/editinventory/" + key);
     }
 
-    delete(key) {
-        //console.log(key);
-        this.props.deleteInventory(key);
+    delete(rowData) {
+        if (window.confirm(`Are you sure delete ` + rowData.name)) {
+            this.props.deleteInventory(rowData.inventoryId);
+        }        //console.log(key);
     }
 
     render() {
 
+
+
+        const columns = [
+            {
+                title: 'name',
+                field: 'name'
+            },
+            {
+                title: 'category',
+                field: 'category'
+            },
+            {
+                title: 'description',
+                field: 'description'
+
+            },
+            {
+                title: 'price',
+                field: 'price'
+
+            },
+            {
+                title: 'quatity',
+                field: 'quatity'
+
+
+            },
+            {
+                title: 'unit',
+                field: 'unit'
+
+            }
+        ]
+
         return (
-            <div style={{ marginTop: '2vh' }}>
-                <EditableTable
-                    addItemURL="/createinventory"
-                    handleUpdate={this.handleUpdate}
-                    handleDelete={this.delete}
-                    dataSource={this.props.items}
-                    columns={
-                        [
-                            {
-                                title: 'name',
-                                dataIndex: 'name',
-                                width: '30%',
-                                //editable: true,
-                                //fixed: 'left',
-                            },
-                            {
-                                title: 'category',
-                                dataIndex: 'category',
-                                width: '100',
-                            },
-                            {
-                                title: 'description',
-                                dataIndex: 'description',
-                                width: '100',
-
-                            },
-                            {
-                                title: 'price',
-                                dataIndex: 'price',
-                                width: '100',
-
-                            },
-                            {
-                                title: 'quatity',
-                                dataIndex: 'quatity',
-                                width: '100',
-
-                            },
-                            {
-                                title: 'unit',
-                                dataIndex: 'unit',
-                                width: '100',
-
+            <div style={{ marginTop: '2vh', width: '100%' }}>
+                <MaterialTable
+                    title="Inventory"
+                    columns={columns}
+                    data={this.props.items}
+                    actions={[
+                        {
+                            icon: 'edit',
+                            tooltip: 'Edit User',
+                            onClick: (event, rowData) => {
+                                //alert('You are editing ' + rowData.name);
+                                this.handleUpdate(rowData.inventoryId);
                             }
-                        ]
-                    } />
+                        },
+                        {
+                            icon: 'delete',
+                            tooltip: 'Delete User',
+                            onClick: (event, rowData) => { this.delete(rowData) }
+                        }
+                    ]}
+                    components={{
+                        Container: props => <Paper {...props} elevation={0} />
+                    }}
+                />
+
+                <RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>
+
             </div>
 
         );
