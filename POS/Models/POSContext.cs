@@ -18,7 +18,7 @@ namespace POS.Models
         public DbSet<Inventory> Inventorys { get; set; }
         //public DbSet<Order> Orders { get; set; }
         //public DbSet<OrderItem> OrderItems { get; set; }
-        //public DbSet<Purchaser> Purchasers { get; set; }
+        public DbSet<Purchaser> Purchasers { get; set; }
         //public DbSet<Status> Statuses { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -46,7 +46,6 @@ namespace POS.Models
 
             modelBuilder.Entity<User>().HasMany<Inventory>(g => g.CreatedInventories).WithOne(o => o.CreatedBy).HasForeignKey(o => o.CreatedBy_UserId);
             modelBuilder.Entity<User>().HasMany<Inventory>(g => g.ModifiedInventories).WithOne(o => o.ModifiedBy).HasForeignKey(o => o.ModifiedBy_UserId);
-
 
 
         }

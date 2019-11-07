@@ -41,7 +41,10 @@ class App extends React.Component {
     render() {
         const { alert } = this.props;
         return (
-            <div>
+            <div style={{
+                backgroundColor: 'white',
+                height: '100vh'
+            }}>
                 <link
                     rel="stylesheet"
                     href="https://fonts.googleapis.com/icon?family=Material+Icons"

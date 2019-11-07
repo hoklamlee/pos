@@ -33,5 +33,7 @@ namespace POS.Models
         public ICollection<Inventory> ModifiedInventories { get; set; }
 
 
+
+
     }
 }
