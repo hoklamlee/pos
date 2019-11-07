@@ -26,10 +26,8 @@ namespace POS.Models
         public User CreatedBy { get; set; }
         public int? CreatedBy_UserId { get; set; }
         public DateTime CreatedDate { get; set; }
-
         public User ModifiedBy { get; set; }
         public int? ModifiedBy_UserId { get; set; }
-
         public DateTime ModifiedDate { get; set; }
 
         public Inventory()

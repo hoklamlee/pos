@@ -29,11 +29,15 @@ namespace POS.Migrations
 
                     b.Property<string>("Category");
 
+                    b.Property<int?>("CreatedByUserId");
+
                     b.Property<int?>("CreatedBy_UserId");
 
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
+
+                    b.Property<int?>("ModifiedByUserId");
 
                     b.Property<int?>("ModifiedBy_UserId");
 
@@ -49,9 +53,9 @@ namespace POS.Migrations
 
                     b.HasKey("InventoryId");
 
-                    b.HasIndex("CreatedBy_UserId");
+                    b.HasIndex("CreatedByUserId");
 
-                    b.HasIndex("ModifiedBy_UserId");
+                    b.HasIndex("ModifiedByUserId");
 
                     b.ToTable("Inventorys");
                 });
@@ -97,6 +101,41 @@ namespace POS.Migrations
                     b.ToTable("Purchasers");
                 });
 
+            modelBuilder.Entity("POS.Models.Status", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Category");
+
+                    b.Property<string>("Code");
+
+                    b.Property<int?>("CreatedByUserId");
+
+                    b.Property<int?>("CreatedBy_UserId");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int?>("ModifiedByUserId");
+
+                    b.Property<int?>("ModifiedBy_UserId");
+
+                    b.Property<DateTime>("ModifiedDate");
+
+                    b.HasKey("StatusId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("ModifiedByUserId");
+
+                    b.ToTable("Statuses");
+                });
+
             modelBuilder.Entity("POS.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -129,15 +168,26 @@ namespace POS.Migrations
             modelBuilder.Entity("POS.Models.Inventory", b =>
                 {
                     b.HasOne("POS.Models.User", "CreatedBy")
-                        .WithMany("CreatedInventories")
-                        .HasForeignKey("CreatedBy_UserId");
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId");
 
                     b.HasOne("POS.Models.User", "ModifiedBy")
-                        .WithMany("ModifiedInventories")
-                        .HasForeignKey("ModifiedBy_UserId");
+                        .WithMany()
+                        .HasForeignKey("ModifiedByUserId");
                 });
 
             modelBuilder.Entity("POS.Models.Purchaser", b =>
+                {
+                    b.HasOne("POS.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId");
+
+                    b.HasOne("POS.Models.User", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedByUserId");
+                });
+
+            modelBuilder.Entity("POS.Models.Status", b =>
                 {
                     b.HasOne("POS.Models.User", "CreatedBy")
                         .WithMany()

@@ -29,8 +29,8 @@ namespace POS.Models
 
         //public ICollection<Order> FavouriteOrder { get; set; }
 
-        public ICollection<Inventory> CreatedInventories { get; set; }
-        public ICollection<Inventory> ModifiedInventories { get; set; }
+        //public ICollection<Inventory> CreatedInventories { get; set; }
+        //public ICollection<Inventory> ModifiedInventories { get; set; }
 
 
 
