@@ -123,8 +123,8 @@ namespace POS.Controllers
                 purchaser.CreatedDate = DateTime.Now;
                 purchaser.ModifiedDate = DateTime.Now;
 
-
                 _context.Purchasers.Add(purchaser);
+
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction("GetPurchaser", new { id = purchaser.PurchaserId }, purchaser);

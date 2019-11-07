@@ -6,7 +6,7 @@ import { Router, Route, Link, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { actionCreators } from '../../store/Inventory';
+import { actionCreators } from '../../store/Purchaser';
 import config from 'react-global-configuration';
 
 import EditableTable from '../../components/AntTable';
@@ -16,15 +16,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Divider } from '@material-ui/core';
 import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-class EditInventoryPage extends React.Component {
+class EditPurchaserPage extends React.Component {
     constructor(props) {
         super(props);
 
-        const inventoryId = this.props.match.params.id;
-        console.log(inventoryId);
-
-        this.props.getInventoryById(inventoryId);
-
+        const purchaserId = this.props.match.params.id;
+        this.props.getPurchaserById(purchaserId);
         this.submitForm = this.submitForm.bind(this);
         this.goBack = this.goBack.bind(this);
 
@@ -51,19 +48,18 @@ class EditInventoryPage extends React.Component {
         event.preventDefault();
 
         var name = event.target[0].value;
-        var category = event.target[1].value;
-        var description = event.target[2].value;
-        var price = event.target[3].value;
-        var quatity = event.target[4].value;
-        var unit = event.target[5].value
-        var userId = JSON.parse(localStorage.getItem('user')).userId;
-        const inventoryId = this.props.match.params.id;
+        var location = event.target[1].value;
+        var phoneNo = event.target[2].value;
+        var contactPerson = event.target[3].value;
 
-        this.props.updateInventory(inventoryId, name, description, Number(quatity), unit, Number(price), category, userId).then(success => {
+        var userId = JSON.parse(localStorage.getItem('user')).userId;
+        const purchaserId = this.props.match.params.id;
+
+        this.props.updatePurchaser(purchaserId,name, location, phoneNo, contactPerson, userId).then(success => {
             if (success) {
-                this.props.history.push("/inventory");
+                this.props.history.push("/purchaser");
             }
-        })
+        });
     }
 
     goBack() {
@@ -76,7 +72,7 @@ class EditInventoryPage extends React.Component {
             <div style={{ marginTop: '2vh' }}>
                 <PageHeader
                     left={<div style={{ display: 'inline', float: 'left' }}><a style={{ marginBottom: 10 }} onClick={this.goBack}><FontAwesomeIcon icon={faArrowLeft} /> Back</a></div>}
-                    right={<div style={{ display: 'inline', float: 'right' }}>Edit Inventory</div>}
+                    right={<div style={{ display: 'inline', float: 'right' }}>Edit Purchaser</div>}
                 />
 
                 {
@@ -87,44 +83,34 @@ class EditInventoryPage extends React.Component {
                                 [{
                                     label: "Name",
                                     type: "text",
-                                    id: "name",
+                                    id: "Name",
                                     placeHolder: "",
                                     defaultValue: this.props.item.name
                                 }, {
-                                    label: "Category",
+                                    label: "Location",
                                     type: "text",
-                                    id: "category",
+                                    id: "Location",
                                     placeHolder: "",
-                                        defaultValue: this.props.item.category
-                                }, {
-                                    label: "Description",
-                                    type: "textarea",
-                                    id: "description",
-                                    placeHolder: "",
-                                        defaultValue: this.props.item.description
+                                    defaultValue: this.props.item.location
 
-                                }, {
-                                    label: "Price",
-                                    type: "number",
-                                    id: "price",
-                                    placeHolder: "",
-                                        defaultValue: this.props.item.price
-                                },{
-                                    label: "Quatity",
-                                    type: "number",
-                                    id: "quatity",
-                                    placeHolder: "",
-                                        defaultValue: this.props.item.quatity
-
-                                },{
-                                    label: "Unit",
+                                }
+                                    , {
+                                    label: "PhoneNo",
                                     type: "text",
-                                    id: "unit",
+                                    id: "PhoneNo",
                                     placeHolder: "",
-                                        defaultValue: this.props.item.unit,
+                                    defaultValue: this.props.item.phoneNo
+                                }, {
+                                    label: "ContactPerson",
+                                    type: "text",
+                                    id: "ContactPerson",
+                                    placeHolder: "",
+                                    defaultValue: this.props.item.contactPerson
+
                                 }]
-            } />
-        :
+                            } />
+
+                        :
                         <div></div>
                 }
 
@@ -137,17 +123,17 @@ class EditInventoryPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loading, error, item } = state.inventory;
+    const { loading, error, item } = state.purchaser;
     return {
         loading, error, item
     };
 }
 
-const connectedEditInventoryPage = connect(
+const connectedEditPurchaserPage = connect(
     mapStateToProps,
     dispatch => bindActionCreators(actionCreators, dispatch)
-)(EditInventoryPage);
-export { connectedEditInventoryPage as EditInventoryPage };
+)(EditPurchaserPage);
+export { connectedEditPurchaserPage as EditPurchaserPage };
 
 
 

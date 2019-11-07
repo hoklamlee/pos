@@ -7,6 +7,7 @@ import * as Alert from './Alert';
 import * as Authentication from './Authentication';
 import * as User from './User';
 import * as Inventory from './Inventory';
+import * as Purchaser from './Purchaser';
 
 export default function configureStore(history, initialState) {
     const reducers = {
@@ -15,7 +16,9 @@ export default function configureStore(history, initialState) {
         alert: Alert.reducer,
         authentication: Authentication.reducer,
         user: User.reducer,
-        inventory: Inventory.reducer
+        inventory: Inventory.reducer,
+        purchaser: Purchaser.reducer
+
     };
 
     const middleware = [

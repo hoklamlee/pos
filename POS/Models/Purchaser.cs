@@ -14,8 +14,8 @@ namespace POS.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PurchaserId { get; set; }
         public string Name { get; set; }
-        public long Latitude { get; set; }
-        public long Longitude { get; set; }
+        public long? Latitude { get; set; }
+        public long? Longitude { get; set; }
         public string Location { get; set; }
         public string PhoneNo { get; set; }
         public string ContactPerson { get; set; }

@@ -17,6 +17,10 @@ import { InventoryPage } from './containers/InventoryPage/InventoryPage';
 import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
 import { EditInventoryPage } from './containers/InventoryPage/EditInventoryPage';
 
+import { PurchaserPage } from './containers/PurchaserPage/PurchaserPage';
+import { AddPurchaserPage } from './containers/PurchaserPage/AddPurchaserPage';
+import { EditPurchaserPage } from './containers/PurchaserPage/EditPurchaserPage';
+
 import 'antd/dist/antd.css';
 
 
@@ -58,9 +62,15 @@ class App extends React.Component {
                         <PrivateRoute exact path="/" component={Home} />
                         <Route path="/login" component={LoginPage} />
                         <PrivateRoute path='/counter' component={Counter} />
+
                         <PrivateRoute path='/inventory' component={InventoryPage} />
                         <PrivateRoute path='/createinventory' component={AddInventoryPage} />
                         <PrivateRoute path='/editinventory/:id' component={EditInventoryPage} />
+
+                        <PrivateRoute path='/purchaser' component={PurchaserPage} />
+                        <PrivateRoute path='/createpurchaser' component={AddPurchaserPage} />
+                        <PrivateRoute path='/editpurchaser/:id' component={EditPurchaserPage} />
+
                         <PrivateRoute path='/profile' component={ProfilePage} />
                         <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
                     </Layout>

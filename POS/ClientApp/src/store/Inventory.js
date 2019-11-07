@@ -8,6 +8,10 @@ const GETALL_REQUEST = 'INVENTORY_GETALL_REQUEST';
 const GETALL_SUCCESS = 'INVENTORY_GETALL_SUCCESS';
 const GETALL_FAILURE = 'INVENTORY_GETALL_FAILURE';
 
+const GET_REQUEST = 'INVENTORY_GET_REQUEST';
+const GET_SUCCESS = 'INVENTORY_GET_SUCCESS';
+const GET_FAILURE = 'INVENTORY_GET_FAILURE';
+
 const ADD_REQUEST = 'INVENTORY_ADD_REQUEST';
 const ADD_SUCCESS = 'INVENTORY_ADD_SUCCESS';
 const ADD_FAILURE = 'INVENTORY_ADD_FAILURE';
@@ -93,15 +97,15 @@ export const actionCreators = {
             );
     },
     getInventoryById: (id) => async (dispatch, getState) => {
-        dispatch({ type: UPDATE_REQUEST });
+        dispatch({ type: GET_REQUEST });
 
         inventoryService.getInventoryById(id)
             .then(
                 item => {
-                    dispatch({ type: UPDATE_SUCCESS, item });
+                    dispatch({ type: GET_SUCCESS, item });
                 },
                 error => {
-                    dispatch({ type: UPDATE_FAILURE, error });
+                    dispatch({ type: GET_FAILURE, error });
                     dispatch(alertAction.error(error));
                 }
             );
@@ -146,6 +150,31 @@ export const reducer = (state, action) => {
     }
 
     if (action.type == GETALL_FAILURE) {
+        return {
+            ...state,
+            error: action.error,
+            loading: false
+        }
+    }
+
+
+    if (action.type == GET_REQUEST) {
+        return {
+            ...state,
+            loading: true
+        }
+    }
+
+    if (action.type == GET_SUCCESS) {
+
+        return {
+            ...state,
+            item: action.item,
+            loading: false
+        }
+    }
+
+    if (action.type == GET_FAILURE) {
         return {
             ...state,
             error: action.error,

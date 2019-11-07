@@ -7,16 +7,17 @@ export const purchaserService = {
     deletePurchaser,
     updatePurchaser,
     getPurchasersByCategory,
-    getPurchaserById
+    getPurchaserById,
+    getAllPurchasers
 };
 
 
 
-function addPurchaser( name, description, quatity, unit, price, category, createdBy_UserId) {
+function addPurchaser(name, location, phoneNo, contactPerson, createdBy_UserId) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: JSON.stringify({ name, description, quatity, unit, price, category, createdBy_UserId })
+        body: JSON.stringify({ name, location, phoneNo, contactPerson, createdBy_UserId })
 
     };
 
@@ -53,11 +54,11 @@ function deletePurchaser(purchaserId) {
         });
 }
 
-function updatePurchaser(PurchaserId, name, description, quatity, unit, price, category, modifiedBy_UserId ) {
+function updatePurchaser(PurchaserId, name, location, phoneNo, contactPerson, modifiedBy_UserId ) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: JSON.stringify({ PurchaserId, name, description, quatity, unit, price, category, modifiedBy_UserId })
+        body: JSON.stringify({ PurchaserId, name, location, phoneNo, contactPerson, modifiedBy_UserId })
 
     };
 
@@ -90,6 +91,24 @@ function getPurchasersByCategory(category) {
 
             return data;
     });
+}
+
+function getAllPurchasers() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/purchasers`, requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return data;
+        });
 }
 
 
