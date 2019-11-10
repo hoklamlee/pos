@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import { Router, Route, Link } from 'react-router';
 
@@ -8,6 +7,13 @@ import { bindActionCreators } from 'redux';
 
 import { actionCreators } from '../../store/User';
 import config from 'react-global-configuration';
+import MaterialPaper from '../../components/MaterialPaper';
+import ReactStrapForm from '../../components/ReactStrapForm';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faPlus, faTrash, faPen, faTools, faInfo, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -15,10 +21,10 @@ class ProfilePage extends React.Component {
 
         this.submitInfo = this.submitInfo.bind(this);
         this.submitPassword = this.submitPassword.bind(this);
-
+        this.logout = this.logout.bind(this);
     }
 
-    
+
 
 
     submitInfo(event) {
@@ -44,49 +50,75 @@ class ProfilePage extends React.Component {
         this.props.updatePassword(userId, password, passwordConfirm);
     }
 
+    logout() {
+        this.props.history.push("/login");
+    }
+
     render() {
 
         return (
             <div style={{ marginTop: '2vh' }}>
-                <h4>Basic Info</h4>
-                <Form onSubmit={this.submitInfo}>
-                    <FormGroup>
-                        <Label for="exampleEmail">User Name</Label>
-                        <Input type="text" name="userName" id="userName" placeholder="" defaultValue={this.props.user.username} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleEmail">Email</Label>
-                        <Input type="email" name="email" id="email" placeholder="" defaultValue={this.props.user.email} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleEmail">Last Name</Label>
-                        <Input type="text" name="lastName" id="lastName" placeholder="" defaultValue={this.props.user.lastName} />
-                    </FormGroup>
+                <MaterialPaper header={<div><FontAwesomeIcon icon={faInfo} /> Basic Information</div>}>
+                    <ReactStrapForm
+                        onSubmit={this.submitInfo}
+                        fields={
+                            [{
+                                label: "User Name",
+                                type: "text",
+                                id: "userName",
+                                placeHolder: "",
+                                defaultValue: this.props.user.username
+                            }, {
+                                label: "Email",
+                                type: "email",
+                                id: "email",
+                                placeHolder: "",
+                                defaultValue: this.props.user.email
+                            }, {
+                                label: "Last Name",
+                                type: "text",
+                                id: "lastName",
+                                placeHolder: "",
+                                defaultValue: this.props.user.lastName
 
-                    <FormGroup>
-                        <Label for="exampleEmail">First Name</Label>
-                        <Input type="text" name="firstName" id="firstName" placeholder="" defaultValue={this.props.user.firstName} />
-                    </FormGroup>
+                            }, {
+                                label: "First Name",
+                                type: "text",
+                                id: "firstName",
+                                placeHolder: "",
+                                defaultValue: this.props.user.firstName
+                            }]
+                        } />
+                </MaterialPaper>
+
+                <div style={{ marginBottom: 20 }}></div>
+
+                <MaterialPaper header={<div><FontAwesomeIcon icon={faKey} /> Update Password</div>}>
+                    <ReactStrapForm
+                        onSubmit={this.submitPassword}
+                        fields={
+                            [{
+                                label: "Password",
+                                type: "password",
+                                id: "password",
+                                placeHolder: ""
+                            }, {
+                                label: "Password Confirm",
+                                type: "password",
+                                id: "passwordConfirm",
+                                placeHolder: ""
+                            }]
+                        } />
 
 
-                    <Button>Save</Button>
-                </Form>
+                </MaterialPaper>
 
-                <h4>Update Password</h4>
-                <Form onSubmit={this.submitPassword}>
+                <div style={{ marginBottom: 20 }}></div>
 
-                    <FormGroup>
-                        <Label for="examplePassword">Password</Label>
-                        <Input type="password" name="password" id="password" placeholder="" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="examplePassword">Password Confirm</Label>
-                        <Input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="" />
-                    </FormGroup>
 
-                    <Button>Save</Button>
+                <Button color="primary" style={{ width: '100%' }} onClick={() => this.logout()}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Button>
 
-                </Form>
+                <div style={{ marginBottom: 20 }}></div>
 
             </div>
 

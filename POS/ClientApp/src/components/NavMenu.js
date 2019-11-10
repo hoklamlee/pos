@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/User';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faPlus, faTrash, faPen, faTools, faInfo, faKey, faSignOutAlt,faCog, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import './NavMenu.css';
 
@@ -58,11 +60,11 @@ class NavMenu extends React.Component {
                                     </NavItem>
 
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/profile">{this.props.user.username}</NavLink>
+                                        <NavLink tag={Link} className="text-dark" to="/profile"><FontAwesomeIcon icon={faUser} /> {this.props.user.username}</NavLink>
                                     </NavItem>
 
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/login">Logout</NavLink>
+                                        <NavLink tag={Link} className="text-dark" to="/sitesetting"><FontAwesomeIcon icon={faCog} /> Site Setting</NavLink>
                                     </NavItem>
                                 </ul>
                             </Collapse>

@@ -16,7 +16,8 @@ namespace POS.Models
         //public DbSet<Employee> Employees { get; set; }
         //public DbSet<Company> Companys { get; set; }
         public DbSet<Inventory> Inventorys { get; set; }
-        //public DbSet<Order> Orders { get; set; }
+        
+        public DbSet<Order> Orders { get; set; }
         //public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Purchaser> Purchasers { get; set; }
         public DbSet<Status> Statuses { get; set; }

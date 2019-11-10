@@ -95,36 +95,36 @@ class EditInventoryPage extends React.Component {
                                     type: "text",
                                     id: "category",
                                     placeHolder: "",
-                                        defaultValue: this.props.item.category
+                                    defaultValue: this.props.item.category
                                 }, {
                                     label: "Description",
                                     type: "textarea",
                                     id: "description",
                                     placeHolder: "",
-                                        defaultValue: this.props.item.description
+                                    defaultValue: this.props.item.description
 
                                 }, {
                                     label: "Price",
                                     type: "number",
                                     id: "price",
                                     placeHolder: "",
-                                        defaultValue: this.props.item.price
-                                },{
+                                    defaultValue: this.props.item.price
+                                }, {
                                     label: "Quatity",
                                     type: "number",
                                     id: "quatity",
                                     placeHolder: "",
-                                        defaultValue: this.props.item.quatity
+                                    defaultValue: this.props.item.quatity
 
-                                },{
+                                }, {
                                     label: "Unit",
                                     type: "text",
                                     id: "unit",
                                     placeHolder: "",
-                                        defaultValue: this.props.item.unit,
+                                    defaultValue: this.props.item.unit,
                                 }]
-            } />
-        :
+                            } />
+                        :
                         <div></div>
                 }
 

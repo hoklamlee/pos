@@ -8,6 +8,7 @@ import * as Authentication from './Authentication';
 import * as User from './User';
 import * as Inventory from './Inventory';
 import * as Purchaser from './Purchaser';
+import * as Status from './Status';
 
 export default function configureStore(history, initialState) {
     const reducers = {
@@ -17,7 +18,8 @@ export default function configureStore(history, initialState) {
         authentication: Authentication.reducer,
         user: User.reducer,
         inventory: Inventory.reducer,
-        purchaser: Purchaser.reducer
+        purchaser: Purchaser.reducer,
+        status: Status.reducer
 
     };
 

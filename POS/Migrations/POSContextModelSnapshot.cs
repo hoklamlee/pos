@@ -60,6 +60,53 @@ namespace POS.Migrations
                     b.ToTable("Inventorys");
                 });
 
+            modelBuilder.Entity("POS.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active");
+
+                    b.Property<int?>("CreatedByUserId");
+
+                    b.Property<int?>("CreatedBy_UserId");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int?>("DeliverById");
+
+                    b.Property<DateTime?>("DeliverDate");
+
+                    b.Property<int?>("ModifiedByUserId");
+
+                    b.Property<int?>("ModifiedBy_UserId");
+
+                    b.Property<DateTime>("ModifiedDate");
+
+                    b.Property<DateTime?>("OrderDate");
+
+                    b.Property<int?>("PurchaserId");
+
+                    b.Property<string>("Remark");
+
+                    b.Property<int?>("StatusId");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("DeliverById");
+
+                    b.HasIndex("ModifiedByUserId");
+
+                    b.HasIndex("PurchaserId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("POS.Models.Purchaser", b =>
                 {
                     b.Property<int>("PurchaserId")
@@ -174,6 +221,29 @@ namespace POS.Migrations
                     b.HasOne("POS.Models.User", "ModifiedBy")
                         .WithMany()
                         .HasForeignKey("ModifiedByUserId");
+                });
+
+            modelBuilder.Entity("POS.Models.Order", b =>
+                {
+                    b.HasOne("POS.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId");
+
+                    b.HasOne("POS.Models.User", "DeliverBy")
+                        .WithMany()
+                        .HasForeignKey("DeliverById");
+
+                    b.HasOne("POS.Models.User", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedByUserId");
+
+                    b.HasOne("POS.Models.Purchaser", "Purchaser")
+                        .WithMany()
+                        .HasForeignKey("PurchaserId");
+
+                    b.HasOne("POS.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
                 });
 
             modelBuilder.Entity("POS.Models.Purchaser", b =>

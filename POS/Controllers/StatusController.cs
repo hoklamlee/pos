@@ -71,6 +71,41 @@ namespace POS.Controllers
             return NoContent();
         }
 
+        // PUT: api/Purchasers/5
+        [HttpPost("UpdateStatus")]
+        public async Task<IActionResult> UpdateStatus(Status newStatus)
+        {
+            var status = _context.Statuses.Find(newStatus.StatusId);
+
+            if (status == null)
+            {
+                return NotFound();
+            }
+            User user = _context.Users.Find(status.ModifiedBy_UserId);
+
+            status.ModifiedDate = DateTime.Now;
+            status.ModifiedBy_UserId = newStatus.ModifiedBy_UserId;
+            status.ModifiedBy = user;
+
+            status.Code = newStatus.Code;
+            status.Description = newStatus.Description;
+            status.Category = newStatus.Category;
+   
+            _context.Entry(status).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            return NoContent();
+        }
+
+
         // POST: api/Status
         [HttpPost]
         public async Task<ActionResult<Status>> PostStatus(Status status)

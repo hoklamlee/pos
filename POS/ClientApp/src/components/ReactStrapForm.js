@@ -1,5 +1,7 @@
 ﻿import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faPlus, faTrash, faPen, faTools, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 //Sample Code:
 const fields = [
@@ -166,7 +168,7 @@ export default class ReactStrapForm extends React.Component {
                 }
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button>Submit</Button>
+                    <Button color="success"><FontAwesomeIcon icon={faCheck} /> Submit</Button>
                 </div>
             </Form>
         );

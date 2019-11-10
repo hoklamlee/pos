@@ -13,6 +13,7 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
 import { ProfilePage } from './containers/ProfilePage/ProfilePage';
+
 import { InventoryPage } from './containers/InventoryPage/InventoryPage';
 import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
 import { EditInventoryPage } from './containers/InventoryPage/EditInventoryPage';
@@ -20,6 +21,14 @@ import { EditInventoryPage } from './containers/InventoryPage/EditInventoryPage'
 import { PurchaserPage } from './containers/PurchaserPage/PurchaserPage';
 import { AddPurchaserPage } from './containers/PurchaserPage/AddPurchaserPage';
 import { EditPurchaserPage } from './containers/PurchaserPage/EditPurchaserPage';
+
+import { StatusPage } from './containers/StatusPage/StatusPage';
+import { AddStatusPage } from './containers/StatusPage/AddStatusPage';
+import { EditStatusPage } from './containers/StatusPage/EditStatusPage';
+
+
+import { SiteSittingPage } from './containers/SiteSettingPage/SiteSittingPage';
+
 
 import 'antd/dist/antd.css';
 
@@ -73,6 +82,14 @@ class App extends React.Component {
 
                         <PrivateRoute path='/profile' component={ProfilePage} />
                         <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
+
+                        <PrivateRoute path='/sitesetting' component={SiteSittingPage} />
+
+                        <PrivateRoute path='/status' component={StatusPage} />
+                        <PrivateRoute path='/createstatus' component={AddStatusPage} />
+                        <PrivateRoute path='/editstatus/:id' component={EditStatusPage} />
+
+                        
                     </Layout>
                 </Router >
 
