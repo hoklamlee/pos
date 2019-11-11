@@ -26,6 +26,8 @@ namespace POS.Models
         public DateTime? TokenCreatedDate { get; set; }
 
         //public ICollection<Order> DeliverOrders { get; set; }
+        //public ICollection<Order> CreatedOrders { get; set; }
+        //public ICollection<Order> ModifiedOrders { get; set; }
 
         //public ICollection<Order> FavouriteOrder { get; set; }
 

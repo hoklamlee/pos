@@ -31,6 +31,13 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20191111145156_updateforeignkey.cs" />
+    <Compile Remove="Migrations\20191111145156_updateforeignkey.Designer.cs" />
+    <Compile Remove="Migrations\20191111145558_updateforeignkey1.cs" />
+    <Compile Remove="Migrations\20191111145558_updateforeignkey1.Designer.cs" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

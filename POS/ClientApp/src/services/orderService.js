@@ -8,16 +8,18 @@ export const orderService = {
     updateOrder,
     getOrdersByCategory,
     getOrderById,
-    getAllOrders
+    getAllOrders,
+    getAllUsers,
+    getAllPurchasers
 };
 
 
 
-function addOrder(name, location, phoneNo, contactPerson, createdBy_UserId) {
+function addOrder(orderDate, remark, deliverById, deliverDate, PurchaserId,  createdBy_UserId) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: JSON.stringify({ name, location, phoneNo, contactPerson, createdBy_UserId })
+        body: JSON.stringify({ orderDate, remark, deliverById, deliverDate, PurchaserId, createdBy_UserId })
 
     };
 
@@ -111,6 +113,41 @@ function getAllOrders() {
         });
 }
 
+function getAllUsers() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/users`, requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return data;
+        });
+}
+
+function getAllPurchasers() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/purchasers`, requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return data;
+        });
+}
 
 function getOrderById(id) {
     const requestOptions = {

@@ -9,6 +9,7 @@ import * as User from './User';
 import * as Inventory from './Inventory';
 import * as Purchaser from './Purchaser';
 import * as Status from './Status';
+import * as Order from './Order';
 
 export default function configureStore(history, initialState) {
     const reducers = {
@@ -19,8 +20,8 @@ export default function configureStore(history, initialState) {
         user: User.reducer,
         inventory: Inventory.reducer,
         purchaser: Purchaser.reducer,
-        status: Status.reducer
-
+        status: Status.reducer,
+        order: Order.reducer
     };
 
     const middleware = [

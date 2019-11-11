@@ -1,7 +1,9 @@
 ﻿import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText ,option} from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools, faCheck } from '@fortawesome/free-solid-svg-icons'
+import MaterialUIPickers from '../components/MaterialUIPickers';
+import ReactStrapSelect from '../components/ReactStrapSelect';
 
 //Sample Code:
 const fields = [
@@ -63,7 +65,17 @@ export default class ReactStrapForm extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            selectedDate: new Date()
+        };
+
+
     }
+
+    handleDateChange(e) {
+
+    }
+
 
     render() {
         return (
@@ -76,6 +88,17 @@ export default class ReactStrapForm extends React.Component {
                                     <FormGroup>
                                         <Label for={f.id}>{f.label}</Label>
                                         <Input type="text" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
+                                    </FormGroup>
+                                )
+                            case "datetime":
+                                return (
+                                    <FormGroup>
+                                        <MaterialUIPickers
+                                            name={f.id} 
+                                            id={f.id}
+                                            label={f.label}
+                                            defaultValue={f.defaultValue}
+                                            />
                                     </FormGroup>
                                 )
                             case "number":
@@ -102,23 +125,40 @@ export default class ReactStrapForm extends React.Component {
                             case "select":
                                 return (
                                     <FormGroup>
-                                        <Label for={f.id}>{f.label}</Label>
-                                        <Input type="select" name={f.id} id={f.id} placeholder={f.placeHolder}>
-                                            {f.options.map(o => {
+                                        {/* <Label for={f.id}>{f.label}</Label>
+                                        <Input type="select" name={f.id} id={f.id} placeholder={f.placeHolder} value="testbyhanson">
+                                            {f.options.map(o => 
                                                 <option value={o.value}>{o.name}</option>
-                                            })}
-                                        </Input>
+                                            )} 
+                                        </Input>*/}
+
+                                        <ReactStrapSelect
+                                            label={f.label}
+                                            id={f.id}
+                                            placeHolder={f.placeHolder}
+                                            defaulValue={f.defaultValue}
+                                            options={f.options}
+                                            />
+
                                     </FormGroup>
                                 )
                             case "selectmultiple":
                                 return (
                                     <FormGroup>
-                                        <Label for={f.id}>{f.label}</Label>
+                                        {/* <Label for={f.id}>{f.label}</Label>
                                         <Input type="select" name={f.id} id={f.id} placeholder={f.placeHolder} multiple>
                                             {f.options.map(o => {
-                                                <option value={o.value}>{o.name}</option>
+                                                <option key={o.value} value={o.value}>{o.name}</option>
                                             })}
-                                        </Input>
+                                        </Input> */}
+                                        <ReactStrapSelect
+                                            multiple={true}
+                                            label={f.label}
+                                            id={f.id}
+                                            placeHolder={f.placeHolder}
+                                            defaulValue={f.defaultValue}
+                                            options={f.options}
+                                        />
                                     </FormGroup>
                                 )
                             case "textarea":

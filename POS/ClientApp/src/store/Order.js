@@ -8,6 +8,16 @@ const GETALL_REQUEST = 'ORDER_GETALL_REQUEST';
 const GETALL_SUCCESS = 'ORDER_GETALL_SUCCESS';
 const GETALL_FAILURE = 'ORDER_GETALL_FAILURE';
 
+const ORDER_GETALL_USER_REQUEST = 'ORDER_GETALL_USER_REQUEST';
+const ORDER_GETALL_USER_SUCCESS = 'ORDER_GETALL_USER_SUCCESS';
+const ORDER_GETALL_USER_FAILURE = 'ORDER_GETALL_USER_FAILURE';
+
+
+const ORDER_GETALL_PURCHASER_REQUEST = 'ORDER_GETALL_PURCHASER_REQUEST';
+const ORDER_GETALL_PURCHASER_SUCCESS = 'ORDER_GETALL_PURCHASER_SUCCESS';
+const ORDER_GETALL_PURCHASER_FAILURE = 'ORDER_GETALL_PURCHASER_FAILURE';
+
+
 const GET_REQUEST = 'ORDER_GET_REQUEST';
 const GET_SUCCESS = 'ORDER_GET_SUCCESS';
 const GET_FAILURE = 'ORDER_GET_FAILURE';
@@ -24,14 +34,14 @@ const UPDATE_REQUEST = 'ORDER_UPDATE_REQUEST';
 const UPDATE_SUCCESS = 'ORDER_UPDATE_SUCCESS';
 const UPDATE_FAILURE = 'ORDER_UPDATE_FAILURE';
 
-const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null};
+const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null,users: [], purchasers:[]};
 
 export const actionCreators = {
-    addOrder: (name, location, phoneNo, contactPerson, userId) => async (dispatch, getState) => {
+    addOrder: (orderDate, remark, deliverBy, deliverDate, shop, userId) => async (dispatch, getState) => {
         dispatch({ type: ADD_REQUEST });
 
         return new Promise((resolve, reject) => {
-            orderService.addOrder(name, location, phoneNo, contactPerson, userId)
+            orderService.addOrder(orderDate, remark, deliverBy, deliverDate, shop, userId)
                 .then(
                     item => {
                         dispatch({ type: ADD_SUCCESS, item });
@@ -123,7 +133,35 @@ export const actionCreators = {
                     dispatch(alertAction.error(error));
                 }
             );
-    }
+    },
+    getAllUsers: () => async (dispatch, getState) => {
+        dispatch({ type: ORDER_GETALL_USER_REQUEST });
+
+        orderService.getAllUsers()
+            .then(
+                items => {
+                    dispatch({ type: ORDER_GETALL_USER_SUCCESS, items });
+                },
+                error => {
+                    dispatch({ type: ORDER_GETALL_USER_FAILURE, error });
+                    dispatch(alertAction.error(error));
+                }
+            );
+    },
+    getAllPurchasers: () => async (dispatch, getState) => {
+        dispatch({ type: ORDER_GETALL_PURCHASER_REQUEST });
+
+        orderService.getAllPurchasers()
+            .then(
+                items => {
+                    dispatch({ type: ORDER_GETALL_PURCHASER_SUCCESS, items });
+                },
+                error => {
+                    dispatch({ type: ORDER_GETALL_PURCHASER_FAILURE, error });
+                    dispatch(alertAction.error(error));
+                }
+            );
+    },
 };
 
 export const reducer = (state, action) => {
@@ -155,6 +193,71 @@ export const reducer = (state, action) => {
             loading: false
         }
     }
+
+
+
+
+
+    if (action.type == ORDER_GETALL_USER_REQUEST) {
+        return {
+            ...state,
+            loading: true
+        }
+    }
+
+    if (action.type == ORDER_GETALL_USER_SUCCESS) {
+        action.items.map(i => {
+            i.key = i.userId;
+            i.value = i.userId;
+            i.name = i.displayName;
+
+        })
+        return {
+            ...state,
+            users: action.items,
+            loading: false
+        }
+    }
+
+    if (action.type == ORDER_GETALL_USER_FAILURE) {
+        return {
+            ...state,
+            error: action.error,
+            loading: false
+        }
+    }
+
+
+    if (action.type == ORDER_GETALL_PURCHASER_REQUEST) {
+        return {
+            ...state,
+            loading: true
+        }
+    }
+
+    if (action.type == ORDER_GETALL_PURCHASER_SUCCESS) {
+        action.items.map(i => {
+            i.key = i.purchaserId;
+            i.value = i.purchaserId;
+        })
+        return {
+            ...state,
+            purchasers: action.items,
+            loading: false
+        }
+    }
+
+    if (action.type == ORDER_GETALL_PURCHASER_FAILURE) {
+        return {
+            ...state,
+            error: action.error,
+            loading: false
+        }
+    }
+
+
+
+
 
 
     if (action.type == GET_REQUEST) {

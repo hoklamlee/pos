@@ -19,6 +19,9 @@ class AddOrderPage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.props.getAllUsers();
+        this.props.getAllPurchasers();
+
         this.submitForm = this.submitForm.bind(this);
         this.goBack = this.goBack.bind(this);
     }
@@ -27,14 +30,15 @@ class AddOrderPage extends React.Component {
     submitForm(event) {
         event.preventDefault();
 
-        var name = event.target[0].value;
-        var location = event.target[1].value;
-        var phoneNo = event.target[2].value;
-        var contactPerson = event.target[3].value;
+        var orderDate = event.target["orderDate"].value;
+        var remark = event.target["remark"].value;
+        var deliverBy = event.target["deliverBy"].value;
+        var deliverDate = event.target["deliverDate"].value;
+        var shop = event.target["purchaser"].value;
 
         var userId = JSON.parse(localStorage.getItem('user')).userId;
 
-        this.props.addOrder(name, location, phoneNo, contactPerson, userId).then(success => {
+        this.props.addOrder(orderDate, remark, deliverBy, deliverDate, shop, userId).then(success => {
             if (success) {
                 this.props.history.push("/order");
             }
@@ -55,33 +59,46 @@ class AddOrderPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>New Order</div>}
                 />
 
+                {this.props.users.length > 0 && this.props.purchasers.length > 0 ?
+                    <ReactStrapFrom
+                        onSubmit={this.submitForm}
+                        fields={
+                            [{
+                                label: "Order Date",
+                                type: "datetime",
+                                id: "orderDate",
+                                placeHolder: ""
+                            }, {
+                                label: "Remark",
+                                type: "text",
+                                id: "remark",
+                                placeHolder: ""
+                            }
+                                , {
+                                label: "Deliver By",
+                                type: "select",
+                                id: "deliverBy",
+                                options: this.props.users,
+                                placeHolder: ""
+                            }, {
+                                label: "Deliver Date",
+                                type: "datetime",
+                                id: "deliverDate",
+                                placeHolder: ""
+                            }, {
+                                label: "Shop",
+                                type: "select",
+                                options: this.props.purchasers,
+                                id: "purchaser",
+                                placeHolder: ""
+                            }]
+                        } />
 
-                <ReactStrapFrom
-                    onSubmit={this.submitForm}
-                    fields={
-                        [{
-                            label: "Name",
-                            type: "text",
-                            id: "Name",
-                            placeHolder: ""
-                        }, {
-                            label: "Location",
-                            type: "text",
-                            id: "Location",
-                            placeHolder: ""
-                        }
-                            , {
-                            label: "PhoneNo",
-                            type: "text",
-                            id: "PhoneNo",
-                            placeHolder: ""
-                        }, {
-                            label: "ContactPerson",
-                            type: "text",
-                            id: "ContactPerson",
-                            placeHolder: ""
-                        }]
-                    } />
+                    :
+
+                    <div></div>}
+
+
             </div>
 
         );
@@ -91,9 +108,9 @@ class AddOrderPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loading, error, items } = state.order;
+    const { loading, error, items, users, purchasers } = state.order;
     return {
-        loading, error, items
+        loading, error, items, users, purchasers
     };
 }
 

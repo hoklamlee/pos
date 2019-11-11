@@ -48,22 +48,29 @@ class OrderPage extends React.Component {
 
         const columns = [
             {
-                title: 'Name',
-                field: 'name'
+                title: 'Order Date',
+                field: 'orderDate'
             },
             {
-                title: 'Location',
-                field: 'location'
+                title: 'Remark',
+                field: 'remark'
             },
             {
-                title: 'Phone No.',
-                field: 'phoneNo'
+                title: 'Deliver By',
+                field: 'deliverBy.displayName'
 
             },
             {
-                title: 'Contact Person',
-                field: 'contactPerson'
-
+                title: 'Deliver Date',
+                field: 'deliverDate'
+            },
+            {
+                title: 'Status',
+                field: 'status.code'
+            },
+            {
+                title: 'Shop',
+                field: 'purchaser.name'
             }
         ]
 

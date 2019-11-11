@@ -27,9 +27,12 @@ namespace POS.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            
 
             //modelBuilder.Entity<Order>().HasOne(o => o.DeliverBy).WithMany(o=>o.DeliverOrders).HasForeignKey(o => o.DeliverById);
+            //modelBuilder.Entity<Order>().HasOne(o => o.CreatedBy).WithMany(o => o.CreatedOrders).HasForeignKey(o => o.CreatedBy_UserId);
+            //modelBuilder.Entity<Order>().HasOne(o => o.ModifiedBy).WithMany(o => o.ModifiedOrders).HasForeignKey(o => o.ModifiedBy_UserId);
+
             //modelBuilder.Entity<Order>().HasOne(o => o.Status).WithMany().HasForeignKey(o=>o.StatusId);
             //modelBuilder.Entity<Order>().HasOne(o => o.Purchaser).WithMany().HasForeignKey(o => o.PurchaserId);
             //modelBuilder.Entity<Order>().HasMany(o => o.OrderItems).WithOne(o => o.Order);

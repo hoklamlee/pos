@@ -14,6 +14,10 @@ import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
 import { ProfilePage } from './containers/ProfilePage/ProfilePage';
 
+import { OrderPage } from './containers/OrderPage/OrderPage';
+import { AddOrderPage } from './containers/OrderPage/AddOrderPage';
+import { EditOrderPage } from './containers/OrderPage/EditOrderPage';
+
 import { InventoryPage } from './containers/InventoryPage/InventoryPage';
 import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
 import { EditInventoryPage } from './containers/InventoryPage/EditInventoryPage';
@@ -71,6 +75,10 @@ class App extends React.Component {
                         <PrivateRoute exact path="/" component={Home} />
                         <Route path="/login" component={LoginPage} />
                         <PrivateRoute path='/counter' component={Counter} />
+
+                        <PrivateRoute path='/order' component={OrderPage} />
+                        <PrivateRoute path='/createorder' component={AddOrderPage} />
+                        <PrivateRoute path='/editorder/:id' component={EditOrderPage} />
 
                         <PrivateRoute path='/inventory' component={InventoryPage} />
                         <PrivateRoute path='/createinventory' component={AddInventoryPage} />

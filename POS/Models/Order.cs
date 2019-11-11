@@ -22,7 +22,6 @@ namespace POS.Models
         public Status Status { get; set; }
 
         //public ICollection<OrderItem> OrderItems { get; set; }
-
         public int? PurchaserId { get; set; }
         public Purchaser Purchaser { get; set; }
 

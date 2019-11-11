@@ -24,7 +24,9 @@ namespace POS.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.ToListAsync();
+            //List<Order> os = _context.Orders.Include("DeliverBy").Include("Status").ToList();
+
+            return await _context.Orders.Include("Purchaser").Include("DeliverBy").Include("Status").Include("CreatedBy").Include("ModifiedBy").ToListAsync();
         }
 
         // GET: api/Orders/5
@@ -80,42 +82,28 @@ namespace POS.Controllers
             {
                 return NotFound();
             }
-            User user = _context.Users.Find(order.ModifiedBy_UserId);
 
-            order.ModifiedDate = DateTime.Now;
-            order.ModifiedBy_UserId = newOrder.ModifiedBy_UserId;
-            order.ModifiedBy = user;
-
-            order.DeliverById = newOrder.DeliverById;
-
-            order.DeliverDate = newOrder.DeliverDate;
-
-            order.PurchaserId = newOrder.PurchaserId;
-
-            if (newOrder.DeliverById != null)
+            if (order.DeliverById != null)
             {
-                User deliverBy = _context.Users.Find(newOrder.DeliverById);
+                User deliverBy = _context.Users.Find(order.DeliverById);
                 order.DeliverBy = deliverBy;
             }
 
-            order.OrderDate = newOrder.OrderDate;
-
-            order.Remark = newOrder.Remark;
-
-            order.PurchaserId = newOrder.PurchaserId;
-            if (newOrder.PurchaserId != null)
+            if (order.PurchaserId != null)
             {
-                Purchaser purchaser = _context.Purchasers.Find(newOrder.PurchaserId);
+                Purchaser purchaser = _context.Purchasers.Find(order.PurchaserId);
                 order.Purchaser = purchaser;
             }
 
+            Status status = _context.Statuses.Where(o => o.Category == "order" && o.Code == "Pending" && o.Active == true).FirstOrDefault();
 
-            order.StatusId = newOrder.StatusId;
-            if(newOrder.StatusId != null)
-            {
-                Status status = _context.Statuses.Find(newOrder.StatusId);
-                order.Status = status;
-            }
+            order.Status = status;
+
+            User user = _context.Users.Find(order.CreatedBy_UserId);
+
+            order.ModifiedBy = user;
+            order.ModifiedBy_UserId = order.CreatedBy_UserId;
+            order.ModifiedDate = DateTime.Now;
 
 
             _context.Entry(order).State = EntityState.Modified;
@@ -136,6 +124,32 @@ namespace POS.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
+            if (order.DeliverById != null)
+            {
+                User deliverBy = _context.Users.Find(order.DeliverById);
+                order.DeliverBy = deliverBy;
+            }
+
+            if (order.PurchaserId != null)
+            {
+                Purchaser purchaser = _context.Purchasers.Find(order.PurchaserId);
+                order.Purchaser = purchaser;
+            }
+
+            Status status = _context.Statuses.Where(o => o.Category == "order" && o.Code == "Pending" && o.Active == true).FirstOrDefault();
+
+            order.Status = status;
+
+            User user = _context.Users.Find(order.CreatedBy_UserId);
+
+            order.CreatedBy = user;
+            order.CreatedBy_UserId = order.CreatedBy_UserId;
+            order.OrderDate = DateTime.Now;
+
+            order.ModifiedBy = user;
+            order.ModifiedBy_UserId = order.CreatedBy_UserId;
+            order.ModifiedDate = DateTime.Now;
+
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 

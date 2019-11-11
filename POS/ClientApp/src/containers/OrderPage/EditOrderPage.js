@@ -21,7 +21,13 @@ class EditOrderPage extends React.Component {
         super(props);
 
         const orderId = this.props.match.params.id;
+
+
         this.props.getOrderById(orderId);
+        this.props.getAllUsers();
+        this.props.getAllPurchasers();
+
+
         this.submitForm = this.submitForm.bind(this);
         this.goBack = this.goBack.bind(this);
 
@@ -47,15 +53,16 @@ class EditOrderPage extends React.Component {
     submitForm(event) {
         event.preventDefault();
 
-        var name = event.target[0].value;
-        var location = event.target[1].value;
-        var phoneNo = event.target[2].value;
-        var contactPerson = event.target[3].value;
+        var orderDate = event.target["orderDate"].value;
+        var remark = event.target["remark"].value;
+        var deliverBy = event.target["deliverBy"].value;
+        var deliverDate = event.target["deliverDate"].value;
+        var shop = event.target["purchaser"].value;
 
         var userId = JSON.parse(localStorage.getItem('user')).userId;
         const orderId = this.props.match.params.id;
 
-        this.props.updateOrder(orderId,name, location, phoneNo, contactPerson, userId).then(success => {
+        this.props.updateOrder(orderId, orderDate, remark, deliverBy, deliverDate, shop, userId).then(success => {
             if (success) {
                 this.props.history.push("/order");
             }
@@ -75,44 +82,51 @@ class EditOrderPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>Edit Order</div>}
                 />
 
-                {
-                    this.props.item ?
-                        <ReactStrapFrom
-                            onSubmit={this.submitForm}
-                            fields={
-                                [{
-                                    label: "Name",
-                                    type: "text",
-                                    id: "Name",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.name
-                                }, {
-                                    label: "Location",
-                                    type: "text",
-                                    id: "Location",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.location
+                {this.props.users.length > 0 && this.props.purchasers.length > 0 ?
+                    <ReactStrapFrom
+                        onSubmit={this.submitForm}
+                        fields={
+                            [{
+                                label: "Order Date",
+                                type: "datetime",
+                                id: "orderDate",
+                                placeHolder: "",
+                                defaultValue: this.props.item.orderDate
+                            }, {
+                                label: "Remark",
+                                type: "text",
+                                id: "remark",
+                                placeHolder: "",
+                                defaultValue: this.props.item.remark
+                            }
+                                , {
+                                label: "Deliver By",
+                                type: "select",
+                                id: "deliverBy",
+                                options: this.props.users,
+                                placeHolder: "",
+                                defaultValue: this.props.item.devliverById
+                            }, {
+                                label: "Deliver Date",
+                                type: "datetime",
+                                id: "deliverDate",
+                                placeHolder: "",
+                                defaultValue: this.props.item.deliverDate
 
-                                }
-                                    , {
-                                    label: "PhoneNo",
-                                    type: "text",
-                                    id: "PhoneNo",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.phoneNo
-                                }, {
-                                    label: "ContactPerson",
-                                    type: "text",
-                                    id: "ContactPerson",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.contactPerson
+                            }, {
+                                label: "Shop",
+                                type: "select",
+                                options: this.props.purchasers,
+                                id: "purchaser",
+                                placeHolder: "",
+                                defaultValue: this.props.item.purchaserId
 
-                                }]
-                            } />
+                            }]
+                        } />
 
-                        :
-                        <div></div>
-                }
+                    :
+
+                    <div></div>}
 
             </div>
 
@@ -123,9 +137,9 @@ class EditOrderPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loading, error, item } = state.order;
+    const { loading, error, item, users, purchasers } = state.order;
     return {
-        loading, error, item
+        loading, error, item, users, purchasers
     };
 }
 
