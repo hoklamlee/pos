@@ -15,7 +15,7 @@ export default function ReactStrapSelect(props) {
         <div>
             <Label for={props.id}>{props.label}</Label>
             {props.multiple ?
-                <Input type="select" name={props.id} id={props.id} placeholder={props.placeHolder} onChange={handleChange} value={props.defaultValue} multiple>
+                <Input type="select" name={props.id} id={props.id} placeholder={props.placeHolder} onChange={handleChange} defaultValue={props.defaultValue}  multiple>
                     <option key="" value=""></option>
 
                     {props.options.map(o =>
@@ -23,7 +23,7 @@ export default function ReactStrapSelect(props) {
                     )}
                 </Input>
                 :
-                <Input type="select" name={props.id} id={props.id} placeholder={props.placeHolder} onChange={handleChange} value={props.defaultValue}>
+                <Input type="select" name={props.id} id={props.id} placeholder={props.placeHolder} onChange={handleChange} defaultValue={props.defaultValue} >
                     <option key="" value=""></option>
                     {props.options.map(o =>
                         <option key={o.value} value={o.value}>{o.name}</option>

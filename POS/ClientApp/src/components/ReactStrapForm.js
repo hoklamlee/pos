@@ -136,7 +136,7 @@ export default class ReactStrapForm extends React.Component {
                                             label={f.label}
                                             id={f.id}
                                             placeHolder={f.placeHolder}
-                                            defaulValue={f.defaultValue}
+                                            defaultValue={f.defaultValue}
                                             options={f.options}
                                             />
 
@@ -156,7 +156,7 @@ export default class ReactStrapForm extends React.Component {
                                             label={f.label}
                                             id={f.id}
                                             placeHolder={f.placeHolder}
-                                            defaulValue={f.defaultValue}
+                                            defaultValue={f.defaultValue}
                                             options={f.options}
                                         />
                                     </FormGroup>

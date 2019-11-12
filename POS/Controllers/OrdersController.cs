@@ -83,17 +83,19 @@ namespace POS.Controllers
                 return NotFound();
             }
 
-            if (order.DeliverById != null)
+            if (newOrder.DeliverById != null)
             {
                 User deliverBy = _context.Users.Find(order.DeliverById);
                 order.DeliverBy = deliverBy;
             }
 
-            if (order.PurchaserId != null)
+            if (newOrder.PurchaserId != null)
             {
-                Purchaser purchaser = _context.Purchasers.Find(order.PurchaserId);
+                Purchaser purchaser = _context.Purchasers.Find(newOrder.PurchaserId);
                 order.Purchaser = purchaser;
             }
+
+            order.Remark = newOrder.Remark;
 
             Status status = _context.Statuses.Where(o => o.Category == "order" && o.Code == "Pending" && o.Active == true).FirstOrDefault();
 
@@ -141,6 +143,8 @@ namespace POS.Controllers
             order.Status = status;
 
             User user = _context.Users.Find(order.CreatedBy_UserId);
+
+            order.Active = true;
 
             order.CreatedBy = user;
             order.CreatedBy_UserId = order.CreatedBy_UserId;

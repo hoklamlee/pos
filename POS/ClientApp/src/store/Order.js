@@ -58,11 +58,11 @@ export const actionCreators = {
         });
 
     },
-    updateOrder: (OrderId,name, location, phoneNo, contactPerson, userId) => async (dispatch, getState) => {
+    updateOrder: (OrderId, orderDate, remark, deliverBy, deliverDate, shop, userId) => async (dispatch, getState) => {
         dispatch({ type: UPDATE_REQUEST });
 
         return new Promise((resolve, reject) => {
-            orderService.updateOrder(OrderId,name, location, phoneNo, contactPerson, userId)
+            orderService.updateOrder(OrderId, orderDate, remark, deliverBy, deliverDate, shop, userId)
                 .then(
                     item => {
                         dispatch({ type: UPDATE_SUCCESS, item });
@@ -263,6 +263,7 @@ export const reducer = (state, action) => {
     if (action.type == GET_REQUEST) {
         return {
             ...state,
+            item: null,
             loading: true
         }
     }

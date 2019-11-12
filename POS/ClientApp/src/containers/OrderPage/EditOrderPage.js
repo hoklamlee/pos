@@ -22,10 +22,10 @@ class EditOrderPage extends React.Component {
 
         const orderId = this.props.match.params.id;
 
-
-        this.props.getOrderById(orderId);
         this.props.getAllUsers();
         this.props.getAllPurchasers();
+
+        this.props.getOrderById(orderId);
 
 
         this.submitForm = this.submitForm.bind(this);
@@ -82,7 +82,7 @@ class EditOrderPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>Edit Order</div>}
                 />
 
-                {this.props.users.length > 0 && this.props.purchasers.length > 0 ?
+                {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item?
                     <ReactStrapFrom
                         onSubmit={this.submitForm}
                         fields={
@@ -104,8 +104,8 @@ class EditOrderPage extends React.Component {
                                 type: "select",
                                 id: "deliverBy",
                                 options: this.props.users,
-                                placeHolder: "",
-                                defaultValue: this.props.item.devliverById
+                                    placeHolder: "",
+                                    defaultValue: this.props.item.deliverById ? String(this.props.item.deliverById) : ""
                             }, {
                                 label: "Deliver Date",
                                 type: "datetime",
@@ -119,7 +119,7 @@ class EditOrderPage extends React.Component {
                                 options: this.props.purchasers,
                                 id: "purchaser",
                                 placeHolder: "",
-                                defaultValue: this.props.item.purchaserId
+                                    defaultValue: this.props.item.purchaserId ? String(this.props.item.purchaserId) : ""
 
                             }]
                         } />
