@@ -96,6 +96,7 @@ namespace POS.Controllers
             }
 
             order.Remark = newOrder.Remark;
+            order.DeliverDate = newOrder.DeliverDate;
 
             Status status = _context.Statuses.Where(o => o.Category == "order" && o.Code == "Pending" && o.Active == true).FirstOrDefault();
 

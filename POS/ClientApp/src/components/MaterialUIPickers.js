@@ -12,7 +12,7 @@ import {
 
 export default function MaterialUIPickers(props) {
     // The first commit of Material-UI
-    const [selectedDate, setSelectedDate] = React.useState(props.defaultValue ? new Date(props.defaultValue) : moment());
+    const [selectedDate, setSelectedDate] = React.useState(props.defaultValue ? moment(props.defaultValue, 'DD/MM/YYYY') : moment());
 
     const handleDateChange = date => {
         setSelectedDate(date);

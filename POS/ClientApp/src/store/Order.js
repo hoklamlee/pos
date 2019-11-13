@@ -1,4 +1,6 @@
 import { orderService } from '../services/orderService';
+import { inventoryService } from '../services/inventoryService';
+
 import { history } from '../helpers/history';
 import { actionCreators as alertAction } from './Alert';
 
@@ -17,6 +19,9 @@ const ORDER_GETALL_PURCHASER_REQUEST = 'ORDER_GETALL_PURCHASER_REQUEST';
 const ORDER_GETALL_PURCHASER_SUCCESS = 'ORDER_GETALL_PURCHASER_SUCCESS';
 const ORDER_GETALL_PURCHASER_FAILURE = 'ORDER_GETALL_PURCHASER_FAILURE';
 
+const ORDER_GETALL_INVENTORY_REQUEST = 'ORDER_GETALL_INVENTORY_REQUEST';
+const ORDER_GETALL_INVENTORY_SUCCESS = 'ORDER_GETALL_INVENTORY_SUCCESS';
+const ORDER_GETALL_INVENTORY_FAILURE = 'ORDER_GETALL_INVENTORY_FAILURE';
 
 const GET_REQUEST = 'ORDER_GET_REQUEST';
 const GET_SUCCESS = 'ORDER_GET_SUCCESS';
@@ -34,7 +39,7 @@ const UPDATE_REQUEST = 'ORDER_UPDATE_REQUEST';
 const UPDATE_SUCCESS = 'ORDER_UPDATE_SUCCESS';
 const UPDATE_FAILURE = 'ORDER_UPDATE_FAILURE';
 
-const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null,users: [], purchasers:[]};
+const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null,users: [], purchasers:[], inventories:[]};
 
 export const actionCreators = {
     addOrder: (orderDate, remark, deliverBy, deliverDate, shop, userId) => async (dispatch, getState) => {
@@ -162,6 +167,20 @@ export const actionCreators = {
                 }
             );
     },
+    getInventoriesByCategory: (category) => async (dispatch, getState) => {
+        dispatch({ type: ORDER_GETALL_INVENTORY_REQUEST });
+
+        inventoryService.getInventoriesByCategory(category)
+            .then(
+                items => {
+                    dispatch({ type: ORDER_GETALL_INVENTORY_SUCCESS, items });
+                },
+                error => {
+                    dispatch({ type: ORDER_GETALL_INVENTORY_FAILURE, error });
+                    dispatch(alertAction.error(error));
+                }
+            );
+    },
 };
 
 export const reducer = (state, action) => {
@@ -257,7 +276,32 @@ export const reducer = (state, action) => {
 
 
 
+    if (action.type == ORDER_GETALL_INVENTORY_REQUEST) {
+        return {
+            ...state,
+            loading: true
+        }
+    }
 
+    if (action.type == ORDER_GETALL_INVENTORY_SUCCESS) {
+        action.items.map(i => {
+            i.key = i.inventoryId;
+            i.value = i.inventoryId;
+        })
+        return {
+            ...state,
+            inventories: action.items,
+            loading: false
+        }
+    }
+
+    if (action.type == ORDER_GETALL_INVENTORY_FAILURE) {
+        return {
+            ...state,
+            error: action.error,
+            loading: false
+        }
+    }
 
 
     if (action.type == GET_REQUEST) {

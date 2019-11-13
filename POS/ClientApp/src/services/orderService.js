@@ -15,11 +15,11 @@ export const orderService = {
 
 
 
-function addOrder(orderDate, remark, deliverById, deliverDate, PurchaserId,  createdBy_UserId) {
+function addOrder(orderDate, remark, deliverById, deliverDate, purchaserId, createdBy_UserId) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: JSON.stringify({ orderDate, remark, deliverById, deliverDate, PurchaserId, createdBy_UserId })
+        body: JSON.stringify({ orderDate, remark, deliverById, deliverDate, purchaserId, createdBy_UserId })
 
     };
 

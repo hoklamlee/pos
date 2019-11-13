@@ -33,11 +33,14 @@ namespace POS
         {
             services.Configure<Settings>(Configuration);
 
-            services.AddMvc()
-                .AddJsonOptions(
-            options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        )
+            services.AddMvc().AddJsonOptions(
+            options => {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.DateFormatString = "dd/MM/yyyy"; // month must be capital. otherwise it gives minutes.
+            })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
 
             //###############Database setup##################
             services.AddDbContext<POSContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:DefaultConnection"]));

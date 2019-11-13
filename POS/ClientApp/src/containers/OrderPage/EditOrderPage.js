@@ -24,6 +24,7 @@ class EditOrderPage extends React.Component {
 
         this.props.getAllUsers();
         this.props.getAllPurchasers();
+        this.props.getInventoriesByCategory("All");
 
         this.props.getOrderById(orderId);
 
@@ -82,47 +83,50 @@ class EditOrderPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>Edit Order</div>}
                 />
 
-                {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item?
-                    <ReactStrapFrom
-                        onSubmit={this.submitForm}
-                        fields={
-                            [{
-                                label: "Order Date",
-                                type: "datetime",
-                                id: "orderDate",
-                                placeHolder: "",
-                                defaultValue: this.props.item.orderDate
-                            }, {
-                                label: "Remark",
-                                type: "text",
-                                id: "remark",
-                                placeHolder: "",
-                                defaultValue: this.props.item.remark
-                            }
-                                , {
-                                label: "Deliver By",
-                                type: "select",
-                                id: "deliverBy",
-                                options: this.props.users,
+                {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item ?
+                    <div>
+                        <ReactStrapFrom
+                            onSubmit={this.submitForm}
+                            fields={
+                                [{
+                                    label: "Order Date",
+                                    type: "datetime",
+                                    id: "orderDate",
+                                    placeHolder: "",
+                                    defaultValue: this.props.item.orderDate
+                                }, {
+                                    label: "Remark",
+                                    type: "text",
+                                    id: "remark",
+                                    placeHolder: "",
+                                    defaultValue: this.props.item.remark
+                                }
+                                    , {
+                                    label: "Deliver By",
+                                    type: "select",
+                                    id: "deliverBy",
+                                    options: this.props.users,
                                     placeHolder: "",
                                     defaultValue: this.props.item.deliverById ? String(this.props.item.deliverById) : ""
-                            }, {
-                                label: "Deliver Date",
-                                type: "datetime",
-                                id: "deliverDate",
-                                placeHolder: "",
-                                defaultValue: this.props.item.deliverDate
+                                }, {
+                                    label: "Deliver Date",
+                                    type: "datetime",
+                                    id: "deliverDate",
+                                    placeHolder: "",
+                                    defaultValue: this.props.item.deliverDate
 
-                            }, {
-                                label: "Shop",
-                                type: "select",
-                                options: this.props.purchasers,
-                                id: "purchaser",
-                                placeHolder: "",
+                                }, {
+                                    label: "Shop",
+                                    type: "select",
+                                    options: this.props.purchasers,
+                                    id: "purchaser",
+                                    placeHolder: "",
                                     defaultValue: this.props.item.purchaserId ? String(this.props.item.purchaserId) : ""
 
-                            }]
-                        } />
+                                }]
+                            } />
+
+                    </div>
 
                     :
 
@@ -137,9 +141,9 @@ class EditOrderPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loading, error, item, users, purchasers } = state.order;
+    const { loading, error, item, users, purchasers, inventories } = state.order;
     return {
-        loading, error, item, users, purchasers
+        loading, error, item, users, purchasers, inventories
     };
 }
 
