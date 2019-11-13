@@ -18,6 +18,10 @@ import { OrderPage } from './containers/OrderPage/OrderPage';
 import { AddOrderPage } from './containers/OrderPage/AddOrderPage';
 import { EditOrderPage } from './containers/OrderPage/EditOrderPage';
 
+import { OrderItemPage } from './containers/OrderItemPage/OrderItemPage';
+import { AddOrderItemPage } from './containers/OrderItemPage/AddOrderItemPage';
+import { EditOrderItemPage } from './containers/OrderItemPage/EditOrderItemPage';
+
 import { InventoryPage } from './containers/InventoryPage/InventoryPage';
 import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
 import { EditInventoryPage } from './containers/InventoryPage/EditInventoryPage';
@@ -79,6 +83,10 @@ class App extends React.Component {
                         <PrivateRoute path='/order' component={OrderPage} />
                         <PrivateRoute path='/createorder' component={AddOrderPage} />
                         <PrivateRoute path='/editorder/:id' component={EditOrderPage} />
+
+                        <PrivateRoute path='/orderitem' component={OrderItemPage} />
+                        <PrivateRoute path='/createorderitem' component={AddOrderItemPage} />
+                        <PrivateRoute path='/editorderitem/:id' component={EditOrderItemPage} />
 
                         <PrivateRoute path='/inventory' component={InventoryPage} />
                         <PrivateRoute path='/createinventory' component={AddInventoryPage} />

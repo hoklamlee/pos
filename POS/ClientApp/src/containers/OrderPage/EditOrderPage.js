@@ -12,13 +12,17 @@ import config from 'react-global-configuration';
 import EditableTable from '../../components/AntTable';
 import ReactStrapFrom from '../../components/ReactStrapForm';
 import PageHeader from '../../components/PageHeader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Divider } from '@material-ui/core';
+import RightBottomButton from '../../components/RightBottomButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+
+import { OrderItemPage } from '../OrderItemPage/OrderItemPage';
 
 class EditOrderPage extends React.Component {
     constructor(props) {
         super(props);
+
 
         const orderId = this.props.match.params.id;
 
@@ -33,6 +37,8 @@ class EditOrderPage extends React.Component {
         this.goBack = this.goBack.bind(this);
 
         //this.submitInfo = this.submitInfo.bind(this);
+
+        this.state = { orderId: orderId };
 
     }
 
@@ -126,11 +132,15 @@ class EditOrderPage extends React.Component {
                                 }]
                             } />
 
+                        <OrderItemPage orderId={this.state.orderId} />
+
+
                     </div>
 
                     :
 
                     <div></div>}
+                <RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>
 
             </div>
 

@@ -146,10 +146,11 @@ namespace POS.Controllers
             User user = _context.Users.Find(order.CreatedBy_UserId);
 
             order.Active = true;
+            order.OrderDate = DateTime.Now;
 
             order.CreatedBy = user;
             order.CreatedBy_UserId = order.CreatedBy_UserId;
-            order.OrderDate = DateTime.Now;
+            order.CreatedDate = DateTime.Now;
 
             order.ModifiedBy = user;
             order.ModifiedBy_UserId = order.CreatedBy_UserId;
