@@ -19,28 +19,31 @@ class AddOrderItemPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.props.getAllUsers();
-        this.props.getAllPurchasers();
+        const orderId = this.props.match.params.id;
+        this.state = { orderId: orderId };
+
+        this.props.getInventoriesByCategory("All");
 
         this.submitForm = this.submitForm.bind(this);
         this.goBack = this.goBack.bind(this);
+
+
     }
 
 
     submitForm(event) {
         event.preventDefault();
 
-        var orderItemDate = event.target["orderItemDate"].value;
+        var inventory = event.target["inventory"].value;
+        var price = event.target["price"].value;
+        var quatity = event.target["quatity"].value;
         var remark = event.target["remark"].value;
-        var deliverBy = event.target["deliverBy"].value;
-        var deliverDate = event.target["deliverDate"].value;
-        var shop = event.target["purchaser"].value;
 
         var userId = JSON.parse(localStorage.getItem('user')).userId;
 
-        this.props.addOrderItem(orderItemDate, remark, deliverBy, deliverDate, shop, userId).then(success => {
+        this.props.addOrderItem(this.state.orderId, inventory, price, quatity, remark, userId).then(success => {
             if (success) {
-                this.props.history.push("/orderItem");
+                this.props.history.push("/editorder/" + this.state.orderId);
             }
         });
     }
@@ -59,37 +62,32 @@ class AddOrderItemPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>New OrderItem</div>}
                 />
 
-                {this.props.users.length > 0 && this.props.purchasers.length > 0 ?
+                {this.props.inventories.length > 0 ?
                     <ReactStrapFrom
                         onSubmit={this.submitForm}
                         fields={
                             [{
-                                label: "OrderItem Date",
-                                type: "datetime",
-                                id: "orderItemDate",
+                                label: "Inventory",
+                                type: "select",
+                                id: "inventory",
+                                options: this.props.inventories,
+                                placeHolder: ""
+                            },
+                            {
+                                label: "Price",
+                                type: "number",
+                                id: "price",
                                 placeHolder: ""
                             }, {
-                                label: "Remark",
-                                type: "text",
-                                id: "remark",
+                                label: "Quatity",
+                                type: "number",
+                                id: "quatity",
                                 placeHolder: ""
                             }
                                 , {
-                                label: "Deliver By",
-                                type: "select",
-                                id: "deliverBy",
-                                options: this.props.users,
-                                placeHolder: ""
-                            }, {
-                                label: "Deliver Date",
-                                type: "datetime",
-                                id: "deliverDate",
-                                placeHolder: ""
-                            }, {
-                                label: "Shop",
-                                type: "select",
-                                options: this.props.purchasers,
-                                id: "purchaser",
+                                label: "Remark",
+                                type: "text",
+                                id: "remark",
                                 placeHolder: ""
                             }]
                         } />
@@ -108,9 +106,9 @@ class AddOrderItemPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loading, error, items, users, purchasers } = state.orderItem;
+    const { loading, error, items, users, inventories } = state.orderItem;
     return {
-        loading, error, items, users, purchasers
+        loading, error, items, users, inventories
     };
 }
 

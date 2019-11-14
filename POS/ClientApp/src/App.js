@@ -85,7 +85,7 @@ class App extends React.Component {
                         <PrivateRoute path='/editorder/:id' component={EditOrderPage} />
 
                         <PrivateRoute path='/orderitem' component={OrderItemPage} />
-                        <PrivateRoute path='/createorderitem' component={AddOrderItemPage} />
+                        <PrivateRoute path='/createorderitem/:id' component={AddOrderItemPage} />
                         <PrivateRoute path='/editorderitem/:id' component={EditOrderItemPage} />
 
                         <PrivateRoute path='/inventory' component={InventoryPage} />

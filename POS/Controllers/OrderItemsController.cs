@@ -44,7 +44,7 @@ namespace POS.Controllers
         [HttpGet("/api/[controller]/[action]/{id}")]
         public async Task<ActionResult<IEnumerable<OrderItem>>> GetOrderItemsByOrderId(int id)
         {
-           return await _context.OrderItems.Where(o=>o.OrderId.Value == id).ToListAsync();
+           return await _context.OrderItems.Where(o=>o.OrderId.Value == id).Include("Inventory").ToListAsync();
 
         }
 

@@ -22,15 +22,10 @@ class OrderItemPage extends React.Component {
 
         //this.submitInfo = this.submitInfo.bind(this);
         this.delete = this.delete.bind(this);
-        this.handeCreate = this.handeCreate.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
 
-    handeCreate() {
-        //this.props.history.push("/createorderItem");
-        this.props.history.push("/createorderItem");
-    }
 
     handleUpdate(key) {
         this.props.history.push("/editorderItem/" + key);
@@ -48,29 +43,21 @@ class OrderItemPage extends React.Component {
 
         const columns = [
             {
-                title: 'OrderItem Date',
-                field: 'orderItemDate'
+                title: 'Inventory',
+                field: 'inventory.name'
             },
             {
                 title: 'Remark',
-                field: 'remark'
+                field: 'price'
             },
             {
                 title: 'Deliver By',
-                field: 'deliverBy.displayName'
+                field: 'quatity'
 
             },
             {
                 title: 'Deliver Date',
-                field: 'deliverDate'
-            },
-            {
-                title: 'Status',
-                field: 'status.code'
-            },
-            {
-                title: 'Shop',
-                field: 'purchaser.name'
+                field: 'remark'
             }
         ]
 

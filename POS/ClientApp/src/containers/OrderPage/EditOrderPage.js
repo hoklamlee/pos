@@ -35,6 +35,7 @@ class EditOrderPage extends React.Component {
 
         this.submitForm = this.submitForm.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.handeCreate = this.handeCreate.bind(this);
 
         //this.submitInfo = this.submitInfo.bind(this);
 
@@ -42,7 +43,10 @@ class EditOrderPage extends React.Component {
 
     }
 
-
+    handeCreate() {
+        //this.props.history.push("/createorder");
+        this.props.history.push("/createorderitem/" + this.state.orderId);
+    }
 
 
     //submitInfo(event) {
