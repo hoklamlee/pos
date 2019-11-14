@@ -232,3 +232,4 @@ _Pvt_Extensions
 .fake/
 .vs/
 /.vs
+.vs/POS/v16/Server/sqlite3/
