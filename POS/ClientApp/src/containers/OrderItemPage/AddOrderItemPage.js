@@ -35,13 +35,12 @@ class AddOrderItemPage extends React.Component {
         event.preventDefault();
 
         var inventory = event.target["inventory"].value;
-        var price = event.target["price"].value;
         var quatity = event.target["quatity"].value;
         var remark = event.target["remark"].value;
 
         var userId = JSON.parse(localStorage.getItem('user')).userId;
 
-        this.props.addOrderItem(this.state.orderId, inventory, price, quatity, remark, userId).then(success => {
+        this.props.addOrderItem(this.state.orderId, inventory, quatity, remark, userId).then(success => {
             if (success) {
                 this.props.history.push("/editorder/" + this.state.orderId);
             }
@@ -71,12 +70,6 @@ class AddOrderItemPage extends React.Component {
                                 type: "select",
                                 id: "inventory",
                                 options: this.props.inventories,
-                                placeHolder: ""
-                            },
-                            {
-                                label: "Price",
-                                type: "number",
-                                id: "price",
                                 placeHolder: ""
                             }, {
                                 label: "Quatity",

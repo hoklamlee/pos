@@ -15,11 +15,11 @@ export const orderItemService = {
 
 
 
-function addOrderItem( orderId, inventoryId, price, quatity, remark, createdBy_UserId) {
+function addOrderItem( orderId, inventoryId, quatity, remark, createdBy_UserId) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: JSON.stringify({ orderId, inventoryId, price, quatity, remark, createdBy_UserId })
+        body: JSON.stringify({ orderId, inventoryId, quatity, remark, createdBy_UserId })
 
     };
 

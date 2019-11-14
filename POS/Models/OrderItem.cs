@@ -15,13 +15,14 @@ namespace POS.Models
         public int OrderItemId { get; set; }
 
         public int? OrderId { get; set; }
+
         public Order Order{ get; set; }
 
         public int? InventoryId { get; set; }
         public Inventory Inventory { get; set; }
 
-        public long Price { get; set; }
-        public long Quatity { get; set; }
+        public long? Price { get; set; }
+        public long? Quatity { get; set; }
         public string Remark { get; set; }
 
 

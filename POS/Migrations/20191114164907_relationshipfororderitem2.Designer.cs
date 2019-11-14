@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS.Models;
 
 namespace POS.Migrations
 {
     [DbContext(typeof(POSContext))]
-    partial class POSContextModelSnapshot : ModelSnapshot
+    [Migration("20191114164907_relationshipfororderitem2")]
+    partial class relationshipfororderitem2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,9 +133,9 @@ namespace POS.Migrations
 
                     b.Property<int?>("OrderId");
 
-                    b.Property<long?>("Price");
+                    b.Property<long>("Price");
 
-                    b.Property<long?>("Quatity");
+                    b.Property<long>("Quatity");
 
                     b.Property<string>("Remark");
 

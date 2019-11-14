@@ -5,9 +5,17 @@ import { actionCreators } from '../store/User';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faPlus, faTrash, faPen, faTools, faInfo, faKey, faSignOutAlt,faCog, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faPlus, faTrash, faPen, faTools, faInfo, faKey, faSignOutAlt,faCog, faUser, faStore,  faDrumstickBite, faList, faHome} from '@fortawesome/free-solid-svg-icons'
+import config from 'react-global-configuration';
 
 import './NavMenu.css';
+
+const navbar_background_color = config.get('navbar_background_color');
+const navbar_font_color = config.get('navbar_font_color');
+
+const fontStyle = {
+    color: navbar_font_color
+}
 
 class NavMenu extends React.Component {
     constructor(props) {
@@ -35,14 +43,14 @@ class NavMenu extends React.Component {
         return (
             loggedIn || localStorage.getItem('user') ?
                 <header>
-                    <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
+                    <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light style={{ backgroundColor: navbar_background_color}}>
                         <Container>
-                            <NavbarBrand tag={Link} to="/">POS</NavbarBrand>
-                            <NavbarToggler onClick={this.toggle} className="mr-2" />
+                            <NavbarBrand style={fontStyle} tag={Link} to="/">POS</NavbarBrand>
+                            <NavbarToggler style={fontStyle}  onClick={this.toggle} className="mr-2" />
                             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
                                 <ul className="navbar-nav flex-grow">
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                                        <NavLink tag={Link} style={fontStyle} to="/"><FontAwesomeIcon icon={faHome} /> Home</NavLink>
                                     </NavItem>
 
                                     {/* <NavItem>
@@ -55,23 +63,23 @@ class NavMenu extends React.Component {
 
 
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/order">Order</NavLink>
+                                        <NavLink tag={Link} style={fontStyle} to="/order"><FontAwesomeIcon icon={faList} /> Order</NavLink>
                                     </NavItem>
 
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/purchaser">Purchaser</NavLink>
+                                        <NavLink tag={Link} style={fontStyle} to="/purchaser"><FontAwesomeIcon icon={faStore} /> Purchaser</NavLink>
                                     </NavItem>
 
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/inventory">Inventory</NavLink>
+                                        <NavLink tag={Link} style={fontStyle} to="/inventory"><FontAwesomeIcon icon={faDrumstickBite} /> Inventory</NavLink>
                                     </NavItem>
 
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/profile"><FontAwesomeIcon icon={faUser} /> {this.props.user.username}</NavLink>
+                                        <NavLink tag={Link} style={fontStyle} to="/profile"><FontAwesomeIcon icon={faUser} /> {this.props.user.username}</NavLink>
                                     </NavItem>
 
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/sitesetting"><FontAwesomeIcon icon={faCog} /> Site Setting</NavLink>
+                                        <NavLink tag={Link} style={fontStyle} to="/sitesetting"><FontAwesomeIcon icon={faCog} /> Site Setting</NavLink>
                                     </NavItem>
                                 </ul>
                             </Collapse>

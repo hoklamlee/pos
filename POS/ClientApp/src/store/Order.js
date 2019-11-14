@@ -197,6 +197,9 @@ export const reducer = (state, action) => {
         //console.log(action.items)
         action.items.map(i => {
             i.key = i.orderId;
+
+
+            i.totalPrice = i.orderItems && i.orderItems.length > 0 ? i.orderItems.map(item => (item.price ? item.price : 0) * (item.quatity ? item.quatity : 0)).reduce((prev, next) => prev + next) : 0;
         })
         return {
             ...state,

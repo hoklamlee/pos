@@ -34,11 +34,11 @@ const UPDATE_FAILURE = 'ORDERITEM_UPDATE_FAILURE';
 const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null,users: [], purchasers:[], inventories:[]};
 
 export const actionCreators = {
-    addOrderItem: ( orderId, inventoryId, price, quatity, remark, userId) => async (dispatch, getState) => {
+    addOrderItem: ( orderId, inventoryId, quatity, remark, userId) => async (dispatch, getState) => {
         dispatch({ type: ADD_REQUEST });
 
         return new Promise((resolve, reject) => {
-            orderItemService.addOrderItem( orderId, inventoryId, price, quatity, remark, userId)
+            orderItemService.addOrderItem( orderId, inventoryId, quatity, remark, userId)
                 .then(
                     item => {
                         dispatch({ type: ADD_SUCCESS, item });

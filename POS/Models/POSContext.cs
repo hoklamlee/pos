@@ -35,7 +35,7 @@ namespace POS.Models
 
             //modelBuilder.Entity<Order>().HasOne(o => o.Status).WithMany().HasForeignKey(o=>o.StatusId);
             //modelBuilder.Entity<Order>().HasOne(o => o.Purchaser).WithMany().HasForeignKey(o => o.PurchaserId);
-            //modelBuilder.Entity<Order>().HasMany(o => o.OrderItems).WithOne(o => o.Order);
+            modelBuilder.Entity<Order>().HasMany(o => o.OrderItems).WithOne(o => o.Order).HasForeignKey(o=>o.OrderId);
 
 
             //modelBuilder.Entity<OrderItem>().HasOne(o => o.Order).WithMany(o => o.OrderItems);

@@ -71,6 +71,10 @@ class OrderPage extends React.Component {
             {
                 title: 'Shop',
                 field: 'purchaser.name'
+            },
+            {
+                title: 'Total Price',
+                field: 'totalPrice'
             }
         ]
 

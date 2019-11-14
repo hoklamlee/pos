@@ -25,8 +25,8 @@ namespace POS.Controllers
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             //List<Order> os = _context.Orders.Include("DeliverBy").Include("Status").ToList();
-
-            return await _context.Orders.Include("Purchaser").Include("DeliverBy").Include("Status").Include("CreatedBy").Include("ModifiedBy").ToListAsync();
+            var t = _context.Orders.Include("OrderItems").Include("Purchaser").Include("DeliverBy").Include("Status").Include("CreatedBy").Include("ModifiedBy").ToList();
+            return await _context.Orders.Include("OrderItems").Include("Purchaser").Include("DeliverBy").Include("Status").Include("CreatedBy").Include("ModifiedBy").ToListAsync();
         }
 
         // GET: api/Orders/5
@@ -166,10 +166,15 @@ namespace POS.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Order>> DeleteOrder(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _context.Orders.Include("OrderItems").FirstOrDefaultAsync(o=>o.OrderId == id);
             if (order == null)
             {
                 return NotFound();
+            }
+
+            if (order.OrderItems != null)
+            {
+                _context.OrderItems.RemoveRange(order.OrderItems);
             }
 
             _context.Orders.Remove(order);
