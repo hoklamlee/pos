@@ -28,7 +28,7 @@ class OrderItemPage extends React.Component {
 
 
     handleUpdate(key) {
-        this.props.history.push("/editorderItem/" + key);
+        this.props.history.push("/editorderitem/" + key);
     }
 
     delete(rowData) {
@@ -47,16 +47,16 @@ class OrderItemPage extends React.Component {
                 field: 'inventory.name'
             },
             {
-                title: 'Remark',
+                title: 'Price',
                 field: 'price'
             },
             {
-                title: 'Deliver By',
+                title: 'Quatity',
                 field: 'quatity'
 
             },
             {
-                title: 'Deliver Date',
+                title: 'Remark',
                 field: 'remark'
             }
         ]
