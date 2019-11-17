@@ -133,7 +133,14 @@ class EditOrderPage extends React.Component {
                                     placeHolder: "",
                                     defaultValue: this.props.item.purchaserId ? String(this.props.item.purchaserId) : ""
 
-                                }]
+                                    }, {
+                                        label: "Location",
+                                        type: "text",
+                                        id: "location",
+                                        placeHolder: "",
+                                        defaultValue: this.props.item.purchaser.location ? this.props.item.purchaser.location : ""
+
+                                    }]
                             } />
 
                         <OrderItemPage orderId={this.state.orderId} />

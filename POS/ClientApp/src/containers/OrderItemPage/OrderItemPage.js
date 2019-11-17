@@ -13,6 +13,7 @@ import { Paper } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools } from '@fortawesome/free-solid-svg-icons'
+import { history } from '../../helpers/history';
 
 class OrderItemPage extends React.Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class OrderItemPage extends React.Component {
 
 
     handleUpdate(key) {
-        this.props.history.push("/editorderitem/" + key);
+        history.push("/editorderitem/" + key);
     }
 
     delete(rowData) {
@@ -64,7 +65,7 @@ class OrderItemPage extends React.Component {
         return (
             <div style={{ marginTop: '2vh', width: '100%' }}>
                 <MaterialTable
-                    title="OrderItem"
+                    title="Order Item"
                     columns={columns}
                     data={this.props.items}
                     actions={[

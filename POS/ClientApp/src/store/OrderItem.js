@@ -55,11 +55,11 @@ export const actionCreators = {
         });
 
     },
-    updateOrderItem: (OrderItemId, orderItemDate, remark, deliverBy, deliverDate, shop, userId) => async (dispatch, getState) => {
+    updateOrderItem: (orderItemId, inventoryId, quatity, remark, modifiedBy_UserId) => async (dispatch, getState) => {
         dispatch({ type: UPDATE_REQUEST });
 
         return new Promise((resolve, reject) => {
-            orderItemService.updateOrderItem(OrderItemId, orderItemDate, remark, deliverBy, deliverDate, shop, userId)
+            orderItemService.updateOrderItem(Number(orderItemId), Number(inventoryId), Number(quatity), remark, Number(modifiedBy_UserId))
                 .then(
                     item => {
                         dispatch({ type: UPDATE_SUCCESS, item });

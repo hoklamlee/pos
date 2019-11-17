@@ -56,11 +56,11 @@ function deleteOrderItem(orderItemId) {
         });
 }
 
-function updateOrderItem(OrderItemId, orderItemDate, remark, deliverById, deliverDate, purchaserId, modifiedBy_UserId ) {
+function updateOrderItem(orderItemId, inventoryId, quatity, remark,  modifiedBy_UserId ) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: JSON.stringify({ OrderItemId, orderItemDate, remark, deliverById, deliverDate, purchaserId, modifiedBy_UserId })
+        body: JSON.stringify({ orderItemId, inventoryId, quatity, remark,  modifiedBy_UserId  })
 
     };
 

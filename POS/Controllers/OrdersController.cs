@@ -33,7 +33,7 @@ namespace POS.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _context.Orders.Where(o=>o.OrderId == id).Include("Purchaser").FirstOrDefaultAsync();
 
             if (order == null)
             {

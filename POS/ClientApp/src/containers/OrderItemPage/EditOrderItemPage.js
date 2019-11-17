@@ -22,8 +22,6 @@ class EditOrderItemPage extends React.Component {
 
         const orderItemId = this.props.match.params.id;
 
-        this.props.getAllUsers();
-        this.props.getAllPurchasers();
         this.props.getInventoriesByCategory("All");
 
         this.props.getOrderItemById(orderItemId);
@@ -54,18 +52,17 @@ class EditOrderItemPage extends React.Component {
     submitForm(event) {
         event.preventDefault();
 
-        var orderItemDate = event.target["orderItemDate"].value;
+        var inventoryId = event.target["inventoryId"].value;
+        var quatity = event.target["quatity"].value;
         var remark = event.target["remark"].value;
-        var deliverBy = event.target["deliverBy"].value;
-        var deliverDate = event.target["deliverDate"].value;
-        var shop = event.target["purchaser"].value;
+
 
         var userId = JSON.parse(localStorage.getItem('user')).userId;
         const orderItemId = this.props.match.params.id;
 
-        this.props.updateOrderItem(orderItemId, orderItemDate, remark, deliverBy, deliverDate, shop, userId).then(success => {
+        this.props.updateOrderItem(orderItemId, inventoryId, quatity, remark, userId).then(success => {
             if (success) {
-                this.props.history.push("/orderItem");
+                this.props.history.goBack();
             }
         });
     }
@@ -83,46 +80,32 @@ class EditOrderItemPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>Edit OrderItem</div>}
                 />
 
-                {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item?
+                {this.props.item?
                     <ReactStrapFrom
                         onSubmit={this.submitForm}
                         fields={
                             [{
-                                label: "OrderItem Date",
-                                type: "datetime",
-                                id: "orderItemDate",
-                                placeHolder: "",
-                                defaultValue: this.props.item.orderItemDate
-                            }, {
-                                label: "Remark",
-                                type: "text",
-                                id: "remark",
-                                placeHolder: "",
-                                defaultValue: this.props.item.remark
-                            }
-                                , {
-                                label: "Deliver By",
+                                label: "Inventory",
                                 type: "select",
-                                id: "deliverBy",
-                                options: this.props.users,
+                                id: "inventoryId",
+                                options: this.props.inventories,
+                                placeHolder: "",
+                                defaultValue: this.props.item.inventoryId
+                            }, {
+                                    label: "Quatity",
+                                    type: "number",
+                                    id: "quatity",
                                     placeHolder: "",
-                                    defaultValue: this.props.item.deliverById ? String(this.props.item.deliverById) : ""
-                            }, {
-                                label: "Deliver Date",
-                                type: "datetime",
-                                id: "deliverDate",
-                                placeHolder: "",
-                                defaultValue: this.props.item.deliverDate
+                                    defaultValue: this.props.item.quatity
 
-                            }, {
-                                label: "Shop",
-                                type: "select",
-                                options: this.props.purchasers,
-                                id: "purchaser",
-                                placeHolder: "",
-                                    defaultValue: this.props.item.purchaserId ? String(this.props.item.purchaserId) : ""
-
-                            }]
+                                }
+                                , {
+                                    label: "Remark",
+                                    type: "text",
+                                    id: "remark",
+                                    placeHolder: "",
+                                    defaultValue: this.props.item.remark
+                                }]
                         } />
 
                     :

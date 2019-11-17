@@ -80,7 +80,7 @@ namespace POS.Controllers
         }
 
 
-        [HttpPost("UpdateOrder")]
+        [HttpPost("UpdateOrderItem")]
         public async Task<IActionResult> UpdateOrderItem(OrderItem newOrderItem)
         {
             var orderItem = _context.OrderItems.Find(newOrderItem.OrderItemId);
