@@ -310,14 +310,22 @@ export const reducer = (state, action) => {
     if (action.type == GET_REQUEST) {
         return {
             ...state,
+            totalPrice:0,
             item: null,
             loading: true
         }
     }
 
     if (action.type == GET_SUCCESS) {
+        var totalPrice = 0;
+
+        action.item.orderItems.map(o => {
+            totalPrice += o.price * o.quatity;
+        })
+
         return {
             ...state,
+            totalPrice: totalPrice,
             item: action.item,
             loading: false
         }
@@ -385,6 +393,7 @@ export const reducer = (state, action) => {
     if (action.type == UPDATE_REQUEST) {
         return {
             ...state,
+            item: null,
             loading: true,
         }
     }
@@ -392,7 +401,7 @@ export const reducer = (state, action) => {
     if (action.type == UPDATE_SUCCESS) {
         return {
             ...state,
-            //item: action.item,
+            item: action.item,
             loading: false,
         }
     }

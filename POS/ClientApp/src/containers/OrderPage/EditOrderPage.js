@@ -39,7 +39,7 @@ class EditOrderPage extends React.Component {
 
         //this.submitInfo = this.submitInfo.bind(this);
 
-        this.state = { orderId: orderId };
+        this.state = { orderId: orderId, formUpdated: false };
 
     }
 
@@ -75,9 +75,12 @@ class EditOrderPage extends React.Component {
 
         this.props.updateOrder(orderId, orderDate, remark, deliverBy, deliverDate, shop, userId).then(success => {
             if (success) {
-                this.props.history.push("/order");
+                //this.props.history.push("/order");
+                window.location.reload();
             }
         });
+
+
     }
 
     goBack() {
@@ -93,9 +96,11 @@ class EditOrderPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>Edit Order</div>}
                 />
 
+
                 {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item ?
                     <div>
                         <ReactStrapFrom
+                            onSubmitLabel="Save"
                             onSubmit={this.submitForm}
                             fields={
                                 [{
@@ -133,15 +138,18 @@ class EditOrderPage extends React.Component {
                                     placeHolder: "",
                                     defaultValue: this.props.item.purchaserId ? String(this.props.item.purchaserId) : ""
 
-                                    }, {
-                                        label: "Location",
-                                        type: "text",
-                                        id: "location",
-                                        placeHolder: "",
-                                        defaultValue: this.props.item.purchaser.location ? this.props.item.purchaser.location : ""
-
-                                    }]
+                                }, {
+                                    label: "Location",
+                                    type: "text",
+                                    id: "location",
+                                    placeHolder: "",
+                                    defaultValue: this.props.item.purchaser.location ? this.props.item.purchaser.location : "",
+                                    editable: false
+                                }]
                             } />
+
+                        <Divider style={{ marginTop: 20 }} />
+                        <div style={{ fontSize: 20 }}>Total Price: ${this.props.totalPrice}</div>
 
                         <OrderItemPage orderId={this.state.orderId} />
 
@@ -150,7 +158,9 @@ class EditOrderPage extends React.Component {
 
                     :
 
-                    <div></div>}
+                    <div></div>
+                }
+
                 <RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>
 
             </div>
@@ -162,9 +172,9 @@ class EditOrderPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loading, error, item, users, purchasers, inventories } = state.order;
+    const { loading, error, item, users, purchasers, inventories, totalPrice } = state.order;
     return {
-        loading, error, item, users, purchasers, inventories
+        loading, error, item, users, purchasers, inventories, totalPrice
     };
 }
 

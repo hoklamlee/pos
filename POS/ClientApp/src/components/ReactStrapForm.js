@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText ,option} from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText, option } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools, faCheck } from '@fortawesome/free-solid-svg-icons'
 import MaterialUIPickers from '../components/MaterialUIPickers';
@@ -87,18 +87,18 @@ export default class ReactStrapForm extends React.Component {
                                 return (
                                     <FormGroup>
                                         <Label for={f.id}>{f.label}</Label>
-                                        <Input type="text" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
+                                        <Input disabled={(f.editable == false)} type="text" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
                                     </FormGroup>
                                 )
                             case "datetime":
                                 return (
                                     <FormGroup>
                                         <MaterialUIPickers
-                                            name={f.id} 
+                                            name={f.id}
                                             id={f.id}
                                             label={f.label}
                                             defaultValue={f.defaultValue}
-                                            />
+                                        />
                                     </FormGroup>
                                 )
                             case "number":
@@ -138,7 +138,7 @@ export default class ReactStrapForm extends React.Component {
                                             placeHolder={f.placeHolder}
                                             defaultValue={f.defaultValue}
                                             options={f.options}
-                                            />
+                                        />
 
                                     </FormGroup>
                                 )
@@ -206,9 +206,8 @@ export default class ReactStrapForm extends React.Component {
                         }
                     })
                 }
-
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button color="success"><FontAwesomeIcon icon={faCheck} /> Submit</Button>
+                    <Button color="success"><FontAwesomeIcon icon={faCheck} /> {this.props.onSubmitLabel ? this.props.onSubmitLabel : "Submit"}</Button>
                 </div>
             </Form>
         );

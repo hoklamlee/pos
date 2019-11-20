@@ -31,7 +31,7 @@ const UPDATE_REQUEST = 'ORDERITEM_UPDATE_REQUEST';
 const UPDATE_SUCCESS = 'ORDERITEM_UPDATE_SUCCESS';
 const UPDATE_FAILURE = 'ORDERITEM_UPDATE_FAILURE';
 
-const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null,users: [], purchasers:[], inventories:[]};
+const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null,users: [], purchasers:[], inventories:[], totalPrice: 0};
 
 export const actionCreators = {
     addOrderItem: ( orderId, inventoryId, quatity, remark, userId) => async (dispatch, getState) => {
@@ -153,18 +153,23 @@ export const reducer = (state, action) => {
     if (action.type == GETALL_REQUEST) {
         return {
             ...state,
+            totalPrice: 0,
             loading: true
         }
     }
 
     if (action.type == GETALL_SUCCESS) {
         //console.log(action.items)
+        var totalPrice = 0;
+
         action.items.map(i => {
             i.key = i.orderItemId;
+            totalPrice += i.price * i.quatity;
         })
         return {
             ...state,
             items: action.items,
+            totalPrice: totalPrice,
             loading: false
         }
     }
@@ -266,6 +271,8 @@ export const reducer = (state, action) => {
     }
 
     if (action.type == DELETE_SUCCESS) {
+        var totalPrice = state.totalPrice - (action.item.price * action.item.quatity);
+
         var newItems = state.items.filter(function (obj) {
             return obj.orderItemId !== action.item.orderItemId;
         });
@@ -273,6 +280,7 @@ export const reducer = (state, action) => {
         return {
             ...state,
             items: newItems,
+            totalPrice: totalPrice,
             loading: false
         }
     }

@@ -9,7 +9,9 @@ import { actionCreators } from '../../store/OrderItem';
 import config from 'react-global-configuration';
 
 import MaterialTable from 'material-table';
-import { Paper } from '@material-ui/core';
+import { Paper, Box, Typography, Chip, Divider } from '@material-ui/core';
+
+
 import RightBottomButton from '../../components/RightBottomButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools } from '@fortawesome/free-solid-svg-icons'
@@ -64,6 +66,7 @@ class OrderItemPage extends React.Component {
 
         return (
             <div style={{ marginTop: '2vh', width: '100%' }}>
+
                 <MaterialTable
                     title="Order Item"
                     columns={columns}
@@ -98,9 +101,9 @@ class OrderItemPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loading, error, items } = state.orderItem;
+    const { loading, error, items, totalPrice } = state.orderItem;
     return {
-        loading, error, items
+        loading, error, items, totalPrice
     };
 }
 
