@@ -14,6 +14,7 @@ import ReactStrapFrom from '../../components/ReactStrapForm';
 import PageHeader from '../../components/PageHeader';
 import { Divider } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
+import MaterialUIButton from '../../components/MaterialUIButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
@@ -99,6 +100,7 @@ class EditOrderPage extends React.Component {
 
                 {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item ?
                     <div>
+                        <MaterialUIButton icon={<FontAwesomeIcon icon={faPrint} />} label="Print" />
                         <ReactStrapFrom
                             onSubmitLabel="Save"
                             onSubmit={this.submitForm}
