@@ -39,9 +39,123 @@ const UPDATE_REQUEST = 'ORDER_UPDATE_REQUEST';
 const UPDATE_SUCCESS = 'ORDER_UPDATE_SUCCESS';
 const UPDATE_FAILURE = 'ORDER_UPDATE_FAILURE';
 
-const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null,users: [], purchasers:[], inventories:[]};
+const GET_FAVOURITE_ORDERS_REQUEST = 'ORDER_GET_FAVOURITE_ORDERS_REQUEST';
+const GET_FAVOURITE_ORDERS_SUCCESS = 'ORDER_GET_FAVOURITE_ORDERS_SUCCESS';
+const GET_FAVOURITE_ORDERS_FAILURE = 'ORDER_GET_FAVOURITE_ORDERS_FAILURE';
+
+const GET_FAVOURITE_ORDER_REQUEST = 'ORDER_GET_FAVOURITE_ORDER_REQUEST';
+const GET_FAVOURITE_ORDER_SUCCESS = 'ORDER_GET_FAVOURITE_ORDER_SUCCESS';
+const GET_FAVOURITE_ORDER_FAILURE = 'ORDER_GET_FAVOURITE_ORDER_FAILURE';
+
+const ADD_FAVOURITE_ORDER_REQUEST = 'ORDER_ADD_FAVOURITE_ORDER_REQUEST';
+const ADD_FAVOURITE_ORDER_SUCCESS = 'ORDER_ADD_FAVOURITE_ORDER_SUCCESS';
+const ADD_FAVOURITE_ORDER_FAILURE = 'ORDER_ADD_FAVOURITE_ORDER_FAILURE';
+
+const DELETE_FAVOURITE_ORDER_REQUEST = 'ORDER_DELETE_FAVOURITE_ORDER_REQUEST';
+const DELETE_FAVOURITE_ORDER_SUCCESS = 'ORDER_DELETE_FAVOURITE_ORDER_SUCCESS';
+const DELETE_FAVOURITE_ORDER_FAILURE = 'ORDER_DELETE_FAVOURITE_ORDER_FAILURE';
+
+const initialState = { createSuccess: false, loading: false, error: '', items: [], item: null, users: [], purchasers: [], inventories: [], favouriteOrders: [], favouriteOrder: null };
 
 export const actionCreators = {
+    duplicate: (orderId, orderDate, deliverDate, createdBy_UserId) => async (dispatch, getState) => {
+        dispatch({ type: ADD_REQUEST });
+
+        return new Promise((resolve, reject) => {
+            orderService.duplicate(orderId, orderDate, deliverDate, createdBy_UserId)
+                .then(
+                    item => {
+                        dispatch({ type: ADD_SUCCESS, item });
+                        resolve(true);
+                    },
+                    error => {
+                        dispatch({ type: ADD_FAILURE, error });
+                        dispatch(alertAction.error(error));
+                        resolve(false);
+
+                    }
+                );
+        });
+    },
+    getFavouriteOrderByUserId: (userId) => async (dispatch, getState) => {
+        dispatch({ type: GET_FAVOURITE_ORDERS_REQUEST });
+
+        return new Promise((resolve, reject) => {
+            orderService.getFavouriteOrderByUserId(userId)
+                .then(
+                    items => {
+                        dispatch({ type: GET_FAVOURITE_ORDERS_SUCCESS, items });
+                        resolve(true);
+                    },
+                    error => {
+                        dispatch({ type: GET_FAVOURITE_ORDERS_FAILURE, error });
+                        dispatch(alertAction.error(error));
+                        resolve(false);
+
+                    }
+                );
+
+        });
+    },
+    getFavouriteOrderByOrderIdAndUserId: (orderId, userId) => async (dispatch, getState) => {
+        dispatch({ type: GET_FAVOURITE_ORDER_REQUEST });
+
+        return new Promise((resolve, reject) => {
+            orderService.getFavouriteOrderByOrderIdAndUserId(orderId, userId)
+                .then(
+                    item => {
+                        dispatch({ type: GET_FAVOURITE_ORDER_SUCCESS, item });
+                        resolve(true);
+                    },
+                    error => {
+                        dispatch({ type: GET_FAVOURITE_ORDER_FAILURE, error });
+                        dispatch(alertAction.error(error));
+                        resolve(false);
+
+                    }
+                );
+
+        });
+    },
+    addFavouriteOrder: (name, orderId, userId) => async (dispatch, getState) => {
+        dispatch({ type: ADD_FAVOURITE_ORDER_REQUEST });
+
+        return new Promise((resolve, reject) => {
+            orderService.addFavouriteOrder(name, orderId, userId)
+                .then(
+                    item => {
+                        dispatch({ type: ADD_FAVOURITE_ORDER_SUCCESS, item });
+                        resolve(true);
+                    },
+                    error => {
+                        dispatch({ type: ADD_FAVOURITE_ORDER_FAILURE, error });
+                        dispatch(alertAction.error(error));
+                        resolve(false);
+                    }
+                );
+
+        });
+    },
+    deleteFavouriteOrder: (favouriteOrderId) => async (dispatch, getState) => {
+        dispatch({ type: DELETE_FAVOURITE_ORDER_REQUEST });
+
+        return new Promise((resolve, reject) => {
+            orderService.deleteFavouriteOrder(favouriteOrderId)
+                .then(
+                    item => {
+                        dispatch({ type: DELETE_FAVOURITE_ORDER_SUCCESS, item });
+                        resolve(true);
+                    },
+                    error => {
+                        dispatch({ type: DELETE_FAVOURITE_ORDER_FAILURE, error });
+                        dispatch(alertAction.error(error));
+                        resolve(false);
+
+                    }
+                );
+
+        });
+    },
     addOrder: (orderDate, remark, deliverBy, deliverDate, shop, userId) => async (dispatch, getState) => {
         dispatch({ type: ADD_REQUEST });
 
@@ -327,7 +441,7 @@ export const reducer = (state, action) => {
             ...state,
             totalPrice: totalPrice,
             item: action.item,
-            loading: false
+            loading: false,
         }
     }
 
@@ -413,7 +527,93 @@ export const reducer = (state, action) => {
         }
     }
 
+    if (action.type == GET_FAVOURITE_ORDERS_REQUEST) {
+        return {
+            ...state,
+            favouriteOrders: [],
+        }
+    }
 
+    if (action.type == GET_FAVOURITE_ORDERS_SUCCESS) {
+        return {
+            ...state,
+            favouriteOrders: action.items
+        }
+    }
+
+    if (action.type == GET_FAVOURITE_ORDERS_FAILURE) {
+        return {
+            ...state,
+        }
+    }
+
+    if (action.type == GET_FAVOURITE_ORDER_REQUEST) {
+        return {
+            ...state,
+            favouriteOrder: null
+        }
+    }
+
+    if (action.type == GET_FAVOURITE_ORDER_SUCCESS) {
+        return {
+            ...state,
+            favouriteOrder: action.item
+        }
+    }
+
+    if (action.type == GET_FAVOURITE_ORDER_FAILURE) {
+        return {
+            ...state,
+        }
+    }
+
+
+    if (action.type == ADD_FAVOURITE_ORDER_REQUEST) {
+        return {
+            ...state
+        }
+    }
+
+    if (action.type == ADD_FAVOURITE_ORDER_SUCCESS) {
+        var items = state.favouriteOrders;
+        items.push(action.item);
+
+        return {
+            ...state,
+            favouriteOrders: items,
+            favouriteOrder: action.item
+        }
+    }
+
+    if (action.type == ADD_FAVOURITE_ORDER_FAILURE) {
+        return {
+            ...state,
+        }
+    }
+
+    if (action.type == DELETE_FAVOURITE_ORDER_REQUEST) {
+        return {
+            ...state,
+        }
+    }
+
+    if (action.type == DELETE_FAVOURITE_ORDER_SUCCESS) {
+        var newItems = state.favouriteOrders.filter(function (obj) {
+            return obj.favouriteOrderId !== action.item.favouriteOrderId;
+        });
+
+        return {
+            ...state,
+            favouriteOrders: newItems,
+            favouriteOrder: null
+        }
+    }
+
+    if (action.type == DELETE_FAVOURITE_ORDER_FAILURE) {
+        return {
+            ...state,
+        }
+    }
 
     return state;
 };

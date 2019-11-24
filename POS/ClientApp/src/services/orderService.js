@@ -10,7 +10,12 @@ export const orderService = {
     getOrderById,
     getAllOrders,
     getAllUsers,
-    getAllPurchasers
+    getAllPurchasers,
+    getFavouriteOrderByUserId,
+    getFavouriteOrderByOrderIdAndUserId,
+    addFavouriteOrder,
+    deleteFavouriteOrder,
+    duplicate
 };
 
 
@@ -40,7 +45,7 @@ function deleteOrder(orderId) {
     const requestOptions = {
         method: 'DELETE',
         headers: authHeader(),
-        body: JSON.stringify({ })
+        body: JSON.stringify({})
     };
 
     var api = config.get('apiUrl');
@@ -166,6 +171,107 @@ function getOrderById(id) {
             return item;
         });
 }
+
+function getFavouriteOrderByUserId(userId) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/FavouriteOrders/GetFavouriteOrdersByUserId/` + userId, requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return data;
+        });
+}
+
+function getFavouriteOrderByOrderIdAndUserId(orderId, userId) {
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify({ orderId, userId })
+    };
+
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/FavouriteOrders/getFavouriteOrderByOrderIdAndUserId` , requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return data;
+        });
+}
+
+function addFavouriteOrder(name, orderId, userId) {
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify({ name, orderId, userId })
+
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/FavouriteOrders`, requestOptions)
+        .then(handleResponse)
+        .then(item => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return item;
+        });
+}
+
+function deleteFavouriteOrder(favouriteOrderId) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader(),
+        body: JSON.stringify({})
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/FavouriteOrders/` + favouriteOrderId, requestOptions)
+        .then(handleResponse)
+        .then(item => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return item;
+        });
+}
+
+function duplicate(orderId, orderDate, deliverDate, createdBy_UserId ) {
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify({ orderId, orderDate, deliverDate, createdBy_UserId})
+
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/Orders/Duplicate`, requestOptions)
+        .then(handleResponse)
+        .then(item => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return item;
+        });
+
+}
+
 
 function handleResponse(response) {
     return response.text().then(text => {

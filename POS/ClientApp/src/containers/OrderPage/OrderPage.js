@@ -9,10 +9,11 @@ import { actionCreators } from '../../store/Order';
 import config from 'react-global-configuration';
 
 import MaterialTable from 'material-table';
-import { Paper } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faPlus, faTrash, faPen, faTools } from '@fortawesome/free-solid-svg-icons'
+import MaterialUIButton from '../../components/MaterialUIButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee, faPlus, faTrash, faPen, faTools , faHeart} from '@fortawesome/free-solid-svg-icons'
 
 class OrderPage extends React.Component {
     constructor(props) {
@@ -80,6 +81,17 @@ class OrderPage extends React.Component {
 
         return (
             <div style={{ marginTop: '2vh', width: '100%' }}>
+
+                <Grid
+                    container
+                    direction="row"
+                    justify="flex-end"
+                    alignItems="flex-start"
+                >
+                    <Grid item>
+                        <MaterialUIButton icon={<FontAwesomeIcon icon={faHeart} />} label="My favourite" />
+                    </Grid>
+                </Grid>
                 <MaterialTable
                     title="Order"
                     columns={columns}

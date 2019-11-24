@@ -162,6 +162,88 @@ namespace POS.Controllers
             return CreatedAtAction("GetOrder", new { id = order.OrderId }, order);
         }
 
+        [HttpPost("/api/[controller]/[action]")]
+        public async Task<ActionResult<Order>> Duplicate(Order order)
+        {
+            try
+            {
+                if (order.OrderId == 0)
+                {
+                    return NotFound();
+                }
+
+                Models.Order targetOrder = _context.Orders.Include("Purchaser").Include("DeliverBy").Include("Status").Include("OrderItems").FirstOrDefault(o => o.OrderId == order.OrderId);
+
+                if (targetOrder == null)
+                {
+                    return NotFound();
+                }
+
+                Order newOrder = new Order();
+
+                newOrder.DeliverBy = targetOrder.DeliverBy;
+                newOrder.DeliverById = targetOrder.DeliverById;
+
+                newOrder.DeliverDate = targetOrder.DeliverDate;
+
+                newOrder.Purchaser = targetOrder.Purchaser;
+                newOrder.PurchaserId = targetOrder.PurchaserId;
+
+                newOrder.Status = targetOrder.Status;
+                newOrder.StatusId = targetOrder.StatusId;
+                newOrder.Remark = targetOrder.Remark;
+
+                newOrder.Active = true;
+                newOrder.OrderDate = order.OrderDate;
+
+                User user = _context.Users.Find(order.CreatedBy_UserId);
+
+                newOrder.CreatedBy = user;
+                newOrder.CreatedBy_UserId = order.CreatedBy_UserId;
+                newOrder.CreatedDate = DateTime.Now;
+
+                newOrder.ModifiedBy = user;
+                newOrder.ModifiedBy_UserId = order.CreatedBy_UserId;
+                newOrder.ModifiedDate = DateTime.Now;
+
+
+                _context.Orders.Add(newOrder);
+                await _context.SaveChangesAsync();
+
+                foreach(var item in targetOrder.OrderItems)
+                {
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.Active = true;
+                    orderItem.CreatedBy = user;
+                    orderItem.CreatedBy_UserId = user.UserId;
+                    orderItem.CreatedDate = DateTime.Now;
+                    orderItem.Inventory = item.Inventory;
+                    orderItem.InventoryId = item.InventoryId;
+                    orderItem.ModifiedBy = user;
+                    orderItem.ModifiedBy_UserId = user.UserId;
+                    orderItem.ModifiedDate = DateTime.Now;
+                    orderItem.Order = newOrder;
+                    orderItem.OrderId = newOrder.OrderId;
+                    orderItem.Price = item.Price;
+                    orderItem.Quatity = item.Quatity;
+                    orderItem.Remark = item.Remark;
+
+                    _context.OrderItems.Add(orderItem);
+                }
+
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetOrder", new { id = newOrder.OrderId }, newOrder);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
+
+
+
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Order>> DeleteOrder(int id)
@@ -182,6 +264,8 @@ namespace POS.Controllers
 
             return order;
         }
+
+
 
         private bool OrderExists(int id)
         {

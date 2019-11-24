@@ -43,7 +43,9 @@ class NavMenu extends React.Component {
         return (
             loggedIn || localStorage.getItem('user') ?
                 <header>
-                    <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light style={{ backgroundColor: navbar_background_color}}>
+                    {/*<Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light style={{ backgroundColor: navbar_background_color}}>*/}
+                        <Navbar className="navbar-expand-sm navbar-toggleable-sm box-shadow mb-3" light style={{ backgroundColor: navbar_background_color }}>
+
                         <Container>
                             <NavbarBrand style={fontStyle} tag={Link} to="/">POS</NavbarBrand>
                             <NavbarToggler style={fontStyle}  onClick={this.toggle} className="mr-2" />

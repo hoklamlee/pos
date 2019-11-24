@@ -20,6 +20,7 @@ namespace POS.Models
         public string PhoneNo { get; set; }
         public string ContactPerson { get; set; }
 
+        public ICollection<Order> Orders { get; set; }
 
         [DefaultValue(true)]
         public bool Active { get; set; }

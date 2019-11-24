@@ -15,13 +15,13 @@ namespace POS.Models
 
         //public DbSet<Employee> Employees { get; set; }
         //public DbSet<Company> Companys { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<FavouriteOrder> FavouriteOrders { get; set; }
         public DbSet<Inventory> Inventorys { get; set; }
-        
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Purchaser> Purchasers { get; set; }
         public DbSet<Status> Statuses { get; set; }
-        public DbSet<User> Users { get; set; }
 
 
 
@@ -35,7 +35,14 @@ namespace POS.Models
 
             //modelBuilder.Entity<Order>().HasOne(o => o.Status).WithMany().HasForeignKey(o=>o.StatusId);
             //modelBuilder.Entity<Order>().HasOne(o => o.Purchaser).WithMany().HasForeignKey(o => o.PurchaserId);
+
             modelBuilder.Entity<Order>().HasMany(o => o.OrderItems).WithOne(o => o.Order).HasForeignKey(o=>o.OrderId);
+
+            modelBuilder.Entity<FavouriteOrder>().HasOne(o => o.User).WithMany(o => o.FavouriteOrders).HasForeignKey(o => o.UserId);
+
+            modelBuilder.Entity<Purchaser>().HasMany(o => o.Orders).WithOne(o => o.Purchaser).HasForeignKey(o => o.PurchaserId);
+
+            //modelBuilder.Entity<Order>().HasOne(o => o.DeliverBy).WithMany(o=>o.DeliverOrders).HasForeignKey(o => o.DeliverById); ;
 
 
             //modelBuilder.Entity<OrderItem>().HasOne(o => o.Order).WithMany(o => o.OrderItems);

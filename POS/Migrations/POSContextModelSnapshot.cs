@@ -19,6 +19,27 @@ namespace POS.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("POS.Models.FavouriteOrder", b =>
+                {
+                    b.Property<int>("FavouriteOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("name");
+
+                    b.HasKey("FavouriteOrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavouriteOrders");
+                });
+
             modelBuilder.Entity("POS.Models.Inventory", b =>
                 {
                     b.Property<int>("InventoryId")
@@ -253,6 +274,19 @@ namespace POS.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("POS.Models.FavouriteOrder", b =>
+                {
+                    b.HasOne("POS.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("POS.Models.User", "User")
+                        .WithMany("FavouriteOrders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("POS.Models.Inventory", b =>

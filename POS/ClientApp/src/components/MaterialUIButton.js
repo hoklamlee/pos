@@ -22,13 +22,12 @@ export default function MaterialUIButton(props) {
     return (
         <div>
             <Button
+                onClick={props.onClick}
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                startIcon={<FontAwesomeIcon icon={faPrint} />}
-            >
-                {props.label}
-                </Button>
+                startIcon={props.icon}
+            >{props.label}</Button>
         </div>
     );
 }

@@ -25,6 +25,10 @@ namespace POS.Models
         public bool Active { get; set; }
         public DateTime? TokenCreatedDate { get; set; }
 
+        public ICollection<FavouriteOrder> FavouriteOrders { get; set; }
+
+        //public ICollection<Order> FavoriteOrders {get;set;}
+
         //public ICollection<Order> DeliverOrders { get; set; }
         //public ICollection<Order> CreatedOrders { get; set; }
         //public ICollection<Order> ModifiedOrders { get; set; }

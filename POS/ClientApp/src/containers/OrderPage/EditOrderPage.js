@@ -12,13 +12,16 @@ import config from 'react-global-configuration';
 import EditableTable from '../../components/AntTable';
 import ReactStrapFrom from '../../components/ReactStrapForm';
 import PageHeader from '../../components/PageHeader';
-import { Divider } from '@material-ui/core';
+import { Divider, Grid } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
+import MaterialUIDialog from '../../components/MaterialUIDialog';
+
 import MaterialUIButton from '../../components/MaterialUIButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft, faPrint,faHeart, faCross, faCopy } from '@fortawesome/free-solid-svg-icons'
 
 import { OrderItemPage } from '../OrderItemPage/OrderItemPage';
+import moment from 'moment';
 
 class EditOrderPage extends React.Component {
     constructor(props) {
@@ -26,7 +29,15 @@ class EditOrderPage extends React.Component {
 
 
         const orderId = this.props.match.params.id;
+        const userId = JSON.parse(localStorage.getItem('user')).userId;
 
+        this.state = {
+            orderId: orderId,
+            formUpdated: false,
+            userId: userId
+        };
+
+        this.props.getFavouriteOrderByOrderIdAndUserId(orderId,userId);
         this.props.getAllUsers();
         this.props.getAllPurchasers();
         this.props.getInventoriesByCategory("All");
@@ -40,7 +51,7 @@ class EditOrderPage extends React.Component {
 
         //this.submitInfo = this.submitInfo.bind(this);
 
-        this.state = { orderId: orderId, formUpdated: false };
+
 
     }
 
@@ -71,10 +82,10 @@ class EditOrderPage extends React.Component {
         var deliverDate = event.target["deliverDate"].value;
         var shop = event.target["purchaser"].value;
 
-        var userId = JSON.parse(localStorage.getItem('user')).userId;
+        //var userId = JSON.parse(localStorage.getItem('user')).userId;
         const orderId = this.props.match.params.id;
 
-        this.props.updateOrder(orderId, orderDate, remark, deliverBy, deliverDate, shop, userId).then(success => {
+        this.props.updateOrder(orderId, orderDate, remark, deliverBy, deliverDate, shop, this.state.userId).then(success => {
             if (success) {
                 //this.props.history.push("/order");
                 window.location.reload();
@@ -82,6 +93,18 @@ class EditOrderPage extends React.Component {
         });
 
 
+    }
+
+    addFavouriteOrder(name, orderId, userId) {
+        this.props.addFavouriteOrder(name, orderId, userId);
+    }
+
+    deleteFavouriteOrder(favouriteOrderId) {
+        this.props.deleteFavouriteOrder(favouriteOrderId);
+    }
+
+    duplicate() {
+        this.props.duplicate(this.state.orderId, moment().toDate(), moment().toDate(), this.state.userId);
     }
 
     goBack() {
@@ -97,10 +120,39 @@ class EditOrderPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>Edit Order</div>}
                 />
 
+                <Grid
+                    container
+                    direction="row"
+                    justify="flex-end"
+                    alignItems="flex-start"
+                >
+                    {
+                        this.props.favouriteOrder?
+                            <Grid item>
+                                <MaterialUIButton icon={<FontAwesomeIcon icon={faTrash} />} label="Remove from favourite" onClick={() => this.deleteFavouriteOrder(this.props.favouriteOrder.favouriteOrderId)} />
+                            </Grid>
+                            :
+                            <Grid item>
+                                <MaterialUIDialog
+                                    title="Add to Favourite"
+                                    content="Please enter the favourite name."
+                                    buttonComponent={<MaterialUIButton icon={<FontAwesomeIcon icon={faHeart} />} label="Add to favourite" />}
+                                    submitLabel="Save"
+                                    onSubmit={(val) => this.addFavouriteOrder(val, this.state.orderId, this.state.userId)}
+                                />
+                            </Grid>
+                    }
 
+                    <Grid item>
+                        <MaterialUIButton icon={<FontAwesomeIcon icon={faPrint} />} label="Print" />
+                    </Grid>
+                    <Grid item>
+                        <MaterialUIButton icon={<FontAwesomeIcon icon={faCopy} />} label="Duplicate" onClick={() => this.duplicate()} />
+                    </Grid>
+                </Grid>
                 {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item ?
                     <div>
-                        <MaterialUIButton icon={<FontAwesomeIcon icon={faPrint} />} label="Print" />
+
                         <ReactStrapFrom
                             onSubmitLabel="Save"
                             onSubmit={this.submitForm}
@@ -174,9 +226,9 @@ class EditOrderPage extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { loading, error, item, users, purchasers, inventories, totalPrice } = state.order;
+    const { loading, error, item, users, purchasers, inventories, totalPrice, favouriteOrder } = state.order;
     return {
-        loading, error, item, users, purchasers, inventories, totalPrice
+        loading, error, item, users, purchasers, inventories, totalPrice, favouriteOrder
     };
 }
 

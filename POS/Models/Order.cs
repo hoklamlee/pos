@@ -15,8 +15,7 @@ namespace POS.Models
         public int OrderId { get; set; }
         public DateTime? OrderDate { get; set; }
         public string Remark { get; set; }
-        public int? DeliverById { get; set; }
-        public User DeliverBy { get; set; }
+
         public DateTime? DeliverDate { get; set; }
         public int? StatusId { get; set; }
         public Status Status { get; set; }
@@ -26,7 +25,8 @@ namespace POS.Models
         public int? PurchaserId { get; set; }
         public Purchaser Purchaser { get; set; }
 
-
+        public int? DeliverById { get; set; }
+        public User DeliverBy { get; set; }
 
         [DefaultValue(true)]
         public bool Active { get; set; }

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools, faCheck } from '@fortawesome/free-solid-svg-icons'
 import MaterialUIPickers from '../components/MaterialUIPickers';
 import ReactStrapSelect from '../components/ReactStrapSelect';
+import { Paper } from '@material-ui/core';
 
 //Sample Code:
 const fields = [
@@ -61,6 +62,7 @@ const fields = [
     }]
 //Sample: <ReactStrapForm fields={fields} />
 
+
 export default class ReactStrapForm extends React.Component {
     constructor(props) {
         super(props);
@@ -79,137 +81,140 @@ export default class ReactStrapForm extends React.Component {
 
     render() {
         return (
-            <Form onSubmit={this.props.onSubmit}>
-                {
-                    this.props.fields.map(f => {
-                        switch (f.type) {
-                            case "text":
-                                return (
-                                    <FormGroup>
-                                        <Label for={f.id}>{f.label}</Label>
-                                        <Input disabled={(f.editable == false)} type="text" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
-                                    </FormGroup>
-                                )
-                            case "datetime":
-                                return (
-                                    <FormGroup>
-                                        <MaterialUIPickers
-                                            name={f.id}
-                                            id={f.id}
-                                            label={f.label}
-                                            defaultValue={f.defaultValue}
-                                        />
-                                    </FormGroup>
-                                )
-                            case "number":
-                                return (
-                                    <FormGroup>
-                                        <Label for={f.id}>{f.label}</Label>
-                                        <Input type="number" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
-                                    </FormGroup>
-                                )
-                            case "email":
-                                return (
-                                    <FormGroup>
-                                        <Label for={f.id}>{f.label}</Label>
-                                        <Input type="email" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
-                                    </FormGroup>
-                                )
-                            case "password":
-                                return (
-                                    <FormGroup>
-                                        <Label for={f.id}>{f.label}</Label>
-                                        <Input type="password" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
-                                    </FormGroup>
-                                )
-                            case "select":
-                                return (
-                                    <FormGroup>
-                                        {/* <Label for={f.id}>{f.label}</Label>
+            <Paper style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 20, paddingBottom: 20}}>
+                <Form onSubmit={this.props.onSubmit}>
+                    {
+                        this.props.fields.map(f => {
+                            switch (f.type) {
+                                case "text":
+                                    return (
+                                        <FormGroup>
+                                            <Label for={f.id}>{f.label}</Label>
+                                            <Input disabled={(f.editable == false)} type="text" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
+                                        </FormGroup>
+                                    )
+                                case "datetime":
+                                    return (
+                                        <FormGroup>
+                                            <MaterialUIPickers
+                                                name={f.id}
+                                                id={f.id}
+                                                label={f.label}
+                                                defaultValue={f.defaultValue}
+                                            />
+                                        </FormGroup>
+                                    )
+                                case "number":
+                                    return (
+                                        <FormGroup>
+                                            <Label for={f.id}>{f.label}</Label>
+                                            <Input type="number" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
+                                        </FormGroup>
+                                    )
+                                case "email":
+                                    return (
+                                        <FormGroup>
+                                            <Label for={f.id}>{f.label}</Label>
+                                            <Input type="email" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
+                                        </FormGroup>
+                                    )
+                                case "password":
+                                    return (
+                                        <FormGroup>
+                                            <Label for={f.id}>{f.label}</Label>
+                                            <Input type="password" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
+                                        </FormGroup>
+                                    )
+                                case "select":
+                                    return (
+                                        <FormGroup>
+                                            {/* <Label for={f.id}>{f.label}</Label>
                                         <Input type="select" name={f.id} id={f.id} placeholder={f.placeHolder} value="testbyhanson">
                                             {f.options.map(o => 
                                                 <option value={o.value}>{o.name}</option>
                                             )} 
                                         </Input>*/}
 
-                                        <ReactStrapSelect
-                                            label={f.label}
-                                            id={f.id}
-                                            placeHolder={f.placeHolder}
-                                            defaultValue={f.defaultValue}
-                                            options={f.options}
-                                        />
+                                            <ReactStrapSelect
+                                                label={f.label}
+                                                id={f.id}
+                                                placeHolder={f.placeHolder}
+                                                defaultValue={f.defaultValue}
+                                                options={f.options}
+                                            />
 
-                                    </FormGroup>
-                                )
-                            case "selectmultiple":
-                                return (
-                                    <FormGroup>
-                                        {/* <Label for={f.id}>{f.label}</Label>
+                                        </FormGroup>
+                                    )
+                                case "selectmultiple":
+                                    return (
+                                        <FormGroup>
+                                            {/* <Label for={f.id}>{f.label}</Label>
                                         <Input type="select" name={f.id} id={f.id} placeholder={f.placeHolder} multiple>
                                             {f.options.map(o => {
                                                 <option key={o.value} value={o.value}>{o.name}</option>
                                             })}
                                         </Input> */}
-                                        <ReactStrapSelect
-                                            multiple={true}
-                                            label={f.label}
-                                            id={f.id}
-                                            placeHolder={f.placeHolder}
-                                            defaultValue={f.defaultValue}
-                                            options={f.options}
-                                        />
-                                    </FormGroup>
-                                )
-                            case "textarea":
-                                return (
-                                    <FormGroup>
-                                        <Label for={f.id}>{f.label}</Label>
-                                        <Input type="textarea" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
-                                    </FormGroup>
-                                )
-                            case "file":
-                                return (
-                                    <FormGroup>
-                                        <Label for={f.id}>{f.label}</Label>
-                                        <Input type="file" name={f.id} id={f.id} />
-                                        <FormText color="muted">
-                                            {f.placeHolder}
-                                        </FormText>
-                                    </FormGroup>
-                                )
-                            case "radio":
-                                return (
-                                    <FormGroup tag="fieldset">
-                                        <legend>{f.label}</legend>
-                                        {f.options.map(o => {
-                                            <FormGroup check>
-                                                <Label check>
-                                                    <Input type="radio" name={o.value} value={o.value} />{' '}
-                                                    {o.name}
-                                                </Label>
-                                            </FormGroup>
-                                        })}
-                                    </FormGroup>
-                                )
-                            case "checkbox":
-                                return (
-                                    <FormGroup check>
-                                        <Label check>
-                                            <Input type="checkbox" name={f.id} id={f.id} />{' '}
-                                            {f.label}
-                                        </Label>
-                                    </FormGroup>
-                                )
-                            default:
-                                break;
-                        }
-                    })
-                }
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button color="success"><FontAwesomeIcon icon={faCheck} /> {this.props.onSubmitLabel ? this.props.onSubmitLabel : "Submit"}</Button>
-                </div>
-            </Form>
+                                            <ReactStrapSelect
+                                                multiple={true}
+                                                label={f.label}
+                                                id={f.id}
+                                                placeHolder={f.placeHolder}
+                                                defaultValue={f.defaultValue}
+                                                options={f.options}
+                                            />
+                                        </FormGroup>
+                                    )
+                                case "textarea":
+                                    return (
+                                        <FormGroup>
+                                            <Label for={f.id}>{f.label}</Label>
+                                            <Input type="textarea" name={f.id} id={f.id} placeholder={f.placeHolder} defaultValue={f.defaultValue} />
+                                        </FormGroup>
+                                    )
+                                case "file":
+                                    return (
+                                        <FormGroup>
+                                            <Label for={f.id}>{f.label}</Label>
+                                            <Input type="file" name={f.id} id={f.id} />
+                                            <FormText color="muted">
+                                                {f.placeHolder}
+                                            </FormText>
+                                        </FormGroup>
+                                    )
+                                case "radio":
+                                    return (
+                                        <FormGroup tag="fieldset">
+                                            <legend>{f.label}</legend>
+                                            {f.options.map(o => {
+                                                <FormGroup check>
+                                                    <Label check>
+                                                        <Input type="radio" name={o.value} value={o.value} />{' '}
+                                                        {o.name}
+                                                    </Label>
+                                                </FormGroup>
+                                            })}
+                                        </FormGroup>
+                                    )
+                                case "checkbox":
+                                    return (
+                                        <FormGroup check>
+                                            <Label check>
+                                                <Input type="checkbox" name={f.id} id={f.id} />{' '}
+                                                {f.label}
+                                            </Label>
+                                        </FormGroup>
+                                    )
+                                default:
+                                    break;
+                            }
+                        })
+                    }
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button color="success"><FontAwesomeIcon icon={faCheck} /> {this.props.onSubmitLabel ? this.props.onSubmitLabel : "Submit"}</Button>
+                    </div>
+                </Form>
+
+            </Paper>
         );
     }
 
