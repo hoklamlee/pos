@@ -29,6 +29,17 @@ namespace POS.Controllers
             return await _context.Orders.Include("OrderItems").Include("Purchaser").Include("DeliverBy").Include("Status").Include("CreatedBy").Include("ModifiedBy").ToListAsync();
         }
 
+        [HttpGet("/api/[controller]/[action]/{id}")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetFavouriteOrders(int id)
+        {
+            //List<Order> os = _context.Orders.Include("DeliverBy").Include("Status").ToList();
+
+            List<FavouriteOrder> favouriteOrders = _context.FavouriteOrders.Where(o=>o.UserId == id).ToList();
+
+            return await _context.Orders.Where(o=> favouriteOrders.Select(f=>f.OrderId).Contains(o.OrderId)).Include("OrderItems").Include("Purchaser").Include("DeliverBy").Include("Status").Include("CreatedBy").Include("ModifiedBy").ToListAsync();
+        }
+
+
         // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)

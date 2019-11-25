@@ -14,6 +14,7 @@ import RightBottomButton from '../../components/RightBottomButton';
 import MaterialUIButton from '../../components/MaterialUIButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee, faPlus, faTrash, faPen, faTools , faHeart} from '@fortawesome/free-solid-svg-icons'
+import { history } from '../../helpers/history';
 
 class OrderPage extends React.Component {
     constructor(props) {
@@ -30,11 +31,11 @@ class OrderPage extends React.Component {
 
     handeCreate() {
         //this.props.history.push("/createorder");
-        this.props.history.push("/createorder");
+        history.push("/createorder");
     }
 
     handleUpdate(key) {
-        this.props.history.push("/editorder/" + key);
+       history.push("/editorder/" + key);
     }
 
     delete(rowData) {
@@ -81,17 +82,6 @@ class OrderPage extends React.Component {
 
         return (
             <div style={{ marginTop: '2vh', width: '100%' }}>
-
-                <Grid
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    alignItems="flex-start"
-                >
-                    <Grid item>
-                        <MaterialUIButton icon={<FontAwesomeIcon icon={faHeart} />} label="My favourite" />
-                    </Grid>
-                </Grid>
                 <MaterialTable
                     title="Order"
                     columns={columns}

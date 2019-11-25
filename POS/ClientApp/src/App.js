@@ -14,7 +14,8 @@ import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
 import { ProfilePage } from './containers/ProfilePage/ProfilePage';
 
-import { OrderPage } from './containers/OrderPage/OrderPage';
+import { OrderTab } from './containers/OrderPage/OrderTab';
+//import { OrderPage } from './containers/OrderPage/OrderPage';
 import { AddOrderPage } from './containers/OrderPage/AddOrderPage';
 import { EditOrderPage } from './containers/OrderPage/EditOrderPage';
 
@@ -77,7 +78,7 @@ class App extends React.Component {
                         <Route path="/login" component={LoginPage} />
                         <PrivateRoute path='/counter' component={Counter} />
 
-                        <PrivateRoute path='/order' component={OrderPage} />
+                        <PrivateRoute path='/order' component={OrderTab} />
                         <PrivateRoute path='/createorder' component={AddOrderPage} />
                         <PrivateRoute path='/editorder/:id' component={EditOrderPage} />
 

@@ -15,7 +15,8 @@ export const orderService = {
     getFavouriteOrderByOrderIdAndUserId,
     addFavouriteOrder,
     deleteFavouriteOrder,
-    duplicate
+    duplicate,
+    getFavouriteOrders,
 };
 
 
@@ -109,6 +110,25 @@ function getAllOrders() {
     var api = config.get('apiUrl');
 
     return fetch(`${api}/orders`, requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return data;
+        });
+}
+
+function getFavouriteOrders(userId) {
+    
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/orders/GetFavouriteOrders/` + userId, requestOptions)
         .then(handleResponse)
         .then(data => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes

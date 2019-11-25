@@ -77,11 +77,11 @@ export const actionCreators = {
                 );
         });
     },
-    getFavouriteOrderByUserId: (userId) => async (dispatch, getState) => {
+    getFavouriteOrders: (userId) => async (dispatch, getState) => {
         dispatch({ type: GET_FAVOURITE_ORDERS_REQUEST });
 
         return new Promise((resolve, reject) => {
-            orderService.getFavouriteOrderByUserId(userId)
+            orderService.getFavouriteOrders(userId)
                 .then(
                     items => {
                         dispatch({ type: GET_FAVOURITE_ORDERS_SUCCESS, items });
@@ -535,6 +535,13 @@ export const reducer = (state, action) => {
     }
 
     if (action.type == GET_FAVOURITE_ORDERS_SUCCESS) {
+        action.items.map(i => {
+            i.key = i.orderId;
+
+
+            i.totalPrice = i.orderItems && i.orderItems.length > 0 ? i.orderItems.map(item => (item.price ? item.price : 0) * (item.quatity ? item.quatity : 0)).reduce((prev, next) => prev + next) : 0;
+        })
+
         return {
             ...state,
             favouriteOrders: action.items

@@ -108,7 +108,7 @@ class EditOrderPage extends React.Component {
     }
 
     goBack() {
-        this.props.history.goBack();
+        this.props.history.push("/order");
     }
 
     render() {
@@ -197,7 +197,7 @@ class EditOrderPage extends React.Component {
                                     type: "text",
                                     id: "location",
                                     placeHolder: "",
-                                    defaultValue: this.props.item.purchaser.location ? this.props.item.purchaser.location : "",
+                                    defaultValue: this.props.item.purchaser ? this.props.item.purchaser.location : "",
                                     editable: false
                                 }]
                             } />
