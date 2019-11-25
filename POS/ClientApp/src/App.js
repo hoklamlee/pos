@@ -18,6 +18,7 @@ import { OrderTab } from './containers/OrderPage/OrderTab';
 //import { OrderPage } from './containers/OrderPage/OrderPage';
 import { AddOrderPage } from './containers/OrderPage/AddOrderPage';
 import { EditOrderPage } from './containers/OrderPage/EditOrderPage';
+import { ReceiptPage } from './containers/OrderPage/ReceiptPage';
 
 import { OrderItemPage } from './containers/OrderItemPage/OrderItemPage';
 import { AddOrderItemPage } from './containers/OrderItemPage/AddOrderItemPage';
@@ -81,6 +82,7 @@ class App extends React.Component {
                         <PrivateRoute path='/order' component={OrderTab} />
                         <PrivateRoute path='/createorder' component={AddOrderPage} />
                         <PrivateRoute path='/editorder/:id' component={EditOrderPage} />
+                        <PrivateRoute path='/printorder/:id' component={ReceiptPage} />
 
                         <PrivateRoute path='/orderitem' component={OrderItemPage} />
                         <PrivateRoute path='/createorderitem/:id' component={AddOrderItemPage} />

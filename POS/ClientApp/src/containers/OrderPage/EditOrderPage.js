@@ -107,6 +107,10 @@ class EditOrderPage extends React.Component {
         this.props.duplicate(this.state.orderId, moment().toDate(), moment().toDate(), this.state.userId);
     }
 
+    print() {
+        this.props.history.push("/printorder/" + this.state.orderId);
+    }
+
     goBack() {
         this.props.history.push("/order");
     }
@@ -144,7 +148,7 @@ class EditOrderPage extends React.Component {
                     }
 
                     <Grid item>
-                        <MaterialUIButton icon={<FontAwesomeIcon icon={faPrint} />} label="Print" />
+                        <MaterialUIButton icon={<FontAwesomeIcon icon={faPrint} />} label="Print" onClick={() => this.print()} />
                     </Grid>
                     <Grid item>
                         <MaterialUIButton icon={<FontAwesomeIcon icon={faCopy} />} label="Duplicate" onClick={() => this.duplicate()} />

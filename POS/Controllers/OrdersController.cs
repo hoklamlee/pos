@@ -44,7 +44,7 @@ namespace POS.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var order = await _context.Orders.Where(o=>o.OrderId == id).Include("OrderItems").Include("Purchaser").FirstOrDefaultAsync();
+            var order = await _context.Orders.Where(o=>o.OrderId == id).Include("OrderItems").Include("OrderItems.Inventory").Include("Purchaser").FirstOrDefaultAsync();
 
             if (order == null)
             {

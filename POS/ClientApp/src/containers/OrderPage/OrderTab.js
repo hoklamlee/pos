@@ -69,7 +69,7 @@ class OrderTab extends React.Component {
                     tabs={tabs}
                 />
 
-                <RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>
+                {/*<RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>*/}
 
             </div>
 
