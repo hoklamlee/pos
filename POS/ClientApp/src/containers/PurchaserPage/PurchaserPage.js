@@ -11,8 +11,11 @@ import config from 'react-global-configuration';
 import MaterialTable from 'material-table';
 import { Paper } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
+import MaterialPaper from '../../components/MaterialPaper';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools } from '@fortawesome/free-solid-svg-icons'
+import { history } from '../../helpers/history';
 
 class PurchaserPage extends React.Component {
     constructor(props) {
@@ -29,12 +32,12 @@ class PurchaserPage extends React.Component {
 
     handeCreate() {
         //this.props.history.push("/createpurchaser");
-        this.props.history.push("/createpurchaser");
+        history.push("/createpurchaser");
 
     }
 
     handleUpdate(key) {
-        this.props.history.push("/editpurchaser/" + key);
+        history.push("/editpurchaser/" + key);
     }
 
     delete(rowData) {
@@ -93,7 +96,6 @@ class PurchaserPage extends React.Component {
                         Container: props => <Paper {...props} elevation={0} />
                     }}
                 />
-
                 <RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>
 
             </div>

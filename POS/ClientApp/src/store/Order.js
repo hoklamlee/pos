@@ -1,6 +1,6 @@
 import { orderService } from '../services/orderService';
 import { inventoryService } from '../services/inventoryService';
-
+import moment from 'moment';
 import { history } from '../helpers/history';
 import { actionCreators as alertAction } from './Alert';
 
@@ -311,10 +311,15 @@ export const reducer = (state, action) => {
         //console.log(action.items)
         action.items.map(i => {
             i.key = i.orderId;
-
-
             i.totalPrice = i.orderItems && i.orderItems.length > 0 ? i.orderItems.map(item => (item.price ? item.price : 0) * (item.quatity ? item.quatity : 0)).reduce((prev, next) => prev + next) : 0;
+
+            i.content = (i.purchaser ? i.purchaser.name : "") + " - $" + i.totalPrice;
+            i.targetDate = moment(i.orderDate, 'DD/MM/YYYY');
+            
+            console.log(i);
         })
+
+       
         return {
             ...state,
             items: action.items,

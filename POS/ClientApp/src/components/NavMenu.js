@@ -12,6 +12,7 @@ import './NavMenu.css';
 
 const navbar_background_color = config.get('navbar_background_color');
 const navbar_font_color = config.get('navbar_font_color');
+const isFullWidth = config.get('isFullWidth');
 
 const fontStyle = {
     color: navbar_font_color
@@ -44,9 +45,9 @@ class NavMenu extends React.Component {
             loggedIn || localStorage.getItem('user') ?
                 <header>
                     {/*<Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light style={{ backgroundColor: navbar_background_color}}>*/}
-                        <Navbar className="navbar-expand-sm navbar-toggleable-sm box-shadow mb-3" light style={{ backgroundColor: navbar_background_color }}>
+                        <Navbar className="navbar-expand-sm navbar-toggleable-sm box-shadow" light style={{ backgroundColor: navbar_background_color }}>
 
-                        <Container>
+                        <Container fluid={isFullWidth}>
                             <NavbarBrand style={fontStyle} tag={Link} to="/">POS</NavbarBrand>
                             <NavbarToggler style={fontStyle}  onClick={this.toggle} className="mr-2" />
                             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>

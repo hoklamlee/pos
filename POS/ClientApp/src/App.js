@@ -13,6 +13,7 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import { LoginPage } from './containers/LoginPage';
 import { ProfilePage } from './containers/ProfilePage/ProfilePage';
+import { ProfileDrawer } from './containers/ProfilePage/ProfileDrawer';
 
 import { OrderTab } from './containers/OrderPage/OrderTab';
 //import { OrderPage } from './containers/OrderPage/OrderPage';
@@ -24,10 +25,12 @@ import { OrderItemPage } from './containers/OrderItemPage/OrderItemPage';
 import { AddOrderItemPage } from './containers/OrderItemPage/AddOrderItemPage';
 import { EditOrderItemPage } from './containers/OrderItemPage/EditOrderItemPage';
 
+import { InventoryTab } from './containers/InventoryPage/InventoryTab';
 import { InventoryPage } from './containers/InventoryPage/InventoryPage';
 import { AddInventoryPage } from './containers/InventoryPage/AddInventoryPage';
 import { EditInventoryPage } from './containers/InventoryPage/EditInventoryPage';
 
+import { PurchaserTab } from './containers/PurchaserPage/PurchaserTab';
 import { PurchaserPage } from './containers/PurchaserPage/PurchaserPage';
 import { AddPurchaserPage } from './containers/PurchaserPage/AddPurchaserPage';
 import { EditPurchaserPage } from './containers/PurchaserPage/EditPurchaserPage';
@@ -88,15 +91,15 @@ class App extends React.Component {
                         <PrivateRoute path='/createorderitem/:id' component={AddOrderItemPage} />
                         <PrivateRoute path='/editorderitem/:id' component={EditOrderItemPage} />
 
-                        <PrivateRoute path='/inventory' component={InventoryPage} />
+                        <PrivateRoute path='/inventory' component={InventoryTab} />
                         <PrivateRoute path='/createinventory' component={AddInventoryPage} />
                         <PrivateRoute path='/editinventory/:id' component={EditInventoryPage} />
 
-                        <PrivateRoute path='/purchaser' component={PurchaserPage} />
+                        <PrivateRoute path='/purchaser' component={PurchaserTab} />
                         <PrivateRoute path='/createpurchaser' component={AddPurchaserPage} />
                         <PrivateRoute path='/editpurchaser/:id' component={EditPurchaserPage} />
 
-                        <PrivateRoute path='/profile' component={ProfilePage} />
+                        <PrivateRoute path='/profile' component={ProfileDrawer} />
                         <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
 
                         <PrivateRoute path='/sitesetting' component={SiteSittingPage} />

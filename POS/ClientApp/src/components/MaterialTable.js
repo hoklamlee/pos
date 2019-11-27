@@ -31,6 +31,9 @@ export default function MaterialTableDemo() {
                 title="Editable Example"
                 columns={state.columns}
                 data={state.data}
+                options={{
+                    exportButton: true
+                }}
                 editable={{
                     onRowAdd: newData =>
                         new Promise(resolve => {

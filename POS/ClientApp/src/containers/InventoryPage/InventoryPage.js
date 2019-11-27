@@ -11,8 +11,10 @@ import config from 'react-global-configuration';
 import MaterialTable from 'material-table';
 import { Paper } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
+import MateiralPaper from '../../components/MaterialPaper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools } from '@fortawesome/free-solid-svg-icons'
+import { history } from '../../helpers/history';
 
 class InventoryPage extends React.Component {
     constructor(props) {
@@ -29,12 +31,12 @@ class InventoryPage extends React.Component {
 
     handeCreate() {
         //this.props.history.push("/createinventory");
-        this.props.history.push("/createinventory");
+        history.push("/createinventory");
 
     }
 
     handleUpdate(key) {
-        this.props.history.push("/editinventory/" + key);
+        history.push("/editinventory/" + key);
     }
 
     delete(rowData) {
@@ -81,29 +83,29 @@ class InventoryPage extends React.Component {
 
         return (
             <div style={{ marginTop: '2vh', width: '100%' }}>
-                <MaterialTable
-                    title="Inventory"
-                    columns={columns}
-                    data={this.props.items}
-                    actions={[
-                        {
-                            icon: 'edit',
-                            tooltip: 'Edit User',
-                            onClick: (event, rowData) => {
-                                //alert('You are editing ' + rowData.name);
-                                this.handleUpdate(rowData.inventoryId);
+                    <MaterialTable
+                        title="Inventory"
+                        columns={columns}
+                        data={this.props.items}
+                        actions={[
+                            {
+                                icon: 'edit',
+                                tooltip: 'Edit User',
+                                onClick: (event, rowData) => {
+                                    //alert('You are editing ' + rowData.name);
+                                    this.handleUpdate(rowData.inventoryId);
+                                }
+                            },
+                            {
+                                icon: 'delete',
+                                tooltip: 'Delete User',
+                                onClick: (event, rowData) => { this.delete(rowData) }
                             }
-                        },
-                        {
-                            icon: 'delete',
-                            tooltip: 'Delete User',
-                            onClick: (event, rowData) => { this.delete(rowData) }
-                        }
-                    ]}
-                    components={{
-                        Container: props => <Paper {...props} elevation={0} />
-                    }}
-                />
+                        ]}
+                        components={{
+                            Container: props => <Paper {...props} elevation={0} />
+                        }}
+                    />
 
                 <RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>
 

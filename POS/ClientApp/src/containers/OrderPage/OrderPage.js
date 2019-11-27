@@ -86,6 +86,9 @@ class OrderPage extends React.Component {
                     title="Order"
                     columns={columns}
                     data={this.props.items}
+                    options={{
+                        exportButton: true
+                    }}
                     actions={[
                         {
                             icon: 'edit',

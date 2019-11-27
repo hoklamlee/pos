@@ -13,39 +13,21 @@ import { Paper, Grid } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
 import MaterialUIButton from '../../components/MaterialUIButton';
 import MaterialUITab from '../../components/MaterialUITab';
+import MaterialPaper from '../../components/MaterialPaper';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee, faPlus, faTrash, faPen, faTools, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { OrderPage } from './OrderPage';
 import { FavouriteOrderPage } from './FavouriteOrderPage';
+import { MonthlyOrderPage } from './MonthlyOrderPage';
 
 class OrderTab extends React.Component {
     constructor(props) {
         super(props);
 
         this.props.getAllOrders();
-
-        //this.submitInfo = this.submitInfo.bind(this);
-        this.delete = this.delete.bind(this);
-        this.handeCreate = this.handeCreate.bind(this);
-        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
-
-    handeCreate() {
-        //this.props.history.push("/createorder");
-        this.props.history.push("/createorder");
-    }
-
-    handleUpdate(key) {
-        this.props.history.push("/editorder/" + key);
-    }
-
-    delete(rowData) {
-        if (window.confirm(`Are you sure delete ` + rowData.name)) {
-            this.props.deleteOrder(rowData.orderId);
-        }        //console.log(key);
-    }
 
     render() {
 
@@ -59,18 +41,18 @@ class OrderTab extends React.Component {
             {
                 label: 'Favourite Orders',
                 component: <FavouriteOrderPage />
+            },
+            {
+                label: 'Monthly Orders',
+                component: <MonthlyOrderPage />
             }
         ]
 
         return (
-            <div style={{ marginTop: '2vh', width: '100%' }}>
-
-                <MaterialUITab
-                    tabs={tabs}
-                />
-
-                {/*<RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>*/}
-
+            <div>
+                    <MaterialUITab
+                        tabs={tabs}
+                    />
             </div>
 
         );
