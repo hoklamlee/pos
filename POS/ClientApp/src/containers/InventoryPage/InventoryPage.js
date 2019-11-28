@@ -86,7 +86,10 @@ class InventoryPage extends React.Component {
                     <MaterialTable
                         title="Inventory"
                         columns={columns}
-                        data={this.props.items}
+                    data={this.props.items}
+                    options={{
+                        exportButton: true
+                    }}
                         actions={[
                             {
                                 icon: 'edit',

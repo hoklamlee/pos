@@ -81,7 +81,7 @@ export default class ReactStrapForm extends React.Component {
 
     render() {
         return (
-            <Paper style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 20, paddingBottom: 20}}>
+            <div style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 20, paddingBottom: 20}}>
                 <Form onSubmit={this.props.onSubmit}>
                     {
                         this.props.fields.map(f => {
@@ -214,7 +214,7 @@ export default class ReactStrapForm extends React.Component {
                     </div>
                 </Form>
 
-            </Paper>
+            </div>
         );
     }
 

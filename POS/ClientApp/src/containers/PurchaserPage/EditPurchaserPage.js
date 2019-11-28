@@ -13,7 +13,7 @@ import EditableTable from '../../components/AntTable';
 import ReactStrapFrom from '../../components/ReactStrapForm';
 import PageHeader from '../../components/PageHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Divider } from '@material-ui/core';
+import { Divider,Paper } from '@material-ui/core';
 import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 class EditPurchaserPage extends React.Component {
@@ -77,6 +77,8 @@ class EditPurchaserPage extends React.Component {
 
                 {
                     this.props.item ?
+                        <Paper style={{ marginLeft: '2vh', marginRight: '2vh' }}>
+
                         <ReactStrapFrom
                             onSubmit={this.submitForm}
                             fields={
@@ -109,7 +111,7 @@ class EditPurchaserPage extends React.Component {
 
                                 }]
                             } />
-
+                            </Paper>
                         :
                         <div></div>
                 }

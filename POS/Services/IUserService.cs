@@ -43,7 +43,7 @@ namespace POS.Services
         public UserService(IOptions<Settings> settings)
         {
             //string test = Configuration["ConnectionString:DefaultConnection"];
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=pos;Trusted_Connection=True;MultipleActiveResultSets=true");
+            //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=pos;Trusted_Connection=True;MultipleActiveResultSets=true");
             optionsBuilder.UseSqlServer(settings.Value.ConnectionString.DefaultConnection);
 
             _context = new POSContext(optionsBuilder.Options);

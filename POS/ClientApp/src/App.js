@@ -40,7 +40,7 @@ import { AddStatusPage } from './containers/StatusPage/AddStatusPage';
 import { EditStatusPage } from './containers/StatusPage/EditStatusPage';
 
 
-import { SiteSittingPage } from './containers/SiteSettingPage/SiteSittingPage';
+import { SiteSettingMain } from './containers/SiteSettingPage/SiteSettingMain';
 
 
 import 'antd/dist/antd.css';
@@ -102,7 +102,7 @@ class App extends React.Component {
                         <PrivateRoute path='/profile' component={ProfileDrawer} />
                         <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
 
-                        <PrivateRoute path='/sitesetting' component={SiteSittingPage} />
+                        <PrivateRoute path='/sitesetting' component={SiteSettingMain} />
 
                         <PrivateRoute path='/status' component={StatusPage} />
                         <PrivateRoute path='/createstatus' component={AddStatusPage} />

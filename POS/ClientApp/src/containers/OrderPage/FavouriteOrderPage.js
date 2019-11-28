@@ -87,9 +87,12 @@ class FavouriteOrderPage extends React.Component {
         return (
             <div style={{ marginTop: '2vh', width: '100%' }}>
                 <MaterialTable
-                    title="Order"
+                    title="Favourite Orders"
                     columns={columns}
                     data={this.props.favouriteOrders}
+                    options={{
+                        exportButton: true
+                    }}
                     actions={[
                         {
                             icon: 'edit',

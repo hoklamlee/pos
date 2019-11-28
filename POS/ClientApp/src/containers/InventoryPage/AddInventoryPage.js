@@ -11,7 +11,7 @@ import config from 'react-global-configuration';
 
 import ReactStrapFrom from '../../components/ReactStrapForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Divider } from '@material-ui/core';
+import { Divider,Paper } from '@material-ui/core';
 import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import PageHeader from '../../components/PageHeader';
 
@@ -56,45 +56,47 @@ class AddInventoryPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>New Inventory</div>}
                 />
 
-
-                <ReactStrapFrom
-                    onSubmit={this.submitForm}
-                    fields={
-                        [{
-                            label: "Name",
-                            type: "text",
-                            id: "name",
-                            placeHolder: ""
-                        }, {
-                            label: "Category",
-                            type: "text",
-                            id: "category",
-                            placeHolder: ""
-                        }
-                            , {
-                            label: "Description",
-                            type: "textarea",
-                            id: "description",
-                            placeHolder: ""
-                        }, {
-                            label: "Price",
-                            type: "number",
-                            id: "price",
-                            placeHolder: ""
-                        },
-                        {
-                            label: "Quatity",
-                            type: "number",
-                            id: "quatity",
-                            placeHolder: ""
-                        },
-                        {
-                            label: "Unit",
-                            type: "text",
-                            id: "unit",
-                            placeHolder: ""
-                        }]
-                    } />
+                <Paper style={{marginLeft:'2vh',marginRight:'2vh'}}>
+                    <ReactStrapFrom
+                        onSubmit={this.submitForm}
+                        fields={
+                            [{
+                                label: "Name",
+                                type: "text",
+                                id: "name",
+                                placeHolder: ""
+                            }, {
+                                label: "Category",
+                                type: "text",
+                                id: "category",
+                                placeHolder: ""
+                            }
+                                , {
+                                label: "Description",
+                                type: "textarea",
+                                id: "description",
+                                placeHolder: ""
+                            }, {
+                                label: "Price",
+                                type: "number",
+                                id: "price",
+                                placeHolder: ""
+                            },
+                            {
+                                label: "Quatity",
+                                type: "number",
+                                id: "quatity",
+                                placeHolder: ""
+                            },
+                            {
+                                label: "Unit",
+                                type: "text",
+                                id: "unit",
+                                placeHolder: ""
+                            }]
+                        } />
+                    </Paper>
+          
             </div>
 
         );

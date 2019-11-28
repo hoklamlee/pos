@@ -77,6 +77,9 @@ class PurchaserPage extends React.Component {
                     title="Purchaser"
                     columns={columns}
                     data={this.props.items}
+                    options={{
+                        exportButton: true
+                    }}
                     actions={[
                         {
                             icon: 'edit',

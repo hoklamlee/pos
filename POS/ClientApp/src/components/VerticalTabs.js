@@ -11,6 +11,7 @@ function TabPanel(props) {
 
     return (
         <div
+            style={{flexGrow: 1,overflowX: 'scroll'}}
             component="div"
             role="tabpanel"
             hidden={value !== index}
@@ -18,8 +19,8 @@ function TabPanel(props) {
             aria-labelledby={`vertical-tab-${index}`}
             {...other}
         >
+          {children}
 
-            {children}
         </div>
     );
 }
@@ -43,7 +44,6 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
         display: 'flex',
         height: '100vh',
-        width: '100%'
     },
     tabs: {
         borderRight: `1px solid ${theme.palette.divider}`,
@@ -74,7 +74,7 @@ export default function VerticalTabs(props) {
                     </Tab>
                 )}
             </Tabs>
-            {props.tabs.map(o => 
+            {props.tabs.map(o =>
                 <TabPanel value={value} index={props.tabs.indexOf(o)}>
                     {o.component}
                 </TabPanel>

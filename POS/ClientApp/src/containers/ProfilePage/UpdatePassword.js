@@ -13,6 +13,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools, faInfo, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { history } from '../../helpers/history';
 
 
 class UpdatePassword extends React.Component {
@@ -58,33 +59,28 @@ class UpdatePassword extends React.Component {
 
         return (
             <div style={{ marginTop: '2vh' }}>
-                <MaterialPaper header={<div><FontAwesomeIcon icon={faKey} /> Update Password</div>}>
-                    <ReactStrapForm
-                        onSubmit={this.submitPassword}
-                        fields={
-                            [{
-                                label: "Password",
-                                type: "password",
-                                id: "password",
-                                placeHolder: ""
-                            }, {
-                                label: "Password Confirm",
-                                type: "password",
-                                id: "passwordConfirm",
-                                placeHolder: ""
-                            }]
-                        } />
+                <div style={{ marginLeft: '2vh', marginRight: '2vh' }}>
+
+                    <MaterialPaper header={<div><FontAwesomeIcon icon={faKey} /> Update Password</div>}>
+                        <ReactStrapForm
+                            onSubmit={this.submitPassword}
+                            fields={
+                                [{
+                                    label: "Password",
+                                    type: "password",
+                                    id: "password",
+                                    placeHolder: ""
+                                }, {
+                                    label: "Password Confirm",
+                                    type: "password",
+                                    id: "passwordConfirm",
+                                    placeHolder: ""
+                                }]
+                            } />
 
 
-                </MaterialPaper>
-
-                <div style={{ marginBottom: 20 }}></div>
-
-
-                <Button color="primary" style={{ width: '100%' }} onClick={() => this.logout()}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Button>
-
-                <div style={{ marginBottom: 20 }}></div>
-
+                    </MaterialPaper>
+                </div>
             </div>
 
         );

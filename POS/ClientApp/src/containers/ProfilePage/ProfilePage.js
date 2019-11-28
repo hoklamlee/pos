@@ -10,9 +10,10 @@ import config from 'react-global-configuration';
 import MaterialPaper from '../../components/MaterialPaper';
 import ReactStrapForm from '../../components/ReactStrapForm';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
+import { Grid } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools, faInfo, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { history } from '../../helpers/history';
 
 
 class ProfilePage extends React.Component {
@@ -51,13 +52,15 @@ class ProfilePage extends React.Component {
     }
 
     logout() {
-        this.props.history.push("/login");
+        history.push("/login");
     }
 
     render() {
 
         return (
             <div style={{ marginTop: '2vh' }}>
+                <div style={{ marginLeft: '2vh', marginRight: '2vh'}}>
+
                 <MaterialPaper header={<div><FontAwesomeIcon icon={faInfo} /> Basic Information</div>}>
                     <ReactStrapForm
                         onSubmit={this.submitInfo}
@@ -90,35 +93,16 @@ class ProfilePage extends React.Component {
                             }]
                         } />
                 </MaterialPaper>
-
+                    </div>
                 <div style={{ marginBottom: 20 }}></div>
-
-                <MaterialPaper header={<div><FontAwesomeIcon icon={faKey} /> Update Password</div>}>
-                    <ReactStrapForm
-                        onSubmit={this.submitPassword}
-                        fields={
-                            [{
-                                label: "Password",
-                                type: "password",
-                                id: "password",
-                                placeHolder: ""
-                            }, {
-                                label: "Password Confirm",
-                                type: "password",
-                                id: "passwordConfirm",
-                                placeHolder: ""
-                            }]
-                        } />
-
-
-                </MaterialPaper>
-
-                <div style={{ marginBottom: 20 }}></div>
-
-
-                <Button color="primary" style={{ width: '100%' }} onClick={() => this.logout()}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Button>
-
-                <div style={{ marginBottom: 20 }}></div>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <Button color="primary" style={{ width: '50%' }} onClick={() => this.logout()}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Button>
+                 </Grid>
 
             </div>
 

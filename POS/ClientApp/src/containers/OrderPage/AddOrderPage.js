@@ -11,7 +11,7 @@ import config from 'react-global-configuration';
 
 import ReactStrapFrom from '../../components/ReactStrapForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Divider } from '@material-ui/core';
+import { Divider, Paper } from '@material-ui/core';
 import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import PageHeader from '../../components/PageHeader';
 
@@ -60,6 +60,7 @@ class AddOrderPage extends React.Component {
                 />
 
                 {this.props.users.length > 0 && this.props.purchasers.length > 0 ?
+                    <Paper style={{marginLeft:'2vh', marginRight:'2vh'}}>
                     <ReactStrapFrom
                         onSubmit={this.submitForm}
                         fields={
@@ -93,7 +94,7 @@ class AddOrderPage extends React.Component {
                                 placeHolder: ""
                             }]
                         } />
-
+                        </Paper>
                     :
 
                     <div></div>}

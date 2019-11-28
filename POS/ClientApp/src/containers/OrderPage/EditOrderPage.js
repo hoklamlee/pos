@@ -12,7 +12,7 @@ import config from 'react-global-configuration';
 import EditableTable from '../../components/AntTable';
 import ReactStrapFrom from '../../components/ReactStrapForm';
 import PageHeader from '../../components/PageHeader';
-import { Divider, Grid } from '@material-ui/core';
+import { Divider, Grid, Paper } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
 import MaterialUIDialog from '../../components/MaterialUIDialog';
 
@@ -155,7 +155,7 @@ class EditOrderPage extends React.Component {
                     </Grid>
                 </Grid>
                 {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item ?
-                    <div>
+                    <Paper style={{ marginLeft: '2vh', marginRight: '2vh' }}>
 
                         <ReactStrapFrom
                             onSubmitLabel="Save"
@@ -212,7 +212,7 @@ class EditOrderPage extends React.Component {
                         <OrderItemPage orderId={this.state.orderId} />
 
 
-                    </div>
+                    </Paper>
 
                     :
 

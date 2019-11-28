@@ -88,7 +88,6 @@ class StatusPage extends React.Component {
                         Container: props => <Paper {...props} elevation={0} />
                     }}
                 />
-
                 <RightBottomButton label="Create" handleClick={this.handeCreate}><FontAwesomeIcon icon={faPlus} /></RightBottomButton>
 
             </div>

@@ -63,7 +63,7 @@ class ProfileDrawer extends React.Component {
                 component: <ProfilePage />
             },
             {
-                label: 'Update Password',
+                label: 'Password',
                 component: <UpdatePassword />
             }
         ]
