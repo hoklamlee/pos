@@ -6,6 +6,10 @@ export const userService = {
     login,
     logout,
     getAll,
+    getUserById,
+    addUser,
+    deleteUser,
+    updateUser,
     updateUserInfo,
     updatePassword
 };
@@ -81,8 +85,98 @@ function getAll() {
         headers: authHeader()
     };
 
-    //return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/users/GetAll`, requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return data;
+        });
 }
+
+function getUserById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    var api = config.get('apiUrl');
+
+    return fetch(`${api}/users/` + id, requestOptions)
+        .then(handleResponse)
+        .then(item => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return item;
+        });
+}
+
+function addUser(firstName,lastName,username, email, password, displayname) {
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify({ firstName, lastName, username, email, password, displayname })
+
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/User`, requestOptions)
+        .then(handleResponse)
+        .then(item => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return item;
+        });
+}
+
+function deleteUser(userId) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader(),
+        body: JSON.stringify({})
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/User/` + userId, requestOptions)
+        .then(handleResponse)
+        .then(item => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return item;
+        });
+}
+
+function updateUser(userId, firstName, lastName, username, email, password, displayname) {
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify({ userId, firstName, lastName, username, email, password, displayname })
+
+    };
+
+    var api = config.get('apiUrl');
+
+
+    return fetch(`${api}/User/UpdateUser`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
+
 
 function handleResponse(response) {
     return response.text().then(text => {

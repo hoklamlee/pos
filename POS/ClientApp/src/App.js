@@ -39,6 +39,10 @@ import { StatusPage } from './containers/StatusPage/StatusPage';
 import { AddStatusPage } from './containers/StatusPage/AddStatusPage';
 import { EditStatusPage } from './containers/StatusPage/EditStatusPage';
 
+import { UserPage } from './containers/UserPage/UserPage';
+import { AddUserPage } from './containers/UserPage/AddUserPage';
+import { EditUserPage } from './containers/UserPage/EditUserPage';
+
 
 import { SiteSettingMain } from './containers/SiteSettingPage/SiteSettingMain';
 
@@ -108,7 +112,9 @@ class App extends React.Component {
                         <PrivateRoute path='/createstatus' component={AddStatusPage} />
                         <PrivateRoute path='/editstatus/:id' component={EditStatusPage} />
 
-                        
+                        <PrivateRoute path='/users' component={UserPage} />
+                        <PrivateRoute path='/createuser' component={AddUserPage} />
+                        <PrivateRoute path='/edituser/:id' component={EditUserPage} />   
                     </Layout>
                 </Router >
 
