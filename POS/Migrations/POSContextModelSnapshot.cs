@@ -247,6 +247,43 @@ namespace POS.Migrations
                     b.ToTable("Statuses");
                 });
 
+            modelBuilder.Entity("POS.Models.SystemParam", b =>
+                {
+                    b.Property<int>("SystemParamId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active");
+
+                    b.Property<int?>("CreatedByUserId");
+
+                    b.Property<int?>("CreatedBy_UserId");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int?>("ModifiedByUserId");
+
+                    b.Property<int?>("ModifiedBy_UserId");
+
+                    b.Property<DateTime>("ModifiedDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("SystemParamId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("ModifiedByUserId");
+
+                    b.ToTable("SystemParam");
+                });
+
             modelBuilder.Entity("POS.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -315,7 +352,7 @@ namespace POS.Migrations
                         .HasForeignKey("ModifiedByUserId");
 
                     b.HasOne("POS.Models.Purchaser", "Purchaser")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("PurchaserId");
 
                     b.HasOne("POS.Models.Status", "Status")
@@ -354,6 +391,17 @@ namespace POS.Migrations
                 });
 
             modelBuilder.Entity("POS.Models.Status", b =>
+                {
+                    b.HasOne("POS.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId");
+
+                    b.HasOne("POS.Models.User", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedByUserId");
+                });
+
+            modelBuilder.Entity("POS.Models.SystemParam", b =>
                 {
                     b.HasOne("POS.Models.User", "CreatedBy")
                         .WithMany()

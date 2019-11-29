@@ -40,7 +40,7 @@ class UserPage extends React.Component {
 
     delete(rowData) {
         if (window.confirm(`Are you sure delete ` + rowData.name)) {
-            this.props.deleteStatus(rowData.statusId);
+            this.props.deleteStatus(rowData.userId);
         }        //console.log(key);
     }
 

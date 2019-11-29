@@ -16,6 +16,7 @@ import { faCoffee, faPlus, faTrash, faPen, faTools, faInfo, faKey, faSignOutAlt 
 import VerticalTabs from '../../components/VerticalTabs';
 import { StatusPage } from '../StatusPage/StatusPage';
 import { UserPage } from '../UserPage/UserPage';
+import { SystemParamPage } from '../SystemParamPage/SystemParamPage';
 
 class SiteSettingMain extends React.Component {
     constructor(props) {
@@ -38,8 +39,8 @@ class SiteSettingMain extends React.Component {
                 component: <UserPage />
             },
             {
-                label: 'Menu Setting',
-                component: <div></div>
+                label: 'System Param',
+                component:<SystemParamPage />
             }
         ]
 
