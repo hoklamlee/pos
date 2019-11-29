@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools, faInfo, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import VerticalTabs from '../../components/VerticalTabs';
 import { StatusPage } from '../StatusPage/StatusPage';
+import { UserPage } from '../UserPage/UserPage';
+import { SystemParamPage } from '../SystemParamPage/SystemParamPage';
 
 class SiteSettingMain extends React.Component {
     constructor(props) {
@@ -34,11 +36,11 @@ class SiteSettingMain extends React.Component {
             },
             {
                 label: 'Site Member',
-                component: <div></div>
+                component: <UserPage />
             },
             {
-                label: 'Menu Setting',
-                component: <div></div>
+                label: 'System Param',
+                component:<SystemParamPage />
             }
         ]
 

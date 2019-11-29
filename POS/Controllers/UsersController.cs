@@ -18,11 +18,18 @@ namespace POS.Controllers
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
+        private readonly POSContext _context;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, POSContext context)
         {
             _userService = userService;
+            _context = context;
         }
+
+        //public UsersController(POSContext context)
+        //{
+        //    _context = context;
+        //}
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
@@ -103,12 +110,92 @@ namespace POS.Controllers
         }
 
 
-
-        [HttpGet]
+        [HttpGet("/api/[controller]/[action]")]
         public IActionResult GetAll()
         {
+            try
+            {
             var users = _userService.GetAll();
             return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
+
+
+        // GET: api/Status/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUser(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
+        // PUT: api/Purchasers/5
+        [HttpPost("UpdateUser")]
+        public async Task<IActionResult> UpdateUser(User newUser)
+        {
+            var user = _context.Users.Find(newUser.UserId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.DisplayName = newUser.DisplayName;
+            user.FirstName = newUser.FirstName;
+            user.LastName = newUser.LastName;
+            user.Email = newUser.Email;
+            user.Password = newUser.Password;
+
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            return NoContent();
+        }
+
+
+        // POST: api/User
+        [HttpPost]
+        public async Task<ActionResult<User>> PostUser(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+        }
+
+        // DELETE: api/User/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<User>> DeleteUser(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return user;
         }
 
         private bool IsBasicInfoCorrect(User user)

@@ -24,7 +24,7 @@ function addStatus(category, code, description, createdBy_UserId) {
     var api = config.get('apiUrl');
 
 
-    return fetch(`${api}/Status`, requestOptions)
+    return fetch(`${api}/Statuses`, requestOptions)
         .then(handleResponse)
         .then(item => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes

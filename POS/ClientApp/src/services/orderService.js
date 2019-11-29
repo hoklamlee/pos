@@ -146,7 +146,7 @@ function getAllUsers() {
 
     var api = config.get('apiUrl');
 
-    return fetch(`${api}/users`, requestOptions)
+    return fetch(`${api}/users/GetAll`, requestOptions)
         .then(handleResponse)
         .then(data => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes

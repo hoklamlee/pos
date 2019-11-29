@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using POS.Models;
 
 namespace POS.Models
 {
@@ -60,5 +61,9 @@ namespace POS.Models
 
 
         }
+
+
+
+        public DbSet<POS.Models.SystemParam> SystemParam { get; set; }
     }
 }

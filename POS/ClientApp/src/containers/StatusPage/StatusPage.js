@@ -13,6 +13,7 @@ import { Paper } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faPlus, faTrash, faPen, faTools } from '@fortawesome/free-solid-svg-icons'
+import { history } from '../../helpers/history';
 
 class StatusPage extends React.Component {
     constructor(props) {
@@ -29,12 +30,12 @@ class StatusPage extends React.Component {
 
     handeCreate() {
         //this.props.history.push("/createstatus");
-        this.props.history.push("/createstatus");
+        history.push("/createstatus");
 
     }
 
     handleUpdate(key) {
-        this.props.history.push("/editstatus/" + key);
+        history.push("/editstatus/" + key);
     }
 
     delete(rowData) {

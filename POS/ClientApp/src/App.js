@@ -39,6 +39,13 @@ import { StatusPage } from './containers/StatusPage/StatusPage';
 import { AddStatusPage } from './containers/StatusPage/AddStatusPage';
 import { EditStatusPage } from './containers/StatusPage/EditStatusPage';
 
+import { UserPage } from './containers/UserPage/UserPage';
+import { AddUserPage } from './containers/UserPage/AddUserPage';
+import { EditUserPage } from './containers/UserPage/EditUserPage';
+
+import { SystemParamPage } from './containers/SystemParamPage/SystemParamPage';
+import { AddSystemParamPage } from './containers/SystemParamPage/AddSystemParamPage';
+import { EditSystemParamPage } from './containers/SystemParamPage/EditSystemParamPage';
 
 import { SiteSettingMain } from './containers/SiteSettingPage/SiteSettingMain';
 
@@ -108,7 +115,13 @@ class App extends React.Component {
                         <PrivateRoute path='/createstatus' component={AddStatusPage} />
                         <PrivateRoute path='/editstatus/:id' component={EditStatusPage} />
 
-                        
+                        <PrivateRoute path='/users' component={UserPage} />
+                        <PrivateRoute path='/createuser' component={AddUserPage} />
+                        <PrivateRoute path='/edituser/:id' component={EditUserPage} />   
+
+                        <PrivateRoute path='/systemparams' component={SystemParamPage} />
+                        <PrivateRoute path='/createsystemparam' component={AddSystemParamPage} />
+                        <PrivateRoute path='/editsystemparam/:id' component={EditSystemParamPage} />   
                     </Layout>
                 </Router >
 
