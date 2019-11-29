@@ -65,7 +65,7 @@ class OrderItemPage extends React.Component {
         ]
 
         return (
-            <div style={{ marginTop: '2vh', width: '100%' }}>
+            <div style={{ width: '100%' }}>
 
                 <MaterialTable
                     title="Order Item"

@@ -22,13 +22,16 @@ import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft, faPrint, faHear
 
 import { OrderItemPage } from '../OrderItemPage/OrderItemPage';
 import moment from 'moment';
+import './ReceiptPage.css';
 
 class ReceiptPage extends React.Component {
     constructor(props) {
         super(props);
 
 
-        const orderId = this.props.match.params.id;
+        //const orderId = this.props.match.params.id;
+        const orderId = this.props.orderId;
+
         const userId = JSON.parse(localStorage.getItem('user')).userId;
 
         this.state = {
@@ -41,6 +44,30 @@ class ReceiptPage extends React.Component {
 
     }
 
+    showEmptyRows(rows) {
+        var components = [];
+
+        var i = rows.length;
+
+        while (i < 8) {
+            components.push(
+                <tr>
+                    <td style={{ height: "3vh", paddingLeft: "2vh" }}></td>
+                    <td style={{ height: "3vh", paddingLeft: "2vh" }}></td>
+                    <td style={{ height: "3vh", paddingLeft: "2vh" }}></td>
+                </tr>
+            );
+            i++;
+        }
+
+        return (
+            <React.Fragment>
+                {components}
+            </React.Fragment>
+        );
+    }
+
+
 
     render() {
 
@@ -48,58 +75,61 @@ class ReceiptPage extends React.Component {
             <div className="body">
                 <div className="face face-back">
 
-                    <Grid container spacing={1} style={{ paddingTop: 10 }}>
-                        <Grid container item xs={12} spacing={3}>
-                            <Grid item>冰 鮮 家 禽</Grid>
-                            <Grid item>明 富 雞 鴨</Grid>
-                            <Grid item> 零 沽 批 發</Grid>
-                        </Grid>
-                        <Grid container xs={12} spacing={3} style={{ textAlign: "center", fontSize: 6 }}>
+                    <div>
+                        <div style={{ textAlign: "center", fontSize: 6 }}>
+                            <div style={{ display: "inline", float: "left", marginLeft: "5vh" }}>冰 鮮 家 禽</div>
+                            <div style={{ display: "inline", fontSize: "12" }}>明 富 雞 鴨</div>
+                            <div style={{ display: "inline", float: "right", marginRight: "5vh" }}> 零 沽 批 發</div>
+                        </div>
+                        <div style={{ textAlign: "center", fontSize: 6 }}>
                             九龍深水埗北河街街市 1/F P15
-                        </Grid>
-                        <Grid cotainer xs={12} spacing={3} style={{ textAlign: "center", fontSize: 6 }}>
+                        </div>
+                        <div style={{ textAlign: "center", fontSize: 6 }}>
                             陳生：9485 7494&nbsp;&nbsp;晚上：6203 8582&nbsp;&nbsp;陳太：9335 1723
-                            </Grid>
-                        <Grid container item xs={12} spacing={3}>
-                            ************************************************************************************
-                        </Grid>
+                            </div>
+                        <div style={{ textAlign: "center", fontSize: 6 }}>
+                            ***********************************************************************************************************
+                        </div>
                         {this.props.item ?
                             <div>
-                                <Grid container item xs={12} spacing={3}>
-                                    {console.log(this.props.item)}
-
-                                    <Grid item>{this.props.item.purchaser.name}&nbsp;蒙光顧</Grid>
-                                    <Grid item>{this.props.item.orderDate}發貨單</Grid>
-                                </Grid>
-                                <Grid container style={{ height: 230 }}>
-                                    <div style={{ width: "100%", paddingLeft: "20px", paddingRight: "20px", marginTop: "10px" }}>
-                                        <table border="1" style={{ width: "100%", border: "1px solid #ddd" }}>
+                                <div>
+                                    <div style={{ display: "inline", float: "left", marginLeft: "2vh" }}>{this.props.item.purchaser.name}&nbsp;蒙光顧</div>
+                                    <div style={{ display: "inline", float: "right", marginRight: "2vh" }}>{this.props.item.orderDate}發貨單</div>
+                                </div>
+                                <div style={{lineHeight:"0px"}}>&nbsp;</div>
+                                    <div style={{ height: 230, width: "100%", paddingLeft: "20px", paddingRight: "20px" }}>
+                                    <table border="1" style={{ width: "100%", border: "1px solid #ddd", marginTop: "3vh",fontSize:"5px" }}>
+                                        <thead>
                                             <tr>
                                                 <th style={{ width: "25%", paddingLeft: "2vh" }}>名稱</th>
                                                 <th style={{ width: "50%", paddingLeft: "2vh" }}>數量</th>
                                                 <th style={{ width: "25%", paddingLeft: "2vh" }}>總數</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
                                             {this.props.item.orderItems.map(o =>
                                                 <tr>
-                                                    {console.log(o)}
                                                     <td style={{ height: "3vh", paddingLeft: "2vh" }}>{o.inventory.name}</td>
                                                     <td style={{ height: "3vh", paddingLeft: "2vh" }}>{o.quatity}</td>
                                                     <td style={{ height: "3vh", paddingLeft: "2vh" }}>${o.price}</td>
                                                 </tr>)
                                             }
 
+                                            {this.showEmptyRows(this.props.item.orderItems)}
+
                                             <tr>
                                                 <td colspan={2} style={{ visibility: "hidden" }}></td>
                                                 <td style={{ paddingLeft: "2vh" }}>${this.props.totalPrice}</td>
                                             </tr>
+                                        </tbody>
+
                                         </table>
                                     </div>
-                                </Grid>
-                                </div>
+                            </div>
                             :
                             ""}
-    
-                    </Grid>
+
+                    </div>
 
                 </div>
                 <div className="face face-front">

@@ -1,6 +1,6 @@
 ﻿@page {
     /* dimensions for the whole page */
-    size: A5;
+    size: A5 landscape;
     margin: 0;
 }
 

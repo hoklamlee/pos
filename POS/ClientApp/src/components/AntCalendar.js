@@ -33,7 +33,7 @@ export default class AntCanlendar extends React.Component {
         console.log(value);
         const listData = this.getListData(value);
         return (
-            <ul className="events">
+            <ul className="events" style={{listStyle:"none"}}>
                 {listData.map(item => (
                     <li key={item.content}>
                         <Badge status={item.type} text={item.content} />

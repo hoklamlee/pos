@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
 import { Router, Route, Link, Redirect } from 'react-router';
 
 import { connect } from 'react-redux';
@@ -12,15 +11,17 @@ import config from 'react-global-configuration';
 import EditableTable from '../../components/AntTable';
 import ReactStrapFrom from '../../components/ReactStrapForm';
 import PageHeader from '../../components/PageHeader';
-import { Divider, Grid, Paper } from '@material-ui/core';
+import { Divider, Grid, Paper, Typography ,Chip} from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
 import MaterialUIDialog from '../../components/MaterialUIDialog';
 
 import MaterialUIButton from '../../components/MaterialUIButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft, faPrint,faHeart, faCross, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faPlus, faTrash, faPen, faTools, faArrowLeft, faPrint, faHeart, faCross, faCopy } from '@fortawesome/free-solid-svg-icons'
+import ReactToPrint from 'react-to-print';
 
 import { OrderItemPage } from '../OrderItemPage/OrderItemPage';
+import { ReceiptPage } from './ReceiptPage';
 import moment from 'moment';
 
 class EditOrderPage extends React.Component {
@@ -37,7 +38,7 @@ class EditOrderPage extends React.Component {
             userId: userId
         };
 
-        this.props.getFavouriteOrderByOrderIdAndUserId(orderId,userId);
+        this.props.getFavouriteOrderByOrderIdAndUserId(orderId, userId);
         this.props.getAllUsers();
         this.props.getAllPurchasers();
         this.props.getInventoriesByCategory("All");
@@ -124,96 +125,115 @@ class EditOrderPage extends React.Component {
                     right={<div style={{ display: 'inline', float: 'right' }}>Edit Order</div>}
                 />
 
-                <Grid
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    alignItems="flex-start"
-                >
-                    {
-                        this.props.favouriteOrder?
-                            <Grid item>
-                                <MaterialUIButton icon={<FontAwesomeIcon icon={faTrash} />} label="Remove from favourite" onClick={() => this.deleteFavouriteOrder(this.props.favouriteOrder.favouriteOrderId)} />
-                            </Grid>
-                            :
-                            <Grid item>
-                                <MaterialUIDialog
-                                    title="Add to Favourite"
-                                    content="Please enter the favourite name."
-                                    buttonComponent={<MaterialUIButton icon={<FontAwesomeIcon icon={faHeart} />} label="Add to favourite" />}
-                                    submitLabel="Save"
-                                    onSubmit={(val) => this.addFavouriteOrder(val, this.state.orderId, this.state.userId)}
-                                />
-                            </Grid>
-                    }
-
-                    <Grid item>
-                        <MaterialUIButton icon={<FontAwesomeIcon icon={faPrint} />} label="Print" onClick={() => this.print()} />
+                <Grid container direction="row">
+                    <Grid item lg={10} md={10} sm={12} xs={12}>
+                        <Typography style={{marginLeft:"5vh"}}><Chip color="primary" label={"Total Price: $" + this.props.totalPrice} /></Typography>
                     </Grid>
-                    <Grid item>
-                        <MaterialUIButton icon={<FontAwesomeIcon icon={faCopy} />} label="Duplicate" onClick={() => this.duplicate()} />
+                    <Grid item lg={2} md={2} sm={12} xs={12}>
+                        <Grid container>
+                            {
+                                this.props.favouriteOrder ?
+                                    <Grid item>
+                                        <MaterialUIButton variant="text" icon={<FontAwesomeIcon icon={faTrash} />} label="" onClick={() => this.deleteFavouriteOrder(this.props.favouriteOrder.favouriteOrderId)} />
+                                    </Grid>
+                                    :
+                                    <Grid item>
+                                        <MaterialUIDialog
+                                            title="Add to Favourite"
+                                            content="Please enter the favourite name."
+                                            buttonComponent={<MaterialUIButton variant="text" icon={<FontAwesomeIcon icon={faHeart} />} label="" />}
+                                            submitLabel="Save"
+                                            onSubmit={(val) => this.addFavouriteOrder(val, this.state.orderId, this.state.userId)}
+                                        />
+                                    </Grid>
+                            }
+
+                            <Grid item>
+                                <ReactToPrint
+                                    trigger={() => <MaterialUIButton variant="text" icon={<FontAwesomeIcon icon={faPrint} />} label="" onClick={() => this.print()} />}
+                                    content={() => this.componentRef}
+                                />
+                                <div style={{ display: "none" }}>
+                                    <ReceiptPage orderId={this.state.orderId} ref={el => (this.componentRef = el)} />
+
+                                </div>
+
+                                {/* <MaterialUIButton icon={<FontAwesomeIcon icon={faPrint} />} label="Print-Test" onClick={() => this.print()} /> */}
+
+                            </Grid>
+                            <Grid item>
+                                <MaterialUIButton variant="text" icon={<FontAwesomeIcon icon={faCopy} />} label="" onClick={() => this.duplicate()} />
+                            </Grid>
+               </Grid>
                     </Grid>
                 </Grid>
+
                 {this.props.users.length > 0 && this.props.purchasers.length > 0 && this.props.item ?
-                    <Paper style={{ marginLeft: '2vh', marginRight: '2vh' }}>
+                    <Grid container >
+                        <Grid item lg={6} md={6} sm={12} xs={12}>
+                            <Paper style={{ marginLeft: '2vh', marginRight: '2vh' }}>
+                                <Typography style={{marginLeft:'2vh'}}><div>&nbsp;</div><h5>Order Information</h5></Typography>
+                                <ReactStrapFrom
+                                    onSubmitLabel="Save"
+                                    onSubmit={this.submitForm}
+                                    fields={
+                                        [{
+                                            label: "Order Date",
+                                            type: "datetime",
+                                            id: "orderDate",
+                                            placeHolder: "",
+                                            defaultValue: this.props.item.orderDate
+                                        }, {
+                                            label: "Remark",
+                                            type: "text",
+                                            id: "remark",
+                                            placeHolder: "",
+                                            defaultValue: this.props.item.remark
+                                        }
+                                            , {
+                                            label: "Deliver By",
+                                            type: "select",
+                                            id: "deliverBy",
+                                            options: this.props.users,
+                                            placeHolder: "",
+                                            defaultValue: this.props.item.deliverById ? String(this.props.item.deliverById) : ""
+                                        }, {
+                                            label: "Deliver Date",
+                                            type: "datetime",
+                                            id: "deliverDate",
+                                            placeHolder: "",
+                                            defaultValue: this.props.item.deliverDate
 
-                        <ReactStrapFrom
-                            onSubmitLabel="Save"
-                            onSubmit={this.submitForm}
-                            fields={
-                                [{
-                                    label: "Order Date",
-                                    type: "datetime",
-                                    id: "orderDate",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.orderDate
-                                }, {
-                                    label: "Remark",
-                                    type: "text",
-                                    id: "remark",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.remark
-                                }
-                                    , {
-                                    label: "Deliver By",
-                                    type: "select",
-                                    id: "deliverBy",
-                                    options: this.props.users,
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.deliverById ? String(this.props.item.deliverById) : ""
-                                }, {
-                                    label: "Deliver Date",
-                                    type: "datetime",
-                                    id: "deliverDate",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.deliverDate
+                                        }, {
+                                            label: "Shop",
+                                            type: "select",
+                                            options: this.props.purchasers,
+                                            id: "purchaser",
+                                            placeHolder: "",
+                                            defaultValue: this.props.item.purchaserId ? String(this.props.item.purchaserId) : ""
 
-                                }, {
-                                    label: "Shop",
-                                    type: "select",
-                                    options: this.props.purchasers,
-                                    id: "purchaser",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.purchaserId ? String(this.props.item.purchaserId) : ""
-
-                                }, {
-                                    label: "Location",
-                                    type: "text",
-                                    id: "location",
-                                    placeHolder: "",
-                                    defaultValue: this.props.item.purchaser ? this.props.item.purchaser.location : "",
-                                    editable: false
-                                }]
-                            } />
-
-                        <Divider style={{ marginTop: 20 }} />
-                        <div style={{ fontSize: 20 }}>Total Price: ${this.props.totalPrice}</div>
-
-                        <OrderItemPage orderId={this.state.orderId} />
+                                        }, {
+                                            label: "Location",
+                                            type: "text",
+                                            id: "location",
+                                            placeHolder: "",
+                                            defaultValue: this.props.item.purchaser ? this.props.item.purchaser.location : "",
+                                            editable: false
+                                        }]
+                                    } />
 
 
-                    </Paper>
 
+                            </Paper>
+
+                        </Grid>
+                        <Grid item lg={6} md={6} sm={12} xs={12}>
+                            <Paper style={{ marginLeft: '2vh', marginRight: '2vh' }}>
+                                <OrderItemPage orderId={this.state.orderId} />
+                            </Paper>
+
+                        </Grid>
+                    </Grid>
                     :
 
                     <div></div>

@@ -23,7 +23,7 @@ export default function MaterialUIButton(props) {
         <div>
             <Button
                 onClick={props.onClick}
-                variant="contained"
+                variant={props.variant ? props.variant : "contained"}
                 color="primary"
                 className={classes.button}
                 startIcon={props.icon}
