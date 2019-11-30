@@ -30,12 +30,13 @@ class AddStatusPage extends React.Component {
         var category = event.target[0].value;
         var code = event.target[1].value;
         var description = event.target[2].value;
+        var sequence = event.target[3].value;
 
         var userId = JSON.parse(localStorage.getItem('user')).userId;
 
-        this.props.addStatus(category, code, description, userId).then(success => {
+        this.props.addStatus(category, code, description, sequence, userId).then(success => {
             if (success) {
-                this.props.history.push("/status");
+                this.props.history.goBack();
             }
         });
     }
@@ -74,7 +75,13 @@ class AddStatusPage extends React.Component {
                             type: "textarea",
                             id: "description",
                             placeHolder: ""
-                        }]
+                            }, {
+                                label: "Sequence",
+                                type: "number",
+                                id: "sequence",
+                                placeHolder: ""
+                            }
+                        ]
                     } />
             </div>
 

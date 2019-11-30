@@ -10,8 +10,8 @@ export default class AntCanlendar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: moment(),
-            selectedValue: moment(),
+            value: this.props.defaultValue,
+            selectedValue: this.props.defaultValue,
         };
     }
 
@@ -30,7 +30,6 @@ export default class AntCanlendar extends React.Component {
     }
 
     dateCellRender = (value) => {
-        console.log(value);
         const listData = this.getListData(value);
         return (
             <ul className="events" style={{listStyle:"none"}}>
@@ -74,6 +73,8 @@ export default class AntCanlendar extends React.Component {
             value,
             selectedValue: value,
         });
+
+        this.props.onChange(value);
     };
 
     onPanelChange = value => {
@@ -85,9 +86,7 @@ export default class AntCanlendar extends React.Component {
 
         return (
             <div>
-                <Alert
-                    message={`You selected date: ${selectedValue && selectedValue.format('YYYY-MM-DD')}`}
-                />
+
                 <Calendar value={value} onSelect={this.onSelect} onPanelChange={this.onPanelChange} dateCellRender={this.dateCellRender} monthCellRender={this.monthCellRender} />
             </div>
         )

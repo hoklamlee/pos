@@ -50,16 +50,21 @@ class StatusPage extends React.Component {
 
         const columns = [
             {
-                title: 'category',
+                title: 'Category',
                 field: 'category'
             },
             {
-                title: 'code',
+                title: 'Code',
                 field: 'code'
             },
             {
-                title: 'description',
+                title: 'Description',
                 field: 'description'
+
+            },
+            {
+                title: 'Sequence',
+                field: 'sequence'
 
             }
         ]

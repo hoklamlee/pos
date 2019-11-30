@@ -9,17 +9,25 @@ import { actionCreators } from '../../store/Order';
 import config from 'react-global-configuration';
 
 import MaterialTable from 'material-table';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, Typography,Chip } from '@material-ui/core';
 import RightBottomButton from '../../components/RightBottomButton';
 import MaterialUIButton from '../../components/MaterialUIButton';
 import AntCalendar from '../../components/AntCalendar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee, faPlus, faTrash, faPen, faTools , faHeart} from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faPlus, faTrash, faPen, faTools, faHeart, faPrint } from '@fortawesome/free-solid-svg-icons'
 import { history } from '../../helpers/history';
+import { MonthlyReceipt } from './MonthlyReceipt'
+import ReactToPrint from 'react-to-print';
+
+import moment from 'moment';
 
 class MonthlyOrderPage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            calendarDate: moment(),
+        };
 
         //this.submitInfo = this.submitInfo.bind(this);
         this.delete = this.delete.bind(this);
@@ -34,7 +42,7 @@ class MonthlyOrderPage extends React.Component {
     }
 
     handleUpdate(key) {
-       history.push("/editorder/" + key);
+        history.push("/editorder/" + key);
     }
 
     delete(rowData) {
@@ -43,18 +51,34 @@ class MonthlyOrderPage extends React.Component {
         }        //console.log(key);
     }
 
+    dateChange(value) {
+        this.setState({ calendarDate: value });
+    }
+
     render() {
 
         return (
             <div style={{ marginTop: '2vh', width: '100%' }}>
                 {this.props.items ?
-                    <AntCalendar data={this.props.items} /> :
+                    <div>
+                        <Grid container direction="row">
+                            <Grid item lg={10} md={10} sm={12} xs={12}>
+                                    <ReactToPrint
+                                        trigger={() => <MaterialUIButton variant="text" icon={<FontAwesomeIcon icon={faPrint} />} label="" onClick={() => this.print()} />}
+                                        content={() => this.componentRef}
+                                    />
+                                    <div style={{ display: "none" }}>
+                                        <MonthlyReceipt defaultValue={this.state.calendarDate} ref={el => (this.componentRef = el)} />
+                                    </div>
+               
+                            </Grid>
+                        </Grid>
+                        <AntCalendar data={this.props.items} onChange={(e)=>this.dateChange(e)} defaultValue={this.state.calendarDate} /> :
+                        {/*<MonthlyReceipt defaultValue={this.state.calendarDate} />*/}
+                    </div> :
                     ""
-
-                    }
-             
+                }
             </div>
-
         );
     }
 }

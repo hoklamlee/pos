@@ -13,11 +13,11 @@ export const statusService = {
 
 
 
-function addStatus(category, code, description, createdBy_UserId) {
+function addStatus(category, code, description, sequence, createdBy_UserId) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: JSON.stringify({ category, code, description, createdBy_UserId })
+        body: JSON.stringify({ category, code, description, sequence, createdBy_UserId })
 
     };
 
@@ -54,11 +54,11 @@ function deleteStatus(statusId) {
         });
 }
 
-function updateStatus(StatusId, category, code, description, modifiedBy_UserId ) {
+function updateStatus(StatusId, category, code, description, sequence, modifiedBy_UserId ) {
     const requestOptions = {
         method: 'POST',
         headers: authHeader(),
-        body: JSON.stringify({ StatusId, category, code, description, modifiedBy_UserId })
+        body: JSON.stringify({ StatusId, category, code, description, sequence, modifiedBy_UserId })
 
     };
 

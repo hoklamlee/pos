@@ -85,6 +85,7 @@ namespace POS.Controllers
             }
             User user = _context.Users.Find(status.ModifiedBy_UserId);
 
+            status.Sequence = newStatus.Sequence;
             status.ModifiedDate = DateTime.Now;
             status.ModifiedBy_UserId = newStatus.ModifiedBy_UserId;
             status.ModifiedBy = user;

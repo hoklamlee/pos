@@ -108,6 +108,7 @@ namespace POS.Controllers
                 order.Purchaser = purchaser;
             }
 
+            order.OrderDate = newOrder.OrderDate;
             order.Remark = newOrder.Remark;
             order.DeliverDate = newOrder.DeliverDate;
 
@@ -159,7 +160,6 @@ namespace POS.Controllers
             User user = _context.Users.Find(order.CreatedBy_UserId);
 
             order.Active = true;
-            order.OrderDate = DateTime.Now;
 
             order.CreatedBy = user;
             order.CreatedBy_UserId = order.CreatedBy_UserId;

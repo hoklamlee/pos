@@ -27,11 +27,11 @@ const UPDATE_FAILURE = 'STATUS_UPDATE_FAILURE';
 const initialState = { createSuccess: false, loading: false, error: '', items: [] ,item:null};
 
 export const actionCreators = {
-    addStatus: (category, code, description, createdBy_UserId) => async (dispatch, getState) => {
+    addStatus: (category, code, description, sequence, createdBy_UserId) => async (dispatch, getState) => {
         dispatch({ type: ADD_REQUEST });
 
         return new Promise((resolve, reject) => {
-            statusService.addStatus(category, code, description, createdBy_UserId)
+            statusService.addStatus(category, code, description, sequence, createdBy_UserId)
                 .then(
                     item => {
                         dispatch({ type: ADD_SUCCESS, item });
@@ -48,11 +48,11 @@ export const actionCreators = {
         });
 
     },
-    updateStatus: (StatusId, category, code, description, modifiedBy_UserId) => async (dispatch, getState) => {
+    updateStatus: (StatusId, category, code, description, sequence, modifiedBy_UserId) => async (dispatch, getState) => {
         dispatch({ type: UPDATE_REQUEST });
 
         return new Promise((resolve, reject) => {
-            statusService.updateStatus(StatusId, category, code, description, modifiedBy_UserId)
+            statusService.updateStatus(StatusId, category, code, description, sequence, modifiedBy_UserId)
                 .then(
                     item => {
                         dispatch({ type: UPDATE_SUCCESS, item });

@@ -238,6 +238,8 @@ namespace POS.Migrations
 
                     b.Property<DateTime>("ModifiedDate");
 
+                    b.Property<int>("Sequence");
+
                     b.HasKey("StatusId");
 
                     b.HasIndex("CreatedByUserId");

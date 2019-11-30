@@ -1,36 +1,39 @@
 ﻿@page {
     /* dimensions for the whole page */
-    size: A5 landscape;
+    size: landscape;
     margin: 0;
 }
 
 html {
     /* off-white, so body edge is visible in browser */
-    background: #eee;
+    /*background: #eee;*/
 }
 
 .body {
     /* A5 dimensions */
-    height: 210mm;
-    width: 148.5mm;
+    /*height: 210mm;
+    width: 148.5mm;*/
+    height: 100%;
+    width: 100%;
     margin: 0;
 }
 
 /* fill half the height with each face */
 .face {
-    height: 50%;
-    width: 100%;
-    position: relative;
+    /*height: 50%;*/
+    /*height: 100%;
+    width: 100%;*/
+    /*position: relative;*/
 }
 
 /* the back face */
 .face-back {
-    background: #f6f6f6;
+    /*background: #f6f6f6;*/
 }
 
 /* the front face */
 .face-front {
-    background: #fff;
+    /*background: #fff;*/
 }
 
     /* an image that fills the whole of the front face */
@@ -44,7 +47,8 @@ html {
         height: 100%;
     }
 
-.receiptTable .ant-table-thead > tr > th, .receiptTable .ant-table-tbody > tr > td {
-    font-size: 5px !important;
+#table_item tbody > tr , .receiptTable .ant-table-thead > tr > th, .receiptTable .ant-table-tbody > tr > td {
+    /*font-size: 5px !important;*/
     padding: 0 0 !important;
+    height:5vh
 }

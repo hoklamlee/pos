@@ -16,6 +16,7 @@ namespace POS.Models
         public string Category { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }
+        public int Sequence { get; set; }
 
         [DefaultValue(true)]
         public bool Active { get; set; }

@@ -316,7 +316,6 @@ export const reducer = (state, action) => {
             i.content = (i.purchaser ? i.purchaser.name : "") + " - $" + i.totalPrice;
             i.targetDate = moment(i.orderDate, 'DD/MM/YYYY');
             
-            console.log(i);
         })
 
        

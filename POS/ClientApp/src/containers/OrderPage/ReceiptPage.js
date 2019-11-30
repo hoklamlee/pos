@@ -49,7 +49,7 @@ class ReceiptPage extends React.Component {
 
         var i = rows.length;
 
-        while (i < 8) {
+        while (i < 10) {
             components.push(
                 <tr>
                     <td style={{ height: "3vh", paddingLeft: "2vh" }}></td>
@@ -74,31 +74,34 @@ class ReceiptPage extends React.Component {
         return (
             <div className="body">
                 <div className="face face-back">
-
+                    <div>&nbsp;</div>
                     <div>
-                        <div style={{ textAlign: "center", fontSize: 6 }}>
+                        <div style={{ textAlign: "center", fontSize: "3vh" }}>
                             <div style={{ display: "inline", float: "left", marginLeft: "5vh" }}>冰 鮮 家 禽</div>
-                            <div style={{ display: "inline", fontSize: "12" }}>明 富 雞 鴨</div>
+                            <div style={{ display: "inline", fontSize: "5vh" }}>明 富 雞 鴨</div>
                             <div style={{ display: "inline", float: "right", marginRight: "5vh" }}> 零 沽 批 發</div>
                         </div>
-                        <div style={{ textAlign: "center", fontSize: 6 }}>
-                            九龍深水埗北河街街市 1/F P15
+                        <div style={{ textAlign: "center", fontSize: "3vh" }}>
+                            <div>
+                                九龍深水埗北河街街市 1/F P15
                         </div>
-                        <div style={{ textAlign: "center", fontSize: 6 }}>
-                            陳生：9485 7494&nbsp;&nbsp;晚上：6203 8582&nbsp;&nbsp;陳太：9335 1723
+                            <div>
+                                陳生：9485 7494&nbsp;&nbsp;晚上：6203 8582&nbsp;&nbsp;陳太：9335 1723
                             </div>
-                        <div style={{ textAlign: "center", fontSize: 6 }}>
-                            ***********************************************************************************************************
+                            <div>
+                                ***********************************************************************************************************
                         </div>
+                            </div>
+   
                         {this.props.item ?
                             <div>
-                                <div>
+                                <div style={{ textAlign: "center", fontSize: "3vh" }}>
                                     <div style={{ display: "inline", float: "left", marginLeft: "2vh" }}>{this.props.item.purchaser.name}&nbsp;蒙光顧</div>
                                     <div style={{ display: "inline", float: "right", marginRight: "2vh" }}>{this.props.item.orderDate}發貨單</div>
                                 </div>
                                 <div style={{lineHeight:"0px"}}>&nbsp;</div>
                                     <div style={{ height: 230, width: "100%", paddingLeft: "20px", paddingRight: "20px" }}>
-                                    <table border="1" style={{ width: "100%", border: "1px solid #ddd", marginTop: "3vh",fontSize:"5px" }}>
+                                    <table id="table_item" border="1" style={{ width: "100%", border: "1px solid #ddd", marginTop: "3vh",fontSize:"4vh" }}>
                                         <thead>
                                             <tr>
                                                 <th style={{ width: "25%", paddingLeft: "2vh" }}>名稱</th>
@@ -132,9 +135,9 @@ class ReceiptPage extends React.Component {
                     </div>
 
                 </div>
-                <div className="face face-front">
+                {/* <div className="face face-front">
 
-                </div>
+                </div>*/}
             </div>
         );
     }
