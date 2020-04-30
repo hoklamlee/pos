@@ -18,7 +18,7 @@
     "antd": "^3.24.3",
     "bootstrap": "^4.3.1",
     "config": "^3.2.3",
-    "jquery": "3.3.1",
+    "jquery": "3.5.0",
     "material-table": "^1.53.0",
     "react": "^16.11.0",
     "react-datepicker": "^2.10.0",
